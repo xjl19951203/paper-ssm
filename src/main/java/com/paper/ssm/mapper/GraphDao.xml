@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paper.ssm.mapper.GraphDao">
+
+    <resultMap id="SimpleResultMap" type="com.paper.ssm.model.dataPlane.Graph">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <collection column="{userId=id}" property="rooms" ofType="com.paper.ssm.model.Room"
+                    javaType="java.lang.Integer" select="com.paper.ssm.dao.RoomDao.selectCountByQuery"/>
+        <collection column="{userId=id}" property="questions" ofType="com.paper.ssm.model.Question"
+                    javaType="java.lang.Integer" select="com.paper.ssm.dao.QuestionDao.selectCountByQuery"/>
+        <collection column="{userId=id}" property="articles" ofType="com.paper.ssm.model.Article"
+                    javaType="java.lang.Integer" select="com.paper.ssm.dao.ArticleDao.selectCountByQuery"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMap" type="com.paper.ssm.model.User">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <collection column="{userId=id}" property="rooms" ofType="com.paper.ssm.model.Room"
+                    javaType="java.lang.Integer" select="com.paper.ssm.dao.RoomDao.selectCountByQuery"/>
+        <collection column="{userId=id}" property="questions" ofType="com.paper.ssm.model.Question"
+                    javaType="java.lang.Integer" select="com.paper.ssm.dao.QuestionDao.selectCountByQuery"/>
+        <collection column="{userId=id}" property="articles" ofType="com.paper.ssm.model.Article"
+                    javaType="java.lang.Integer" select="com.paper.ssm.dao.ArticleDao.selectCountByQuery"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.paper.ssm.model.User" useGeneratedKeys="true">
+        insert into `user` (`username`, `password`)
+        values (#{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT * from `graph` where id = #{pk};
+    </select>
+
+    <update id="update" parameterType="com.paper.ssm.model.User">
+        update `user`
+        set
+        `username` = #{username,jdbcType=VARCHAR},
+        `description` = #{description,jdbcType=VARCHAR},
+        `background` = #{background,jdbcType=VARCHAR},
+        `avatar` = #{avatar,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectListByQuery" resultMap="SimpleResultMap" parameterType="com.paper.ssm.model.User">
+        select * from `user` where `visible` > 0
+        <if test="content != null">
+            and CONCAT(IFNULL(`username`,''),IFNULL(`description`,'')) LIKE CONCAT('%', #{content}, '%')
+        </if>
+        <choose>
+            <when test="updatedAtSort == 'desc'">
+                order by `updatedAt` desc
+            </when>
+            <otherwise>
+                order by `updatedAt` asc
+            </otherwise>
+        </choose>
+        limit #{start}, #{pageSize};
+    </select>
+
+    <select id="selectCountByQuery" resultType="java.lang.Integer" parameterType="com.paper.ssm.model.User">
+        select count(*) from `user` where `visible` > 0
+        <if test="content != null">
+            and CONCAT(IFNULL(`username`,''),IFNULL(`description`,'')) LIKE CONCAT('%', #{content}, '%')
+        </if>
+        ;
+    </select>
+
+</mapper>

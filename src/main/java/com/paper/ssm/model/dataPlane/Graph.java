@@ -9,6 +9,9 @@ import java.util.List;
  */
 public class Graph extends Node {
 
-    private List<Node> nodeList;
+    /**
+     * 结点群组的左侧结点边界，是DAG的发始端点集合
+     */
+    private List<Node> leftList;
 
 }

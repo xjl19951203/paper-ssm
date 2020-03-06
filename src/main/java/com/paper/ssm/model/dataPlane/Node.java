@@ -10,12 +10,13 @@ import java.util.List;
 /**
  * 结点父类：有向无环图（DAG）
  * （1）子类：
- *  a. 数据结点；
- *  b. 边结点；
- *  c. 组结点；
+ *  a. 数据结点；Data，最小粒度、不可拆分
+ *  b. 边结点；Edge，有向的连接两个Data结点
+ *  c. 图结点；Graph，基于DAG的邻接表实现，可以作为子节点构造更大的graph
+ *  d. 边界结点：Border，通过构建Graph与Data之间的联系，约束Graph的边界
  *
  * 1. DAG基于邻接表实现
- * 2. 与常规DAG不同，Graph有可能是更大的Graph的结点
+ * 2. 与常规DAG不同，Graph有可能是更大的Graph的组成结点
  * 3. XML <=> DAG，二者互相转换
  */
 public abstract class Node {
