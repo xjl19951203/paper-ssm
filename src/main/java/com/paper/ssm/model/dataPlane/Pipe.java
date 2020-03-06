@@ -4,7 +4,7 @@ package com.paper.ssm.model.dataPlane;
  * 边结点，连接两个简单的Data结点
  * 1. left和right数据是
  */
-public class Edge extends Node {
+public class Pipe extends Node {
 
     /**
      * Mysql表结构相关

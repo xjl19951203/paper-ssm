@@ -4,14 +4,13 @@ import com.paper.ssm.model.controlPlane.config.Config;
 import com.paper.ssm.model.controlPlane.method.Method;
 import com.paper.ssm.model.controlPlane.norm.Norm;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 结点父类：有向无环图（DAG）
+ * 结点父类：
  * （1）子类：
- *  a. 数据结点；Data，最小粒度、不可拆分
- *  b. 边结点；Edge，有向的连接两个Data结点
+ *  a. 数据结点；Data，最小粒度、不可拆分，承载数据能力
+ *  b. 管道结点；Pipe，有向的连接两个Data结点，作为数据桥梁，解决数据规范、转换等
  *  c. 图结点；Graph，基于DAG的邻接表实现，可以作为子节点构造更大的graph
  *  d. 边界结点：Border，通过构建Graph与Data之间的联系，约束Graph的边界
  *
@@ -39,6 +38,7 @@ public abstract class Node {
     public void setId(Integer id) {
         this.id = id;
     }
+
 
     public String getTitle() {
         return title;
