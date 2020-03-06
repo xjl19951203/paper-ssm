@@ -1,4 +1,4 @@
 package com.paper.ssm.model.dataPlane;
 
-public class EdgeNode extends Node {
+public class Value {
 }

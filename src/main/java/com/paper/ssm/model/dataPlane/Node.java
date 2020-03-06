@@ -24,28 +24,12 @@ public abstract class Node {
      */
     protected Integer id; // 结点唯一标识符
     protected String title; // 结点名称
-    protected List<Node> inputList; // 结点输入数组
-    protected List<Node> outputList; // 结点输出数组
     /**
      * 结点控制面
      */
     protected List<Norm> normList; // 结点规范化
     protected List<Config> configList; // 结点配置
     protected List<Method> methodList; // 结点赋能
-
-    public void addInput(Node node) {
-        if (this.inputList == null) {
-            this.inputList = new ArrayList<>();
-        }
-        this.inputList.add(node);
-    }
-
-    public void addOutput(Node node) {
-        if (this.outputList == null) {
-            this.outputList = new ArrayList<>();
-        }
-        this.outputList.add(node);
-    }
 
     public Integer getId() {
         return id;
@@ -61,22 +45,6 @@ public abstract class Node {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public List<Node> getInputList() {
-        return inputList;
-    }
-
-    public void setInputList(List<Node> inputList) {
-        this.inputList = inputList;
-    }
-
-    public List<Node> getOutputList() {
-        return outputList;
-    }
-
-    public void setOutputList(List<Node> outputList) {
-        this.outputList = outputList;
     }
 
     public List<Norm> getNormList() {
