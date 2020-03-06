@@ -2,15 +2,17 @@ package com.paper.ssm.model.dataPlane;
 
 public class DataEdge extends Edge {
 
-    private Integer dataId; // 边界联系的所属图内Data结点主键
-    private Data data; // 边界关联内部Data结点
+    private Integer graphId;
+    private Integer dataId;
+    private Graph graph;
+    private Data data;
 
-    public Integer getDataId() {
-        return dataId;
+    public Graph getGraph() {
+        return graph;
     }
 
-    public void setDataId(Integer dataId) {
-        this.dataId = dataId;
+    public void setGraph(Graph graph) {
+        this.graph = graph;
     }
 
     public Data getData() {
@@ -19,5 +21,21 @@ public class DataEdge extends Edge {
 
     public void setData(Data data) {
         this.data = data;
+    }
+
+    public Integer getGraphId() {
+        return graphId;
+    }
+
+    public void setGraphId(Integer graphId) {
+        this.graphId = graphId;
+    }
+
+    public Integer getDataId() {
+        return dataId;
+    }
+
+    public void setDataId(Integer dataId) {
+        this.dataId = dataId;
     }
 }
