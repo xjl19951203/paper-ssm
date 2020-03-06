@@ -14,6 +14,9 @@ import java.util.List;
  *  c. 图结点；Graph，基于DAG的邻接表实现，可以作为子节点构造更大的graph
  *  d. 边界结点：Edge，通过构建Graph与Data之间的联系，约束Graph的边界
  *
+ *  Pipe和Edge的区别：
+ *  前者是与Data一个层面，着力于打通数据结点的通道，后者与Graph一个层面只用来界定边界，不具备数据能力
+ *
  * 1. DAG基于邻接表实现
  * 2. 与常规DAG不同，Graph有可能是更大的Graph的组成结点
  * 3. XML <=> DAG，二者互相转换
