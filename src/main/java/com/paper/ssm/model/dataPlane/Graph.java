@@ -10,43 +10,43 @@ public class Graph extends Node {
     /**
      * 结点群组的左侧结点边界，是DAG的发始端点集合
      */
-    private List<GraphEdge> leftGraphList;
-    private List<GraphEdge> rightGraphList;
+    private List<GGEdge> leftGGEdgeList;
+    private List<GDEdge> leftGDEdgeList;
     /**
      * 结点群组的右侧结点边界，是DAG的终止端点集合
      */
-    private List<DataEdge> leftDataList;
-    private List<DataEdge> rightDataList;
+    private List<GGEdge> rightGGEdgeList;
+    private List<GDEdge> rightGDEdgeList;
 
-    public List<GraphEdge> getLeftGraphList() {
-        return leftGraphList;
+    public List<GGEdge> getLeftGGEdgeList() {
+        return leftGGEdgeList;
     }
 
-    public void setLeftGraphList(List<GraphEdge> leftGraphList) {
-        this.leftGraphList = leftGraphList;
+    public void setLeftGGEdgeList(List<GGEdge> leftGGEdgeList) {
+        this.leftGGEdgeList = leftGGEdgeList;
     }
 
-    public List<GraphEdge> getRightGraphList() {
-        return rightGraphList;
+    public List<GGEdge> getRightGGEdgeList() {
+        return rightGGEdgeList;
     }
 
-    public void setRightGraphList(List<GraphEdge> rightGraphList) {
-        this.rightGraphList = rightGraphList;
+    public void setRightGGEdgeList(List<GGEdge> rightGGEdgeList) {
+        this.rightGGEdgeList = rightGGEdgeList;
     }
 
-    public List<DataEdge> getLeftDataList() {
-        return leftDataList;
+    public List<GDEdge> getLeftGDEdgeList() {
+        return leftGDEdgeList;
     }
 
-    public void setLeftDataList(List<DataEdge> leftDataList) {
-        this.leftDataList = leftDataList;
+    public void setLeftGDEdgeList(List<GDEdge> leftGDEdgeList) {
+        this.leftGDEdgeList = leftGDEdgeList;
     }
 
-    public List<DataEdge> getRightDataList() {
-        return rightDataList;
+    public List<GDEdge> getRightGDEdgeList() {
+        return rightGDEdgeList;
     }
 
-    public void setRightDataList(List<DataEdge> rightDataList) {
-        this.rightDataList = rightDataList;
+    public void setRightGDEdgeList(List<GDEdge> rightGDEdgeList) {
+        this.rightGDEdgeList = rightGDEdgeList;
     }
 }

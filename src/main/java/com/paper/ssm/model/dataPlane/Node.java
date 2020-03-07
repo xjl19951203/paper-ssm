@@ -1,5 +1,6 @@
 package com.paper.ssm.model.dataPlane;
 
+import com.paper.ssm.model.Bean;
 import com.paper.ssm.model.controlPlane.config.Config;
 import com.paper.ssm.model.controlPlane.method.Method;
 import com.paper.ssm.model.controlPlane.norm.Norm;
@@ -21,7 +22,7 @@ import java.util.List;
  * 2. 与常规DAG不同，Graph有可能是更大的Graph的组成结点
  * 3. XML <=> DAG，二者互相转换
  */
-public abstract class Node {
+public abstract class Node extends Bean {
     /**
      * 结点数据面
      */

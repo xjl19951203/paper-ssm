@@ -1,6 +1,6 @@
 package com.paper.ssm.model.dataPlane;
 
-public class DataEdge extends Edge {
+public class GDEdge extends Edge {
 
     private Integer graphId;
     private Integer dataId;

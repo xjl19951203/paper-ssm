@@ -1,4 +1,4 @@
 package com.paper.ssm.network;
 
-public class RS232 extends Serial {
+public class RS232 implements Serial {
 }
