@@ -6,22 +6,4 @@ package com.paper.ssm.model.dataPlane;
  */
 public class Link extends Element {
 
-    protected Integer inputId;
-    protected Integer outputId;
-
-    public Integer getInputId() {
-        return inputId;
-    }
-
-    public void setInputId(Integer inputId) {
-        this.inputId = inputId;
-    }
-
-    public Integer getOutputId() {
-        return outputId;
-    }
-
-    public void setOutputId(Integer outputId) {
-        this.outputId = outputId;
-    }
 }

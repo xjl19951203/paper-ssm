@@ -6,6 +6,8 @@ package com.paper.ssm.model.dataPlane;
  */
 public class Pipe extends Link {
 
+    private Integer inputId;
+    private Integer outputId;
     private Data input;
     private Data right;
 
@@ -30,5 +32,21 @@ public class Pipe extends Link {
 
     public void setRight(Data right) {
         this.right = right;
+    }
+
+    public Integer getInputId() {
+        return inputId;
+    }
+
+    public void setInputId(Integer inputId) {
+        this.inputId = inputId;
+    }
+
+    public Integer getOutputId() {
+        return outputId;
+    }
+
+    public void setOutputId(Integer outputId) {
+        this.outputId = outputId;
     }
 }

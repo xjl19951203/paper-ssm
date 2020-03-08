@@ -8,11 +8,11 @@
         <collection column="{g1Id=id,direction=POSITIVE_DIRECTION,relation=INSIDE_RELATION}" property="leftGGEdgeList" ofType="com.paper.ssm.model.dataPlane.GGEdge"
                     javaType="java.util.List" select="com.paper.ssm.mapper.GGEdgeDao.selectListByQuery"/>
         <collection column="{graphId=id,direction=POSITIVE_DIRECTION,relation=INSIDE_RELATION}" property="leftGDEdgeList" ofType="com.paper.ssm.model.dataPlane.GDEdge"
-                    javaType="java.util.List" select="com.paper.ssm.mapper.GDEdgeDao.selectListByQuery"/>
+                    javaType="java.util.List" select="com.paper.ssm.mapper.EdgeDao.selectListByQuery"/>
         <collection column="{g1Id=id,direction=POSITIVE_DIRECTION,relation=INSIDE_RELATION}" property="leftGGEdgeList" ofType="com.paper.ssm.model.dataPlane.GGEdge"
                     javaType="java.util.List" select="com.paper.ssm.mapper.GGEdgeDao.selectListByQuery"/>
         <collection column="{graphId=id,direction=POSITIVE_DIRECTION,relation=INSIDE_RELATION}" property="leftGDEdgeList" ofType="com.paper.ssm.model.dataPlane.GDEdge"
-                    javaType="java.util.List" select="com.paper.ssm.mapper.GDEdgeDao.selectListByQuery"/>
+                    javaType="java.util.List" select="com.paper.ssm.mapper.EdgeDao.selectListByQuery"/>
     </resultMap>
 
     <sql id="Constant_List" >

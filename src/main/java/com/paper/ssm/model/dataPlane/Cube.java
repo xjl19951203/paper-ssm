@@ -9,7 +9,6 @@ public class Cube extends Node {
 
     private List<Cube> inputList;
     private List<Cube> outputList;
-    private Graph graph;
 
     public List<Cube> getInputList() {
         return inputList;
@@ -27,11 +26,4 @@ public class Cube extends Node {
         this.outputList = outputList;
     }
 
-    public Graph getGraph() {
-        return graph;
-    }
-
-    public void setGraph(Graph graph) {
-        this.graph = graph;
-    }
 }

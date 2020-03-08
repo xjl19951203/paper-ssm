@@ -5,6 +5,8 @@ package com.paper.ssm.model.dataPlane;
  */
 public class Bridge extends Link{
 
+    private Integer inputId;
+    private Integer outputId;
     private Cube input;
     private Cube output;
 
@@ -22,5 +24,21 @@ public class Bridge extends Link{
 
     public void setOutput(Cube output) {
         this.output = output;
+    }
+
+    public Integer getInputId() {
+        return inputId;
+    }
+
+    public void setInputId(Integer inputId) {
+        this.inputId = inputId;
+    }
+
+    public Integer getOutputId() {
+        return outputId;
+    }
+
+    public void setOutputId(Integer outputId) {
+        this.outputId = outputId;
     }
 }

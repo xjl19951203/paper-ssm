@@ -8,6 +8,8 @@ import java.util.List;
  */
 public class Graph extends Element {
 
+    private Integer cubeId;
+    private Cube cube;
     private List<Data> inputList;
     private List<Data> outputList;
 
@@ -25,5 +27,21 @@ public class Graph extends Element {
 
     public void setOutputList(List<Data> outputList) {
         this.outputList = outputList;
+    }
+
+    public Integer getCubeId() {
+        return cubeId;
+    }
+
+    public void setCubeId(Integer cubeId) {
+        this.cubeId = cubeId;
+    }
+
+    public Cube getCube() {
+        return cube;
+    }
+
+    public void setCube(Cube cube) {
+        this.cube = cube;
     }
 }

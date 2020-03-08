@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.paper.ssm.mapper.GDEdgeDao">
+<mapper namespace="com.paper.ssm.mapper.EdgeDao">
 
-    <resultMap id="BaseResultMap" type="com.paper.ssm.model.dataPlane.GDEdge">
+    <resultMap id="BaseResultMap" type="com.paper.ssm.model.dataPlane.Edge">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
-        <association property="data" column="dataId" select="com.paper.ssm.mapper.DataDao.selectByPrimaryKey"/>
+<!--        <association property="data" column="dataId" select="com.paper.ssm.mapper.DataDao.selectByPrimaryKey"/>-->
     </resultMap>
 
     <insert id="insert" parameterType="com.paper.ssm.model.dataPlane.Graph" useGeneratedKeys="true">
@@ -17,7 +17,7 @@
         SELECT * from `node_graph` where id = #{pk};
     </select>
 
-    <update id="update" parameterType="com.paper.ssm.model.dataPlane.GDEdge">
+    <update id="update" parameterType="com.paper.ssm.model.dataPlane.Edge">
         update `user`
         set
         `username` = #{username,jdbcType=VARCHAR},
