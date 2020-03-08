@@ -3,16 +3,16 @@
 <mapper namespace="com.paper.ssm.mapper.CubeDao">
 
     <sql id="Constant_List" >
-        1 as INPUT_DIRECTION, 0 as OUTPUT_DIRECTION, 1 as INSIDE_RELATION, 0 as OUTSIDE_RELATION
+        1 as IS_INNER, 0 as NOT_INNER, 1 as INNER_INPUT_SIDE
     </sql>
 
     <resultMap id="BaseResultMap" type="com.paper.ssm.model.dataPlane.Cube">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
-        <collection column="{inputId=id,direction=INPUT_DIRECTION,relation=INSIDE_RELATION}"
+        <collection column="{inputId=id,inner=IS_INNER,side=INNER_INPUT_SIDE}"
                     property="innerBridgeList" ofType="com.paper.ssm.model.dataPlane.Bridge"
                     javaType="java.util.List" select="com.paper.ssm.mapper.BridgeDao.selectListByQuery"/>
-        <collection column="{inputId=id,direction=INPUT_DIRECTION,relation=OUTSIDE_RELATION}"
+        <collection column="{inputId=id,inner=NOT_INNER}"
                     property="nextBridgeList" ofType="com.paper.ssm.model.dataPlane.Bridge"
                     javaType="java.util.List" select="com.paper.ssm.mapper.BridgeDao.selectListByQuery"/>
     </resultMap>

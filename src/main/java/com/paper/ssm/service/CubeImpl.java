@@ -3,6 +3,7 @@ package com.paper.ssm.service;
 import com.paper.ssm.mapper.CubeDao;
 import com.paper.ssm.model.dataPlane.Bridge;
 import com.paper.ssm.model.dataPlane.Cube;
+import com.paper.ssm.model.dataPlane.Link;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -48,10 +49,15 @@ public class CubeImpl implements CubeService {
     @Override
     public Cube selectByPrimaryKey(Integer id) {
         Cube root = this.cubeDao.selectByPrimaryKey(id);
+        if (root.getInnerCubeList() != null) {
+            root.getInnerCubeList().clear();
+        }
         if (root.getInnerBridgeList() != null) {
-            root.setInnerCubeList(new ArrayList<>());
             for (Bridge bridge : root.getInnerBridgeList()) {
-                root.getInnerCubeList().add(this.fillCube(bridge.getOutputId(), id));
+                if (root.getInnerCubeList() == null) {
+                    root.setInnerCubeList(new ArrayList<>());
+                }
+                root.getInnerCubeList().add(this.fillCube(bridge.getOutputId()));
             }
         }
         return root;
@@ -62,29 +68,31 @@ public class CubeImpl implements CubeService {
         return null;
     }
 
-    private Cube fillCube (Integer id, Integer endId) {
+    private Cube fillCube (Integer id) {
         Cube cube = this.cubeDao.selectByPrimaryKey(id);
-        if (cube.getInnerBridgeList() != null) {
-            if (cube.getInnerCubeList() == null) {
-                cube.setInnerCubeList(new ArrayList<>());
-            }
-            for (Bridge bridge : cube.getInnerBridgeList()) {
-                if (bridge.getOutputId() != null) {
-                    if (bridge.getOutputId().equals(endId))
-                        return null;
-                    cube.getInnerCubeList().add(fillCube(bridge.getOutputId(), endId));
+        if (cube.getNextBridgeList() != null) {
+            for (Bridge bridge : cube.getNextBridgeList()) {
+                Cube c = fillCube(bridge.getOutputId());
+                if (c != null) {
+                    if (cube.getNextCubeList() == null) {
+                        cube.setNextCubeList(new ArrayList<>());
+                    }
+                    cube.getNextCubeList().add(fillCube(bridge.getOutputId()));
                 }
             }
         }
-        if (cube.getNextBridgeList() != null) {
-            if (cube.getNextCubeList() == null) {
-                cube.setNextCubeList(new ArrayList<>());
-            }
-            for (Bridge bridge : cube.getNextBridgeList()) {
-                if (bridge.getOutputId() != null) {
-                    if (bridge.getOutputId().equals(endId))
-                        return null;
-                    cube.getNextCubeList().add(fillCube(bridge.getOutputId(), endId));
+        if (cube.getInnerBridgeList() != null) {
+            for (Bridge bridge : cube.getInnerBridgeList()) {
+                // 通过 Bridge的side内侧边标志位，判断是否是Cube的右边界
+                if (bridge.getSide().equals(Link.INNER_OUTPUT_SIDE)) {
+                    return cube;
+                }
+                Cube c = fillCube(bridge.getOutputId());
+                if (c != null) {
+                    if (cube.getInnerCubeList() == null) {
+                        cube.setInnerCubeList(new ArrayList<>());
+                    }
+                    cube.getInnerCubeList().add(c);
                 }
             }
         }

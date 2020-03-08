@@ -13,8 +13,8 @@ package com.paper.ssm.model.dataPlane;
  */
 public abstract class Link extends Element {
 
-    public static final Integer INPUT_DIRECTION = 1; // 输入方向的边
-    public static final Integer OUTPUT_DIRECTION = 0; // 输出方向的边
-    public static final Integer INSIDE_RELATION = 1; // 从属关系
-    public static final Integer OUTSIDE_RELATION = 0; // 同级串联关系
+    public static final Integer NOT_INNER = 0; // 同级串联关系
+    public static final Integer IS_INNER = 1; // 从属关系
+    public static final Integer INNER_INPUT_SIDE= 1; // 输入侧的内边（同级串联不关注这个属性）
+    public static final Integer INNER_OUTPUT_SIDE = 0; // 输出侧的内边（同级串联不关注这个属性）
 }
