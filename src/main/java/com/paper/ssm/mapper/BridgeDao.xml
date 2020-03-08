@@ -12,7 +12,16 @@
     </select>
 
     <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.dataPlane.Bridge">
-        select * from `element_bridge`;
+        select * from `element_bridge` where direction = #{direction}
+        <choose>
+            <when test="inputId != null">
+                and inputId = #{inputId}
+            </when >
+            <when test="outputId != null">
+                and outputId = #{outputId}
+            </when >
+        </choose>
+        ;
     </select>
 
 </mapper>

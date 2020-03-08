@@ -2,18 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.paper.ssm.mapper.CubeDao">
 
+    <sql id="Constant_List" >
+        1 as INPUT_DIRECTION, 0 as OUTPUT_DIRECTION, 1 as INSIDE_RELATION, 0 as OUTSIDE_RELATION
+    </sql>
+
     <resultMap id="BaseResultMap" type="com.paper.ssm.model.dataPlane.Cube">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
-        <collection property="inputList" column="id"
+        <collection column="{inputId=id,direction=INPUT_DIRECTION,relation=INSIDE_RELATION}"
+                    property="innerBridgeList" ofType="com.paper.ssm.model.dataPlane.Bridge"
+                    javaType="java.util.List" select="com.paper.ssm.mapper.BridgeDao.selectListByQuery"/>
+        <collection column="{inputId=id,direction=INPUT_DIRECTION,relation=OUTSIDE_RELATION}"
+                    property="nextBridgeList" ofType="com.paper.ssm.model.dataPlane.Bridge"
+                    javaType="java.util.List" select="com.paper.ssm.mapper.BridgeDao.selectListByQuery"/>
     </resultMap>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        SELECT * from `element_cube` where id = #{pk};
+        SELECT *, <include refid="Constant_List" /> from `element_cube` where id = #{pk};
     </select>
 
     <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.dataPlane.Cube">
-        select * from `element_cube`;
+        select *, <include refid="Constant_List" /> from `element_cube`;
     </select>
 
 </mapper>
