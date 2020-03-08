@@ -19,27 +19,12 @@
         1 as POSITIVE_DIRECTION, 0 as NEGATIVE_DIRECTION, 1 as INSIDE_RELATION, 0 as OUTSIDE_RELATION
     </sql>
 
-    <insert id="insert" parameterType="com.paper.ssm.model.dataPlane.Graph" useGeneratedKeys="true">
-        insert into `user` (`username`, `password`)
-        values (#{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR})
-    </insert>
-
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        SELECT *, <include refid="Constant_List" /> from `node_graph` where id = #{pk};
+        SELECT *, <include refid="Constant_List" /> from `element_graph` where id = #{pk};
     </select>
 
-    <update id="update" parameterType="com.paper.ssm.model.dataPlane.Graph">
-        update `user`
-        set
-        `username` = #{username,jdbcType=VARCHAR},
-        `description` = #{description,jdbcType=VARCHAR},
-        `background` = #{background,jdbcType=VARCHAR},
-        `avatar` = #{avatar,jdbcType=VARCHAR}
-        where id = #{id,jdbcType=INTEGER}
-    </update>
-
     <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.dataPlane.Graph">
-        select * from `node_graph`;
+        select * from `element_graph`;
     </select>
 
 </mapper>

@@ -8,29 +8,13 @@
 <!--        <association property="data" column="dataId" select="com.paper.ssm.mapper.DataDao.selectByPrimaryKey"/>-->
     </resultMap>
 
-    <insert id="insert" parameterType="com.paper.ssm.model.dataPlane.Graph" useGeneratedKeys="true">
-        insert into `user` (`username`, `password`)
-        values (#{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR})
-    </insert>
-
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        SELECT * from `node_graph` where id = #{pk};
+        SELECT * from `element_edge` where id = #{pk};
     </select>
 
-    <update id="update" parameterType="com.paper.ssm.model.dataPlane.Edge">
-        update `user`
-        set
-        `username` = #{username,jdbcType=VARCHAR},
-        `description` = #{description,jdbcType=VARCHAR},
-        `background` = #{background,jdbcType=VARCHAR},
-        `avatar` = #{avatar,jdbcType=VARCHAR}
-        where id = #{id,jdbcType=INTEGER}
-    </update>
-
-    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.dataPlane.GDEdge">
-        select * from `node_edge_gd` where graphId = #{graphId}
-        AND direction = #{direction}
-        and relation = #{relation};
+    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.dataPlane.Edge">
+        select * from `element_edge` where graphId = #{graphId}
+        AND direction = #{direction};
     </select>
 
 </mapper>

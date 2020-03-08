@@ -13,7 +13,7 @@
     </insert>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        SELECT * from `node_data` where id = #{pk};
+        SELECT * from `element_data` where id = #{pk};
     </select>
 
     <update id="update" parameterType="com.paper.ssm.model.dataPlane.Data">
@@ -27,9 +27,8 @@
     </update>
 
     <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.dataPlane.Data">
-        select * from `node_data` where g1Id = #{g1Id}
+        select * from `element_data` where g1Id = #{g1Id}
         AND direction = #{direction}
-        and relation = #{relation};
     </select>
 
 </mapper>
