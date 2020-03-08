@@ -7,5 +7,5 @@ package com.paper.ssm.model.dataPlane;
  * a. Data
  * b. Cube
  */
-public class Node extends Element {
+public abstract class Node extends Element {
 }

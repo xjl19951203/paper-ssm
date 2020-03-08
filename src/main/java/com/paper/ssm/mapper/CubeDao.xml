@@ -5,6 +5,7 @@
     <resultMap id="BaseResultMap" type="com.paper.ssm.model.dataPlane.Cube">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
+        <collection property="inputList" column="id"
     </resultMap>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">

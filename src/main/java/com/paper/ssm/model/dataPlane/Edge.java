@@ -2,12 +2,10 @@ package com.paper.ssm.model.dataPlane;
 
 public class Edge extends Link {
 
-    public static final Integer INPUT_DIRECTION = 1; // 输入方向的边
-    public static final Integer OUTPUT_DIRECTION = 0; // 输出方向的边
-
     private Integer graphId;
     private Integer dataId;
-    private Integer direction; // 左侧边界为1，右侧边界为0，暂无上下侧
+    // edge不同于bridge，只有从属关系，因此direction只表征input还是output
+    private Integer direction;
 
 
     public Integer getDirection() {
