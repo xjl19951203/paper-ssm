@@ -19,10 +19,25 @@ import java.util.List;
  */
 public class Data extends Node {
 
-    // 输入输出列表不是Data必备属性，而是由与之关联的Edge生成的
-    private List<Pipe> inputList;
-    private List<Pipe> outputList;
+    // 输入输出列表不是Data必备属性，而是由与之关联的Pipe生成的
+    private List<Data> inputList;
+    private List<Data> outputList;
     // value经过input计算之后的结果，作为output的数据值
     private Value value;
 
+    public List<Data> getInputList() {
+        return inputList;
+    }
+
+    public void setInputList(List<Data> inputList) {
+        this.inputList = inputList;
+    }
+
+    public List<Data> getOutputList() {
+        return outputList;
+    }
+
+    public void setOutputList(List<Data> outputList) {
+        this.outputList = outputList;
+    }
 }

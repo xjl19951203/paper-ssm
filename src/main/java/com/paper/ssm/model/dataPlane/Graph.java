@@ -1,52 +1,29 @@
 package com.paper.ssm.model.dataPlane;
 
+
 import java.util.List;
 
 /**
- * 图结点，基于Edge，构建与内部结点（Data、Graph）的联系
+ * 数据流图 DFG，Multi-Level DAG的扁平化结果
  */
-public class Graph extends Node {
+public class Graph extends Element {
 
-    /**
-     * 结点群组的左侧结点边界，是DAG的发始端点集合
-     */
-    private List<GGEdge> leftGGEdgeList;
-    private List<GDEdge> leftGDEdgeList;
-    /**
-     * 结点群组的右侧结点边界，是DAG的终止端点集合
-     */
-    private List<GGEdge> rightGGEdgeList;
-    private List<GDEdge> rightGDEdgeList;
+    private List<Data> inputList;
+    private List<Data> outputList;
 
-    public List<GGEdge> getLeftGGEdgeList() {
-        return leftGGEdgeList;
+    public List<Data> getInputList() {
+        return inputList;
     }
 
-    public void setLeftGGEdgeList(List<GGEdge> leftGGEdgeList) {
-        this.leftGGEdgeList = leftGGEdgeList;
+    public void setInputList(List<Data> inputList) {
+        this.inputList = inputList;
     }
 
-    public List<GGEdge> getRightGGEdgeList() {
-        return rightGGEdgeList;
+    public List<Data> getOutputList() {
+        return outputList;
     }
 
-    public void setRightGGEdgeList(List<GGEdge> rightGGEdgeList) {
-        this.rightGGEdgeList = rightGGEdgeList;
-    }
-
-    public List<GDEdge> getLeftGDEdgeList() {
-        return leftGDEdgeList;
-    }
-
-    public void setLeftGDEdgeList(List<GDEdge> leftGDEdgeList) {
-        this.leftGDEdgeList = leftGDEdgeList;
-    }
-
-    public List<GDEdge> getRightGDEdgeList() {
-        return rightGDEdgeList;
-    }
-
-    public void setRightGDEdgeList(List<GDEdge> rightGDEdgeList) {
-        this.rightGDEdgeList = rightGDEdgeList;
+    public void setOutputList(List<Data> outputList) {
+        this.outputList = outputList;
     }
 }

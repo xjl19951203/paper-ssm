@@ -4,17 +4,9 @@ package com.paper.ssm.model.dataPlane;
  * 边结点，连接两个简单的Data结点
  * 1. left和right数据是
  */
-public class Pipe extends Node {
+public class Pipe extends Link {
 
-    /**
-     * Mysql表结构相关
-     */
-    private Integer leftId;
-    private Integer rightId;
-    /**
-     * 模型相关
-     */
-    private Data left;
+    private Data input;
     private Data right;
 
     /**
@@ -24,20 +16,12 @@ public class Pipe extends Node {
 
     }
 
-    public Integer getLeftId() {
-        return leftId;
+    public Data getInput() {
+        return input;
     }
 
-    public void setLeftId(Integer leftId) {
-        this.leftId = leftId;
-    }
-
-    public Integer getRightId() {
-        return rightId;
-    }
-
-    public void setRightId(Integer rightId) {
-        this.rightId = rightId;
+    public void setInput(Data input) {
+        this.input = input;
     }
 
     public Data getRight() {
@@ -46,13 +30,5 @@ public class Pipe extends Node {
 
     public void setRight(Data right) {
         this.right = right;
-    }
-
-    public Data getLeft() {
-        return left;
-    }
-
-    public void setLeft(Data left) {
-        this.left = left;
     }
 }
