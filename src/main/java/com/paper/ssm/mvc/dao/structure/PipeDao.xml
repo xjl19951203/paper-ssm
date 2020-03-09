@@ -8,11 +8,11 @@
     </resultMap>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        SELECT * from `element_pipe` where id = #{pk};
+        SELECT * from `component_pipe` where id = #{pk};
     </select>
 
     <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.structure.line.Pipe">
-        select * from `element_pipe`
+        select * from `component_pipe`
         <where>
             <if test="inputId != null">
                 `inputId` = #{inputId}

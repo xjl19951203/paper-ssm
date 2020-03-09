@@ -8,11 +8,11 @@
     </resultMap>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        SELECT * from `element_beam` where id = #{pk};
+        SELECT * from `component_beam` where id = #{pk};
     </select>
 
     <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.structure.line.Beam">
-        select * from `element_beam`;
+        select * from `component_beam`;
     </select>
 
 </mapper>

@@ -15,11 +15,11 @@
     </resultMap>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        SELECT *, <include refid="Constant_List" /> from `element_graph` where id = #{pk};
+        SELECT *, <include refid="Constant_List" /> from `component_graph` where id = #{pk};
     </select>
 
     <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.structure.graph.Graph">
-        select * from `element_graph`;
+        select * from `component_graph`;
     </select>
 
 </mapper>

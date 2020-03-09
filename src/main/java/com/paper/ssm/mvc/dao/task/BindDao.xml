@@ -12,7 +12,22 @@
     </select>
 
     <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.task.Bind">
-        select * from `task_bind`;
+        select * from `task_bind`
+        <where>
+            <if test="taskId != null">
+                taskId = #{taskId}
+            </if>
+            <if test="ruleId != null">
+                where ruleId = #{ruleId}
+            </if>
+            <if test="cubeId != null">
+                where cubeId = #{cubeId}
+            </if>
+            <if test="dataId != null">
+                where dataId = #{dataId}
+            </if>
+        </where>
+        ;
     </select>
 
 </mapper>

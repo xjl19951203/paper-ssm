@@ -23,7 +23,7 @@
     </insert>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        SELECT *, <include refid="Constant_List" /> from `element_data` where id = #{pk};
+        SELECT *, <include refid="Constant_List" /> from `component_data` where id = #{pk};
     </select>
 
     <update id="update" parameterType="com.paper.ssm.model.structure.node.Data">
@@ -37,7 +37,7 @@
     </update>
 
     <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.structure.node.Data">
-        select * from `element_data` where g1Id = #{g1Id}
+        select * from `component_data` where g1Id = #{g1Id}
         AND direction = #{direction}
     </select>
 

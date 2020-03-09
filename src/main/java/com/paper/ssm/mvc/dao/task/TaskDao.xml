@@ -5,6 +5,8 @@
     <resultMap id="BaseResultMap" type="com.paper.ssm.model.task.Task">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
+        <collection property="bindList" column="{taskId=id}" ofType="java.util.List"
+                    select="com.paper.ssm.mvc.dao.task.BindDao.selectListByQuery"/>
     </resultMap>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">

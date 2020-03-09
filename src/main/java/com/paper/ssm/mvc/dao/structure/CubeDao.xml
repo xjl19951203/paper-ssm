@@ -18,11 +18,11 @@
     </resultMap>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        SELECT *, <include refid="Constant_List" /> from `element_cube` where id = #{pk};
+        SELECT *, <include refid="Constant_List" /> from `component_cube` where id = #{pk};
     </select>
 
     <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.structure.node.Cube">
-        select *, <include refid="Constant_List" /> from `element_cube`;
+        select *, <include refid="Constant_List" /> from `component_cube`;
     </select>
 
 </mapper>
