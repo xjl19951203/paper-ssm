@@ -1,6 +1,6 @@
 package com.paper.ssm.task;
 
-import com.paper.ssm.model.dataPlane.Cube;
+import com.paper.ssm.model.structure.node.Cube;
 
 import java.util.List;
 
