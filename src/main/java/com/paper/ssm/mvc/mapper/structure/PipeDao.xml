@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.paper.ssm.mvc.mapper.structure.PipeDao">
 
-    <resultMap id="BaseResultMap" type="com.paper.ssm.model.structure.Line.Pipe">
+    <resultMap id="BaseResultMap" type="com.paper.ssm.model.structure.line.Pipe">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
     </resultMap>
@@ -11,7 +11,7 @@
         SELECT * from `element_pipe` where id = #{pk};
     </select>
 
-    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.structure.Line.Pipe">
+    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.structure.line.Pipe">
         select * from `element_pipe`
         <where>
             <if test="inputId != null">

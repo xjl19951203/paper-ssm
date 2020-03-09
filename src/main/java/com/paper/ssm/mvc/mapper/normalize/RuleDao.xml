@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paper.ssm.mvc.mapper.normalize.RuleDao">
+
+    <resultMap id="BaseResultMap" type="com.paper.ssm.model.normalize.Rule">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <association property="range" column="rangeId"
+                     select="com.paper.ssm.mvc.mapper.normalize.RangeDao.selectByPrimaryKey"/>
+        <association property="defaultValue" column="defaultId"
+                     select="com.paper.ssm.mvc.mapper.normalize.DefaultDao.selectByPrimaryKey"/>
+        <association property="unit" column="unitId"
+                     select="com.paper.ssm.mvc.mapper.normalize.UnitDao.selectByPrimaryKey"/>
+        <association property="type" column="typeId"
+                     select="com.paper.ssm.mvc.mapper.normalize.TypeDao.selectByPrimaryKey"/>
+    </resultMap>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT * from `rule` where id = #{pk};
+    </select>
+
+    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.normalize.Rule">
+        select * from `rule`;
+    </select>
+
+</mapper>

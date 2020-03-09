@@ -5,14 +5,18 @@ import com.paper.ssm.model.structure.node.Data;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author ZengYuan
+ */
 @Service("dataService")
 public class DataImpl implements DataService {
 
     @Resource
     DataDao dataDao;
+    @Resource
+    RuleService ruleService;
 
     @Override
     public Data insert(Data record) {
@@ -47,17 +51,9 @@ public class DataImpl implements DataService {
     @Override
     public Data selectByPrimaryKey(Integer id) {
         Data data = this.dataDao.selectByPrimaryKey(id);
-        if (data.getRuleList() == null) {
-            data.setRuleList(new ArrayList<>());
+        if (data.getRuleId() != null) {
+            data.setRule(this.ruleService.selectByPrimaryKey(data.getRuleId()));
         }
-        if (data.getRange() != null)
-            data.getRuleList().add(data.getRange());
-        if (data.getDefaultValue() != null)
-            data.getRuleList().add(data.getDefaultValue());
-        if (data.getType() != null)
-            data.getRuleList().add(data.getType());
-        if (data.getUnit() != null)
-            data.getRuleList().add(data.getUnit());
         return data;
     }
 

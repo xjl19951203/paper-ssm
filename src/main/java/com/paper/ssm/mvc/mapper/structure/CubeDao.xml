@@ -10,10 +10,10 @@
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
         <collection column="{inputId=id,inner=IS_INNER,side=INNER_INPUT_SIDE}"
-                    property="innerBridgeList" ofType="com.paper.ssm.model.structure.Line.Bridge"
+                    property="innerBridgeList" ofType="com.paper.ssm.model.structure.line.Bridge"
                     javaType="java.util.List" select="com.paper.ssm.mvc.mapper.structure.BridgeDao.selectListByQuery"/>
         <collection column="{inputId=id,inner=NOT_INNER}"
-                    property="nextBridgeList" ofType="com.paper.ssm.model.structure.Line.Bridge"
+                    property="nextBridgeList" ofType="com.paper.ssm.model.structure.line.Bridge"
                     javaType="java.util.List" select="com.paper.ssm.mvc.mapper.structure.BridgeDao.selectListByQuery"/>
     </resultMap>
 

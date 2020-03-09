@@ -10,7 +10,7 @@
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
         <collection column="{graphId=id,side=INNER_INPUT_SIDE}"
-                    property="innerEdgeList" ofType="com.paper.ssm.model.structure.Line.Edge"
+                    property="innerEdgeList" ofType="com.paper.ssm.model.structure.line.Edge"
                     javaType="java.util.List" select="com.paper.ssm.mvc.mapper.structure.EdgeDao.selectListByQuery"/>
     </resultMap>
 

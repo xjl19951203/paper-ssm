@@ -1,8 +1,8 @@
 package com.paper.ssm.mvc.service;
 
-import com.paper.ssm.model.structure.Line.Edge;
-import com.paper.ssm.model.structure.Line.Line;
-import com.paper.ssm.model.structure.Line.Pipe;
+import com.paper.ssm.model.structure.line.Edge;
+import com.paper.ssm.model.structure.line.Line;
+import com.paper.ssm.model.structure.line.Pipe;
 import com.paper.ssm.model.structure.graph.Graph;
 import com.paper.ssm.model.structure.node.Data;
 import com.paper.ssm.mvc.mapper.structure.GraphDao;

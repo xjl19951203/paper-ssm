@@ -1,13 +1,18 @@
 package com.paper.ssm.model.normalize.chains;
 
+import com.paper.ssm.model.Model;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
- * 规则链父类，是个链表
+ *
+ * @author ZengYuan
  */
-public abstract class Chain {
+@Getter
+@Setter
+public class Chain extends Model {
 
     protected Chain next;
 
-
-    public abstract void execute();
 
 }

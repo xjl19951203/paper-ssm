@@ -1,10 +1,10 @@
 package com.paper.ssm.model.structure.node;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.paper.ssm.model.normalize.Rule;
-import com.paper.ssm.model.normalize.chains.*;
-import com.paper.ssm.model.structure.Line.Edge;
-import com.paper.ssm.model.structure.Line.Pipe;
+import com.paper.ssm.model.structure.line.Edge;
+import com.paper.ssm.model.structure.line.Pipe;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -22,37 +22,18 @@ import java.util.List;
  * 另外一方面：输入具体指的是输入了什么东西，有什么用？
  * data又输出了什么？和输入有什么关系？
  *
+ * @author ZengYuan
  */
+@Getter
+@Setter
 public class Data extends Node {
 
     @JsonIgnore
-    private List<Edge> innerEdgeList; // 内右侧的边，取side标志作递归终止条件
+    /** 内右侧的边，取side标志作递归终止条件 */
+    private List<Edge> innerEdgeList;
     @JsonIgnore
     private List<Pipe> nextPipeList;
     private List<Data> nextDataList;
     // value经过input计算之后的结果，作为output的数据值
 
-    public List<Pipe> getNextPipeList() {
-        return nextPipeList;
-    }
-
-    public void setNextPipeList(List<Pipe> nextPipeList) {
-        this.nextPipeList = nextPipeList;
-    }
-
-    public List<Data> getNextDataList() {
-        return nextDataList;
-    }
-
-    public void setNextDataList(List<Data> nextDataList) {
-        this.nextDataList = nextDataList;
-    }
-
-    public List<Edge> getInnerEdgeList() {
-        return innerEdgeList;
-    }
-
-    public void setInnerEdgeList(List<Edge> innerEdgeList) {
-        this.innerEdgeList = innerEdgeList;
-    }
 }

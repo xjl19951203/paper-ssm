@@ -8,6 +8,7 @@ import com.paper.ssm.model.structure.Component;
  * 子类：
  * a. Data
  * b. Cube
+ * @author ZengYuan
  */
 public abstract class Node extends Component {
 }

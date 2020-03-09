@@ -1,9 +1,12 @@
 package com.paper.ssm.model.structure;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.paper.ssm.model.Model;
 import com.paper.ssm.model.normalize.config.Config;
 import com.paper.ssm.model.normalize.method.Method;
 import com.paper.ssm.model.normalize.Rule;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -27,8 +30,11 @@ import java.util.List;
  * 3. XML <=> DAG，二者互相转换
  * @author ZengYuan
  */
+@Getter
+@Setter
 public abstract class Component extends Model {
 
+    @JsonIgnore
     protected Integer ruleId;
     /** 结点规范化*/
     protected Rule rule;
@@ -36,38 +42,5 @@ public abstract class Component extends Model {
     protected List<Config> configList;
     /** 结点赋能*/
     protected List<Method> methodList;
-
-    public Integer getRuleId() {
-        return ruleId;
-    }
-
-    public void setRuleId(Integer ruleId) {
-        this.ruleId = ruleId;
-    }
-
-    public Rule getRule() {
-        return rule;
-    }
-
-    public void setRule(Rule rule) {
-        this.rule = rule;
-    }
-
-    public List<Config> getConfigList() {
-        return configList;
-    }
-
-    public void setConfigList(List<Config> configList) {
-        this.configList = configList;
-    }
-
-    public List<Method> getMethodList() {
-        return methodList;
-    }
-
-    public void setMethodList(List<Method> methodList) {
-        this.methodList = methodList;
-    }
-
 
 }

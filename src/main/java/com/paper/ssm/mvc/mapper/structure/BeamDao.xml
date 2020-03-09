@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.paper.ssm.mvc.mapper.structure.BeamDao">
 
-    <resultMap id="BaseResultMap" type="com.paper.ssm.model.structure.Line.Beam">
+    <resultMap id="BaseResultMap" type="com.paper.ssm.model.structure.line.Beam">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
     </resultMap>
@@ -11,7 +11,7 @@
         SELECT * from `element_beam` where id = #{pk};
     </select>
 
-    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.structure.Line.Beam">
+    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.structure.line.Beam">
         select * from `element_beam`;
     </select>
 

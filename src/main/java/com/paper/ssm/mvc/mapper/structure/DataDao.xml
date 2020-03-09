@@ -9,19 +9,11 @@
     <resultMap id="BaseResultMap" type="com.paper.ssm.model.structure.node.Data">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
-        <association property="range" column="rangeId"
-                     select="com.paper.ssm.mvc.mapper.normalize.RangeDao.selectByPrimaryKey"/>
-        <association property="defaultValue" column="defaultId"
-                     select="com.paper.ssm.mvc.mapper.normalize.DefaultDao.selectByPrimaryKey"/>
-        <association property="unit" column="unitId"
-                     select="com.paper.ssm.mvc.mapper.normalize.UnitDao.selectByPrimaryKey"/>
-        <association property="type" column="typeId"
-                     select="com.paper.ssm.mvc.mapper.normalize.TypeDao.selectByPrimaryKey"/>
         <collection column="{inputId=id}"
-                    property="nextPipeList" ofType="com.paper.ssm.model.structure.Line.Pipe"
+                    property="nextPipeList" ofType="com.paper.ssm.model.structure.line.Pipe"
                     javaType="java.util.List" select="com.paper.ssm.mvc.mapper.structure.PipeDao.selectListByQuery"/>
         <collection column="{dataId=id,side=INNER_OUTPUT_SIDE}"
-                    property="innerEdgeList" ofType="com.paper.ssm.model.structure.Line.Edge"
+                    property="innerEdgeList" ofType="com.paper.ssm.model.structure.line.Edge"
                     javaType="java.util.List" select="com.paper.ssm.mvc.mapper.structure.EdgeDao.selectListByQuery"/>
     </resultMap>
 
