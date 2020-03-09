@@ -1,14 +1,8 @@
 package com.paper.ssm.model.structure;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.paper.ssm.model.Model;
-import com.paper.ssm.model.normalize.config.Config;
-import com.paper.ssm.model.normalize.method.Method;
-import com.paper.ssm.model.normalize.Rule;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 /**
  *  模型的元素的公共父类：
@@ -33,14 +27,5 @@ import java.util.List;
 @Getter
 @Setter
 public class Component extends Model {
-
-    @JsonIgnore
-    protected Integer ruleId;
-    /** 结点规范化*/
-    protected Rule rule;
-    /** 结点配置*/
-    protected List<Config> configList;
-    /** 结点赋能*/
-    protected List<Method> methodList;
 
 }

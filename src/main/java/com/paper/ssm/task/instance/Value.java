@@ -1,4 +1,4 @@
-package com.paper.ssm.instance;
+package com.paper.ssm.task.instance;
 
 /**
  * Data的实例

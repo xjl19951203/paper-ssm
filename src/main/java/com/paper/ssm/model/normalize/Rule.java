@@ -9,8 +9,8 @@ import lombok.Setter;
 import java.util.List;
 
 /**
- * Rule与Element之间 1:M的关系，一条规则可以被多个Value使用，
- * 每个Value对某一类型的Rule只允许关联一条
+ * Rule与 Node 之间 M:N的关系，即某个结点Node的规则链，是与相关的Rule集合的Chain的并集
+ * 并且该每一种类型的Chain只能存在一个，这里涉及要优先级的问题
  * @author ZengYuan
  */
 @Setter

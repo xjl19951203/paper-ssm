@@ -50,11 +50,7 @@ public class DataImpl implements DataService {
 
     @Override
     public Data selectByPrimaryKey(Integer id) {
-        Data data = this.dataDao.selectByPrimaryKey(id);
-        if (data.getRuleId() != null) {
-            data.setRule(this.ruleService.selectByPrimaryKey(data.getRuleId()));
-        }
-        return data;
+        return this.dataDao.selectByPrimaryKey(id);
     }
 
     @Override

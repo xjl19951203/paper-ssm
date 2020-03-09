@@ -1,6 +1,9 @@
-package com.paper.ssm.model.normalize.rules;
+package com.paper.ssm.task.normalize;
 
 
+/**
+ * @author ZengYuan
+ */
 public class RuleExecute {
 
     public static String activityRule() {

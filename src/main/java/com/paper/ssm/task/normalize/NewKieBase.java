@@ -1,9 +1,12 @@
-package com.paper.ssm.model.normalize.rules;
+package com.paper.ssm.task.normalize;
 
 import org.kie.api.KieBase;
 import org.kie.api.io.ResourceType;
 import org.kie.internal.utils.KieHelper;
 
+/**
+ * @author ZengYuan
+ */
 public class NewKieBase {
 
     /**
