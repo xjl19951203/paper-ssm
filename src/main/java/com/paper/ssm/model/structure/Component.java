@@ -25,20 +25,17 @@ import java.util.List;
  * 1. DAG基于邻接表实现
  * 2. 与常规DAG不同，Graph有可能是更大的Graph的组成结点
  * 3. XML <=> DAG，二者互相转换
+ * @author ZengYuan
  */
 public abstract class Component extends Model {
-    /**
-     * 结点数据面
-     */
-    protected Integer id; // 结点唯一标识符
-    protected String title; // 结点名称
-    /**
-     * 结点控制面
-     */
+
     protected Integer ruleId;
-    protected Rule rule; // 结点规范化
-    protected List<Config> configList; // 结点配置
-    protected List<Method> methodList; // 结点赋能
+    /** 结点规范化*/
+    protected Rule rule;
+    /** 结点配置*/
+    protected List<Config> configList;
+    /** 结点赋能*/
+    protected List<Method> methodList;
 
     public Integer getRuleId() {
         return ruleId;
@@ -54,23 +51,6 @@ public abstract class Component extends Model {
 
     public void setRule(Rule rule) {
         this.rule = rule;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public List<Config> getConfigList() {

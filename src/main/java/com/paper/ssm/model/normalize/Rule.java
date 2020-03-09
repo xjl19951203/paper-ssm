@@ -11,7 +11,9 @@ import java.util.List;
  */
 public abstract class Rule extends Model {
 
-    // 关联的规则
+    /**
+     * 关联的规则
+     */
     @JsonIgnore
     private Integer unitId;
     @JsonIgnore
@@ -28,7 +30,9 @@ public abstract class Rule extends Model {
     private Type type;
     @JsonIgnore
     private Default defaultValue;
-    // chainList 是经由上面四类Chain合成的，可以传递给Pipe进行规则链计算
+    /**
+     * chainList 是经由上面四类Chain合成的，可以传递给Pipe进行规则链计算
+     */
     private List<Chain> chainList;
 
     public Integer getUnitId() {
