@@ -1,10 +1,12 @@
 package com.paper.ssm.service;
 
+import com.paper.ssm.mapper.DataDao;
 import com.paper.ssm.mapper.GraphDao;
-import com.paper.ssm.model.dataPlane.Graph;
+import com.paper.ssm.model.dataPlane.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("graphService")
@@ -12,6 +14,8 @@ public class GraphImpl implements GraphService {
 
     @Resource
     GraphDao graphDao;
+    @Resource
+    DataService dataService;
 
     @Override
     public Graph insert(Graph record) {
@@ -45,11 +49,47 @@ public class GraphImpl implements GraphService {
 
     @Override
     public Graph selectByPrimaryKey(Integer id) {
-        return this.graphDao.selectByPrimaryKey(id);
+        Graph root = this.graphDao.selectByPrimaryKey(id);
+        if (root == null) {
+            return null;
+        }
+        if (root.getInnerEdgeList() != null) {
+            if (root.getInnerDataList() == null) {
+                root.setInnerDataList(new ArrayList<>());
+            }
+            for (Edge edge : root.getInnerEdgeList()) {
+                root.getInnerDataList().add(fillGraph(edge.getDataId()));
+            }
+        }
+        return root;
     }
 
     @Override
     public Graph selectSimpleByPrimaryKey(Integer id) {
         return null;
+    }
+
+    private Data fillGraph(Integer dataId) {
+        Data data = this.dataService.selectByPrimaryKey(dataId);
+        if (data == null) {
+            return null;
+        }
+        // 该if判断是递归终止条件，其实只要data存在innerEdgeList就说明该Data是右侧结点，可以终止了
+        if (data.getInnerEdgeList() != null) {
+            for (Edge edge : data.getInnerEdgeList()) {
+                if (edge.getSide().equals(Link.INNER_OUTPUT_SIDE)) {
+                    return data;
+                }
+            }
+        }
+        if (data.getNextPipeList() != null) {
+            if (data.getNextDataList() == null) {
+                data.setNextDataList(new ArrayList<>());
+            }
+            for (Pipe pipe : data.getNextPipeList()) {
+                data.getNextDataList().add(fillGraph(pipe.getOutputId()));
+            }
+        }
+        return data;
     }
 }

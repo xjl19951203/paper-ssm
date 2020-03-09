@@ -5,7 +5,6 @@
     <resultMap id="BaseResultMap" type="com.paper.ssm.model.dataPlane.Edge">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
-<!--        <association property="data" column="dataId" select="com.paper.ssm.mapper.DataDao.selectByPrimaryKey"/>-->
     </resultMap>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -13,8 +12,19 @@
     </select>
 
     <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.dataPlane.Edge">
-        select * from `element_edge` where graphId = #{graphId}
-        AND direction = #{direction};
+        select * from `element_edge`
+        <where>
+            <if test="graphId != null">
+                graphId = #{graphId}
+            </if>
+            <if test="dataId != null">
+                and dataId = #{dataId}
+            </if>
+            <if test="side != null">
+                and side = #{side}
+            </if>
+        </where>
+        ;
     </select>
 
 </mapper>

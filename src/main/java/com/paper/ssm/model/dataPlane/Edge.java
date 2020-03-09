@@ -4,17 +4,9 @@ public class Edge extends Link {
 
     private Integer graphId;
     private Integer dataId;
-    // edge不同于bridge，只有从属关系，因此direction只表征input还是output
-    private Integer direction;
+    // edge不同于bridge，只有从属关系，因此side只表征输入侧还是输出侧
+    private Integer side;
 
-
-    public Integer getDirection() {
-        return direction;
-    }
-
-    public void setDirection(Integer direction) {
-        this.direction = direction;
-    }
 
     public Integer getDataId() {
         return dataId;
@@ -30,5 +22,13 @@ public class Edge extends Link {
 
     public void setGraphId(Integer graphId) {
         this.graphId = graphId;
+    }
+
+    public Integer getSide() {
+        return side;
+    }
+
+    public void setSide(Integer side) {
+        this.side = side;
     }
 }

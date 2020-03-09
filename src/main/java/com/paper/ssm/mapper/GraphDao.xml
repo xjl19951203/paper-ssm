@@ -2,22 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.paper.ssm.mapper.GraphDao">
 
+    <sql id="Constant_List" >
+        1 as IS_INNER, 0 as NOT_INNER, 1 as INNER_INPUT_SIDE
+    </sql>
+
     <resultMap id="BaseResultMap" type="com.paper.ssm.model.dataPlane.Graph">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
-        <collection column="{g1Id=id,direction=POSITIVE_DIRECTION,relation=INSIDE_RELATION}" property="leftGGEdgeList" ofType="com.paper.ssm.model.dataPlane.GGEdge"
-                    javaType="java.util.List" select="com.paper.ssm.mapper.GGEdgeDao.selectListByQuery"/>
-        <collection column="{graphId=id,direction=POSITIVE_DIRECTION,relation=INSIDE_RELATION}" property="leftGDEdgeList" ofType="com.paper.ssm.model.dataPlane.GDEdge"
-                    javaType="java.util.List" select="com.paper.ssm.mapper.EdgeDao.selectListByQuery"/>
-        <collection column="{g1Id=id,direction=POSITIVE_DIRECTION,relation=INSIDE_RELATION}" property="leftGGEdgeList" ofType="com.paper.ssm.model.dataPlane.GGEdge"
-                    javaType="java.util.List" select="com.paper.ssm.mapper.GGEdgeDao.selectListByQuery"/>
-        <collection column="{graphId=id,direction=POSITIVE_DIRECTION,relation=INSIDE_RELATION}" property="leftGDEdgeList" ofType="com.paper.ssm.model.dataPlane.GDEdge"
+        <collection column="{graphId=id,side=INNER_INPUT_SIDE}"
+                    property="innerEdgeList" ofType="com.paper.ssm.model.dataPlane.Edge"
                     javaType="java.util.List" select="com.paper.ssm.mapper.EdgeDao.selectListByQuery"/>
     </resultMap>
-
-    <sql id="Constant_List" >
-        1 as POSITIVE_DIRECTION, 0 as NEGATIVE_DIRECTION, 1 as INSIDE_RELATION, 0 as OUTSIDE_RELATION
-    </sql>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         SELECT *, <include refid="Constant_List" /> from `element_graph` where id = #{pk};

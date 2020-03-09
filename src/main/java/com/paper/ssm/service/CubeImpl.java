@@ -49,6 +49,9 @@ public class CubeImpl implements CubeService {
     @Override
     public Cube selectByPrimaryKey(Integer id) {
         Cube root = this.cubeDao.selectByPrimaryKey(id);
+        if (root == null) {
+            return null;
+        }
         if (root.getInnerCubeList() != null) {
             root.getInnerCubeList().clear();
         }
@@ -68,8 +71,17 @@ public class CubeImpl implements CubeService {
         return null;
     }
 
+    /**
+     * 孩子兄弟链法，递归构造Multi-Level DAG多叉树
+     * @param id 根节点
+     * @return Cube
+     */
     private Cube fillCube (Integer id) {
         Cube cube = this.cubeDao.selectByPrimaryKey(id);
+        if (cube == null) {
+            return null;
+        }
+        // 兄弟结点链
         if (cube.getNextBridgeList() != null) {
             for (Bridge bridge : cube.getNextBridgeList()) {
                 Cube c = fillCube(bridge.getOutputId());
@@ -81,6 +93,7 @@ public class CubeImpl implements CubeService {
                 }
             }
         }
+        // 孩子结点链
         if (cube.getInnerBridgeList() != null) {
             for (Bridge bridge : cube.getInnerBridgeList()) {
                 // 通过 Bridge的side内侧边标志位，判断是否是Cube的右边界

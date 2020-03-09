@@ -1,6 +1,8 @@
 package com.paper.ssm.model.dataPlane;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 /**
@@ -8,40 +10,24 @@ import java.util.List;
  */
 public class Graph extends Element {
 
-    private Integer cubeId;
-    private Cube cube;
-    private List<Data> inputList;
-    private List<Data> outputList;
+    @JsonIgnore
+    private List<Edge> innerEdgeList;
+    private List<Data> innerDataList;
 
-    public List<Data> getInputList() {
-        return inputList;
+
+    public List<Edge> getInnerEdgeList() {
+        return innerEdgeList;
     }
 
-    public void setInputList(List<Data> inputList) {
-        this.inputList = inputList;
+    public void setInnerEdgeList(List<Edge> innerEdgeList) {
+        this.innerEdgeList = innerEdgeList;
     }
 
-    public List<Data> getOutputList() {
-        return outputList;
+    public List<Data> getInnerDataList() {
+        return innerDataList;
     }
 
-    public void setOutputList(List<Data> outputList) {
-        this.outputList = outputList;
-    }
-
-    public Integer getCubeId() {
-        return cubeId;
-    }
-
-    public void setCubeId(Integer cubeId) {
-        this.cubeId = cubeId;
-    }
-
-    public Cube getCube() {
-        return cube;
-    }
-
-    public void setCube(Cube cube) {
-        this.cube = cube;
+    public void setInnerDataList(List<Data> innerDataList) {
+        this.innerDataList = innerDataList;
     }
 }

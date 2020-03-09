@@ -1,5 +1,6 @@
 package com.paper.ssm.model.dataPlane;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.paper.ssm.model.controlPlane.Value;
 
 import java.util.List;
@@ -21,25 +22,43 @@ import java.util.List;
  */
 public class Data extends Node {
 
-    // 输入输出列表不是Data必备属性，而是由与之关联的Pipe生成的
-    private List<Data> inputList;
-    private List<Data> outputList;
+    @JsonIgnore
+    private List<Edge> innerEdgeList; // 内右侧的边，取side标志作递归终止条件
+    @JsonIgnore
+    private List<Pipe> nextPipeList;
+    private List<Data> nextDataList;
     // value经过input计算之后的结果，作为output的数据值
     private Value value;
 
-    public List<Data> getInputList() {
-        return inputList;
+    public List<Pipe> getNextPipeList() {
+        return nextPipeList;
     }
 
-    public void setInputList(List<Data> inputList) {
-        this.inputList = inputList;
+    public void setNextPipeList(List<Pipe> nextPipeList) {
+        this.nextPipeList = nextPipeList;
     }
 
-    public List<Data> getOutputList() {
-        return outputList;
+    public List<Data> getNextDataList() {
+        return nextDataList;
     }
 
-    public void setOutputList(List<Data> outputList) {
-        this.outputList = outputList;
+    public void setNextDataList(List<Data> nextDataList) {
+        this.nextDataList = nextDataList;
+    }
+
+    public Value getValue() {
+        return value;
+    }
+
+    public void setValue(Value value) {
+        this.value = value;
+    }
+
+    public List<Edge> getInnerEdgeList() {
+        return innerEdgeList;
+    }
+
+    public void setInnerEdgeList(List<Edge> innerEdgeList) {
+        this.innerEdgeList = innerEdgeList;
     }
 }

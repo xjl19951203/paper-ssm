@@ -12,7 +12,16 @@
     </select>
 
     <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.dataPlane.Pipe">
-        select * from `element_pipe`;
+        select * from `element_pipe`
+        <where>
+            <if test="inputId != null">
+                `inputId` = #{inputId}
+            </if >
+            <if test="outputId != null">
+               and `outputId` = #{outputId}
+            </if >
+        </where>
+        ;
     </select>
 
 </mapper>
