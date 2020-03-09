@@ -35,9 +35,26 @@ public abstract class Component extends Model {
     /**
      * 结点控制面
      */
-    protected List<Rule> normList; // 结点规范化
+    protected Integer ruleId;
+    protected Rule rule; // 结点规范化
     protected List<Config> configList; // 结点配置
     protected List<Method> methodList; // 结点赋能
+
+    public Integer getRuleId() {
+        return ruleId;
+    }
+
+    public void setRuleId(Integer ruleId) {
+        this.ruleId = ruleId;
+    }
+
+    public Rule getRule() {
+        return rule;
+    }
+
+    public void setRule(Rule rule) {
+        this.rule = rule;
+    }
 
     public Integer getId() {
         return id;
@@ -54,14 +71,6 @@ public abstract class Component extends Model {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public List<Rule> getNormList() {
-        return normList;
-    }
-
-    public void setNormList(List<Rule> ruleList) {
-        this.normList = ruleList;
     }
 
     public List<Config> getConfigList() {
