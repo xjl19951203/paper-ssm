@@ -1,6 +1,6 @@
 package com.paper.ssm.mvc.controller;
 
-import com.paper.ssm.mvc.common.Controller;
+import com.paper.ssm.mvc.common.AbstractController;
 import com.paper.ssm.model.structure.graph.Graph;
 import com.paper.ssm.mvc.service.GraphService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @EnableAutoConfiguration
 @RequestMapping("/api/graphs")
-public class GraphController extends Controller<Graph> {
+public class GraphController extends AbstractController<Graph> {
 
     @Resource
     GraphService graphService;

@@ -18,7 +18,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public abstract class Line extends Component {
+public class Line extends Component {
 
     /** 同级串联关系 */
     public static final Integer NOT_INNER = 0;

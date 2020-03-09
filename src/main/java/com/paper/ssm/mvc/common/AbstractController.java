@@ -2,7 +2,10 @@ package com.paper.ssm.mvc.common;
 
 import java.util.List;
 
-public abstract class Controller<T> implements Service<T>  {
+/**
+ * @author ZengYuan
+ */
+public abstract class AbstractController<T> implements Service<T>  {
 
     @Override
     public T selectSimpleByPrimaryKey(Integer id){

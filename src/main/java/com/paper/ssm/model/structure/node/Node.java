@@ -10,5 +10,5 @@ import com.paper.ssm.model.structure.Component;
  * b. Cube
  * @author ZengYuan
  */
-public abstract class Node extends Component {
+public class Node extends Component {
 }

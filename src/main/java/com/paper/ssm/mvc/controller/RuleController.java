@@ -1,7 +1,7 @@
 package com.paper.ssm.mvc.controller;
 
 import com.paper.ssm.model.normalize.Rule;
-import com.paper.ssm.mvc.common.Controller;
+import com.paper.ssm.mvc.common.AbstractController;
 import com.paper.ssm.mvc.service.RuleService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 @RestController
 @EnableAutoConfiguration
 @RequestMapping("/api/rules")
-public class RuleController extends Controller<Rule> {
+public class RuleController extends AbstractController<Rule> {
 
     @Resource
     RuleService ruleService;

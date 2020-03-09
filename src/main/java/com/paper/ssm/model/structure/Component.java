@@ -32,7 +32,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-public abstract class Component extends Model {
+public class Component extends Model {
 
     @JsonIgnore
     protected Integer ruleId;
