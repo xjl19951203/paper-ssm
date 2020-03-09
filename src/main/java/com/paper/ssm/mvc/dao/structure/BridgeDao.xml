@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paper.ssm.mvc.dao.structure.BridgeDao">
+
+    <resultMap id="BaseResultMap" type="com.paper.ssm.model.structure.line.Bridge">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+    </resultMap>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT * from `element_bridge` where id = #{pk};
+    </select>
+
+    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.structure.line.Bridge">
+        select * from `element_bridge`
+        <where>
+            <if test="inputId != null">
+                `inputId` = #{inputId}
+            </if >
+            <if test="inner != null">
+                and `inner` = #{inner}
+            </if>
+            <if test="side != null">
+                and `side` = #{side}
+            </if >
+        </where>
+        ;
+    </select>
+
+</mapper>

@@ -1,6 +1,5 @@
 package com.paper.ssm.mvc.controller;
 
-import com.paper.ssm.mvc.common.AbstractController;
 import com.paper.ssm.model.structure.node.Cube;
 import com.paper.ssm.mvc.service.CubeService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

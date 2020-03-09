@@ -1,7 +1,6 @@
 package com.paper.ssm.mvc.service;
 
 import com.paper.ssm.model.normalize.Rule;
-import com.paper.ssm.mvc.common.Service;
 
 import javax.annotation.Resource;
 

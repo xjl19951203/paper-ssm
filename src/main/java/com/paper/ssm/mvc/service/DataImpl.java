@@ -1,6 +1,6 @@
 package com.paper.ssm.mvc.service;
 
-import com.paper.ssm.mvc.mapper.structure.DataDao;
+import com.paper.ssm.mvc.dao.structure.DataDao;
 import com.paper.ssm.model.structure.node.Data;
 import org.springframework.stereotype.Service;
 

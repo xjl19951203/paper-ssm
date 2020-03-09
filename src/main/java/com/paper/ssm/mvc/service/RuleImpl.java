@@ -1,7 +1,7 @@
 package com.paper.ssm.mvc.service;
 
 import com.paper.ssm.model.normalize.Rule;
-import com.paper.ssm.mvc.mapper.normalize.RuleDao;
+import com.paper.ssm.mvc.dao.normalize.RuleDao;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

@@ -1,6 +1,6 @@
 package com.paper.ssm.mvc.service;
 
-import com.paper.ssm.mvc.mapper.structure.CubeDao;
+import com.paper.ssm.mvc.dao.structure.CubeDao;
 import com.paper.ssm.model.structure.line.Bridge;
 import com.paper.ssm.model.structure.node.Cube;
 import com.paper.ssm.model.structure.line.Line;

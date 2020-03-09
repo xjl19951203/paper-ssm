@@ -5,7 +5,7 @@ import com.paper.ssm.model.structure.line.Line;
 import com.paper.ssm.model.structure.line.Pipe;
 import com.paper.ssm.model.structure.graph.Graph;
 import com.paper.ssm.model.structure.node.Data;
-import com.paper.ssm.mvc.mapper.structure.GraphDao;
+import com.paper.ssm.mvc.dao.structure.GraphDao;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
