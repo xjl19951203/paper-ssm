@@ -9,6 +9,7 @@ public class Pipe extends Link {
     private Integer inputId;
     private Integer outputId;
     private Data input;
+    // ruleList的规则集合来自于right端Data结点定义的
     private Data right;
 
     /**
@@ -49,4 +50,5 @@ public class Pipe extends Link {
     public void setOutputId(Integer outputId) {
         this.outputId = outputId;
     }
+
 }

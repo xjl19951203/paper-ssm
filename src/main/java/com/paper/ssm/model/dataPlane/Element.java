@@ -3,7 +3,7 @@ package com.paper.ssm.model.dataPlane;
 import com.paper.ssm.model.Bean;
 import com.paper.ssm.model.controlPlane.config.Config;
 import com.paper.ssm.model.controlPlane.method.Method;
-import com.paper.ssm.model.controlPlane.norm.Norm;
+import com.paper.ssm.model.controlPlane.Rule;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public abstract class Element extends Bean {
     /**
      * 结点控制面
      */
-    protected List<Norm> normList; // 结点规范化
+    protected List<Rule> normList; // 结点规范化
     protected List<Config> configList; // 结点配置
     protected List<Method> methodList; // 结点赋能
 
@@ -56,12 +56,12 @@ public abstract class Element extends Bean {
         this.title = title;
     }
 
-    public List<Norm> getNormList() {
+    public List<Rule> getNormList() {
         return normList;
     }
 
-    public void setNormList(List<Norm> normList) {
-        this.normList = normList;
+    public void setNormList(List<Rule> ruleList) {
+        this.normList = ruleList;
     }
 
     public List<Config> getConfigList() {

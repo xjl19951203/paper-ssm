@@ -1,5 +1,7 @@
 package com.paper.ssm.task;
 
+import com.paper.ssm.model.dataPlane.Cube;
+
 import java.util.List;
 
 /**
@@ -8,5 +10,7 @@ import java.util.List;
 public class Task{
 
     private List<Log> logList;
+    private Integer cubeId;
+    private Cube cube;
 
 }
