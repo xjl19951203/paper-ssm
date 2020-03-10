@@ -18,13 +18,16 @@
                 taskId = #{taskId}
             </if>
             <if test="ruleId != null">
-                where ruleId = #{ruleId}
+                and ruleId = #{ruleId}
+            </if>
+            <if test="flag != null">
+                and flag = #{flag}
             </if>
             <if test="cubeId != null">
-                where cubeId = #{cubeId}
+                and cubeId = #{cubeId}
             </if>
             <if test="dataId != null">
-                where dataId = #{dataId}
+                and dataId = #{dataId}
             </if>
         </where>
         ;

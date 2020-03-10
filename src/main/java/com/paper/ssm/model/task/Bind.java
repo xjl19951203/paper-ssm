@@ -18,6 +18,8 @@ import lombok.Setter;
 @Setter
 public class Bind extends Model {
 
+    public static final Integer BIND_DATA_FLAG = 0;
+    public static final Integer BIND_CUBE_FLAG = 1;
     private Integer taskId;
     private Integer ruleId;
     private Integer cubeId;
@@ -25,5 +27,6 @@ public class Bind extends Model {
     private Rule rule;
     private Cube cube;
     private Data data;
+    private Integer flag;
 
 }

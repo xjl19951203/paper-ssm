@@ -2,19 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.paper.ssm.mvc.dao.task.TaskDao">
 
+    <sql id="Constant_List" >
+        0 as BIND_DATA_FLAG, 1 as BIND_CUBE_FLAG
+    </sql>
+
     <resultMap id="BaseResultMap" type="com.paper.ssm.model.task.Task">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
-        <collection property="bindList" column="{taskId=id}" ofType="java.util.List"
+        <collection property="bindDataList" column="{taskId=id,flag=BIND_DATA_FLAG}" ofType="java.util.List"
+                    select="com.paper.ssm.mvc.dao.task.BindDao.selectListByQuery"/>
+        <collection property="bindCubeList" column="{taskId=id,flag=BIND_CUBE_FLAG}" ofType="java.util.List"
                     select="com.paper.ssm.mvc.dao.task.BindDao.selectListByQuery"/>
     </resultMap>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        SELECT * from `task` where id = #{pk};
+        SELECT *, <include refid="Constant_List" /> from `task` where id = #{pk};
     </select>
 
     <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.task.Task">
-        select * from `task`;
+        select *, <include refid="Constant_List" /> from `task`;
     </select>
 
 </mapper>
