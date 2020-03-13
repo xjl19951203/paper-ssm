@@ -57,8 +57,12 @@ public class NodeImpl implements NodeService {
         if (root.getInnerNodeList() != null) {
             root.getInnerNodeList().clear();
         }
+        root.setType(Node.SINGLE_TYPE);
         if (root.getInnerPipeList() != null) {
+            root.setType(Node.COMPLEX_TYPE);
             for (Pipe pipe : root.getInnerPipeList()) {
+                /** 左内侧边界结点的pipe：粗线 */
+                pipe.setLine(Pipe.BOLD_LINE);
                 if (root.getInnerNodeList() == null) {
                     root.setInnerNodeList(new ArrayList<>());
                 }
@@ -83,9 +87,19 @@ public class NodeImpl implements NodeService {
         if (node == null) {
             return null;
         }
+        node.setType(Node.SINGLE_TYPE);
         // 兄弟结点链
         if (node.getNextPipeList() != null) {
+            /**
+             * 一旦getInnerPipeList不为null，说明该节点是复合结点
+             * 其nextPipeList都应该标虚线
+             */
+            Integer line = Pipe.DOTTED_LINE;
+            if (node.getInnerPipeList() == null || node.getInnerPipeList().size() == 0) {
+                line = Pipe.SOLID_LINE;
+            }
             for (Pipe pipe : node.getNextPipeList()) {
+                pipe.setLine(line);
                 Node c = fillNode(pipe.getOutputId());
                 if (c != null) {
                     if (node.getNextNodeList() == null) {
@@ -95,9 +109,15 @@ public class NodeImpl implements NodeService {
                 }
             }
         }
-        // 孩子结点链
+        /**
+         * 孩子结点链
+         */
+        node.setType(Node.COMPLEX_TYPE);
         if (node.getInnerPipeList() != null) {
+            node.setType(Node.COMPLEX_TYPE);
             for (Pipe pipe : node.getInnerPipeList()) {
+                /** 左内侧边界结点的pipe：粗线 */
+                pipe.setLine(Pipe.BOLD_LINE);
                 // 通过 Bridge的side内侧边标志位，判断是否是Node的右边界
                 if (pipe.getSide().equals(Pipe.INNER_OUTPUT_SIDE)) {
                     return node;

@@ -17,6 +17,13 @@ import java.util.List;
 @Setter
 public class Node extends Component {
 
+
+    /** 最小粒度结点 */
+    public static final Integer SINGLE_TYPE = 0;
+    /** 复合体结点 */
+    public static final Integer COMPLEX_TYPE = 1;
+
+    private Integer type;
     /** 返回时排除掉这个字段 */
     /** @JsonIgnore */
     private List<Pipe> innerPipeList;
