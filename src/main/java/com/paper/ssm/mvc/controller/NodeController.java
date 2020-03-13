@@ -1,7 +1,7 @@
 package com.paper.ssm.mvc.controller;
 
-import com.paper.ssm.model.structure.node.Cube;
-import com.paper.ssm.mvc.service.CubeService;
+import com.paper.ssm.model.structure.Node;
+import com.paper.ssm.mvc.service.NodeService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,36 +14,36 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/api/cubes")
-public class CubeController extends AbstractController<Cube> {
+@RequestMapping("/api/nodes")
+public class NodeController extends AbstractController<Node> {
 
     @Resource
-    CubeService cubeService;
+    NodeService nodeService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     @Override
-    public List<Cube> selectListByQuery(Cube query) {
-        return this.cubeService.selectListByQuery(query);
+    public List<Node> selectListByQuery(Node query) {
+        return this.nodeService.selectListByQuery(query);
     }
 
     @Override
-    public Cube insert(Cube record) {
+    public Node insert(Node record) {
         return null;
     }
 
     @Override
-    public int delete(Cube record) {
+    public int delete(Node record) {
         return 0;
     }
 
     @Override
-    public Cube update(Cube record) {
+    public Node update(Node record) {
         return null;
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @Override
-    public Cube selectByPrimaryKey(@PathVariable Integer id) {
-        return this.cubeService.selectByPrimaryKey(id);
+    public Node selectByPrimaryKey(@PathVariable Integer id) {
+        return this.nodeService.selectByPrimaryKey(id);
     }
 }

@@ -1,7 +1,6 @@
 package com.paper.ssm.model.task;
 
 import com.paper.ssm.model.Model;
-import com.paper.ssm.model.structure.node.Data;
 import lombok.Getter;
 import lombok.Setter;
 

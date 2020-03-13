@@ -6,11 +6,11 @@
         1 as IS_INNER, 0 as NOT_INNER, 1 as INNER_INPUT_SIDE
     </sql>
 
-    <resultMap id="BaseResultMap" type="com.paper.ssm.model.structure.graph.Graph">
+    <resultMap id="BaseResultMap" type="com.paper.ssm.model.structure.Graph">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
         <collection column="{graphId=id,side=INNER_INPUT_SIDE}"
-                    property="innerEdgeList" ofType="com.paper.ssm.model.structure.line.Edge"
+                    property="innerPipeList" ofType="com.paper.ssm.model.structure.Pipe"
                     javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.EdgeDao.selectListByQuery"/>
     </resultMap>
 
@@ -18,7 +18,7 @@
         SELECT *, <include refid="Constant_List" /> from `component_graph` where id = #{pk};
     </select>
 
-    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.structure.graph.Graph">
+    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.structure.Graph">
         select * from `component_graph`;
     </select>
 

@@ -6,18 +6,18 @@
         1 as IS_INNER, 0 as NOT_INNER, 1 as INNER_INPUT_SIDE, 0 as INNER_OUTPUT_SIDE
     </sql>
 
-    <resultMap id="BaseResultMap" type="com.paper.ssm.model.structure.node.Data">
+    <resultMap id="BaseResultMap" type="com.paper.ssm.model.task.Data">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
         <collection column="{inputId=id}"
-                    property="nextPipeList" ofType="com.paper.ssm.model.structure.line.Pipe"
+                    property="nextPipeList" ofType="com.paper.ssm.model.structure.Pipe"
                     javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.PipeDao.selectListByQuery"/>
         <collection column="{dataId=id,side=INNER_OUTPUT_SIDE}"
                     property="innerEdgeList" ofType="com.paper.ssm.model.structure.line.Edge"
                     javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.EdgeDao.selectListByQuery"/>
     </resultMap>
 
-    <insert id="insert" parameterType="com.paper.ssm.model.structure.node.Data" useGeneratedKeys="true">
+    <insert id="insert" parameterType="com.paper.ssm.model.task.Data" useGeneratedKeys="true">
         insert into `user` (`username`, `password`)
         values (#{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR})
     </insert>
@@ -26,7 +26,7 @@
         SELECT *, <include refid="Constant_List" /> from `component_data` where id = #{pk};
     </select>
 
-    <update id="update" parameterType="com.paper.ssm.model.structure.node.Data">
+    <update id="update" parameterType="com.paper.ssm.model.task.Data">
         update `user`
         set
         `username` = #{username,jdbcType=VARCHAR},
@@ -36,7 +36,7 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
 
-    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.structure.node.Data">
+    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.task.Data">
         select * from `component_data` where g1Id = #{g1Id}
         AND direction = #{direction}
     </select>

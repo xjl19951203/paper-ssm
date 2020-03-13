@@ -2,8 +2,7 @@ package com.paper.ssm.model.task;
 
 import com.paper.ssm.model.Model;
 import com.paper.ssm.model.normalize.Rule;
-import com.paper.ssm.model.structure.node.Cube;
-import com.paper.ssm.model.structure.node.Data;
+import com.paper.ssm.model.structure.Node;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,7 +24,7 @@ public class Bind extends Model {
     private Integer cubeId;
     private Integer dataId;
     private Rule rule;
-    private Cube cube;
+    private Node node;
     private Data data;
     private Integer flag;
 

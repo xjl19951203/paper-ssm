@@ -1,12 +1,7 @@
-package com.paper.ssm.model.structure.node;
+package com.paper.ssm.model.task;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.paper.ssm.model.structure.line.Edge;
-import com.paper.ssm.model.structure.line.Pipe;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 /**
  * Data是不可再细分的数据结点，属于最小粒度的结点类型
@@ -26,14 +21,6 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class Data extends Node {
-
-    @JsonIgnore
-    /** 内右侧的边，取side标志作递归终止条件 */
-    private List<Edge> innerEdgeList;
-    @JsonIgnore
-    private List<Pipe> nextPipeList;
-    private List<Data> nextDataList;
-    // value经过input计算之后的结果，作为output的数据值
+public class Data{
 
 }

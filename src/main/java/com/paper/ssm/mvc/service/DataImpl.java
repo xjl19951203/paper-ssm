@@ -1,7 +1,7 @@
 package com.paper.ssm.mvc.service;
 
 import com.paper.ssm.mvc.dao.structure.DataDao;
-import com.paper.ssm.model.structure.node.Data;
+import com.paper.ssm.model.task.Data;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

@@ -1,7 +1,7 @@
 package com.paper.ssm.mvc.dao.structure;
 
 import com.paper.ssm.mvc.dao.SQL;
-import com.paper.ssm.model.structure.graph.Graph;
+import com.paper.ssm.model.structure.Graph;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

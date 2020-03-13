@@ -1,6 +1,6 @@
 package com.paper.ssm.mvc.service;
 
-import com.paper.ssm.model.structure.node.Data;
+import com.paper.ssm.model.task.Data;
 
 import javax.annotation.Resource;
 

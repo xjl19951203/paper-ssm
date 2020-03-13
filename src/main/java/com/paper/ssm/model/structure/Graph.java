@@ -1,10 +1,9 @@
-package com.paper.ssm.model.structure.graph;
+package com.paper.ssm.model.structure;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.paper.ssm.model.structure.Component;
-import com.paper.ssm.model.structure.line.Edge;
-import com.paper.ssm.model.structure.node.Data;
+import com.paper.ssm.model.task.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,7 +18,7 @@ import java.util.List;
 public class Graph extends Component {
 
     @JsonIgnore
-    private List<Edge> innerEdgeList;
-    private List<Data> innerDataList;
+    private List<Pipe> innerPipeList;
+    private List<Node> innerDataList;
 
 }

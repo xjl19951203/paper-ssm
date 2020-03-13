@@ -20,7 +20,7 @@ public class TaskImpl implements TaskService {
     @Resource
     TaskDao taskDao;
     @Resource
-    CubeService cubeService;
+    NodeService nodeService;
 
     @Override
     public Task insert(Task record) {
@@ -55,8 +55,8 @@ public class TaskImpl implements TaskService {
     @Override
     public Task selectByPrimaryKey(Integer id) {
         Task task = this.taskDao.selectByPrimaryKey(id);
-        if (task.getCubeId() != null) {
-            task.setCube(this.cubeService.selectByPrimaryKey(task.getCubeId()));
+        if (task.getNodeId() != null) {
+            task.setNode(this.nodeService.selectByPrimaryKey(task.getNodeId()));
         }
         return task;
     }
