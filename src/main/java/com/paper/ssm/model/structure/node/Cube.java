@@ -17,10 +17,10 @@ import java.util.List;
 public class Cube extends Node {
 
     /** 返回时排除掉这个字段 */
-    @JsonIgnore
+    /** @JsonIgnore */
     private List<Bridge> innerBridgeList;
     /** 返回时排除掉这个字段 */
-    @JsonIgnore
+    /** @JsonIgnore */
     private List<Bridge> nextBridgeList;
     /** 从属的内左侧集合 */
     private List<Cube> innerCubeList;

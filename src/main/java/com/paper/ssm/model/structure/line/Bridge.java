@@ -4,6 +4,8 @@ import com.paper.ssm.model.structure.node.Cube;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 /**
  * 连接两个 Cube
  * @author ZengYuan
@@ -20,5 +22,7 @@ public class Bridge extends Line {
     private Integer outputId;
     private Cube input;
     private Cube output;
+    /** 两个Cube相连，涉及到对接时的数据接口 */
+    private List<Pipe> pipeList;
 
 }
