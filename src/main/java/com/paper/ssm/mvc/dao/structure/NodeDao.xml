@@ -3,14 +3,17 @@
 <mapper namespace="com.paper.ssm.mvc.dao.structure.NodeDao">
 
     <sql id="Constant_List" >
-        1 as INPUT_SIDE
+        1 as INPUT_SIDE, 0 as OUTPUT_SIDE
     </sql>
 
     <resultMap id="BaseResultMap" type="com.paper.ssm.model.structure.Node">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="label" jdbcType="VARCHAR" property="label" />
         <collection column="{parentId=id,side=INPUT_SIDE}"
-                    property="edgeList" ofType="com.paper.ssm.model.structure.Edge"
+                    property="childEdgeList" ofType="com.paper.ssm.model.structure.Edge"
+                    javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.EdgeDao.selectListByQuery"/>
+        <collection column="{childId=id,side=OUTPUT_SIDE}"
+                    property="parentEdgeList" ofType="com.paper.ssm.model.structure.Edge"
                     javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.EdgeDao.selectListByQuery"/>
         <collection column="{inputId=id}"
                     property="pipeList" ofType="com.paper.ssm.model.structure.Pipe"

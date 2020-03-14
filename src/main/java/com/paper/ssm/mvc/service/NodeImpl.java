@@ -83,6 +83,11 @@ public class NodeImpl implements NodeService {
         }
         /** 默认设置结点为单元结点*/
         node.setStyle(Node.SINGLE_STYLE);
+        boolean minimizeNode = node.getChildList() == null || node.getChildList().size() == 0;
+        boolean outputNode = node.getParentEdgeList() != null && node.getParentEdgeList().size() > 0;
+        if (minimizeNode && outputNode) {
+            return node;
+        }
         /** 非根节点时才处理，否则过滤兄弟结点的处理
          * 兄弟结点链
          */
@@ -92,17 +97,17 @@ public class NodeImpl implements NodeService {
              * 其nextPipeList都应该标虚线
              */
             Integer line = Line.DOTTED_STYLE;
-            if (node.getEdgeList() == null || node.getEdgeList().size() == 0) {
+            if (node.getChildEdgeList() == null || node.getChildEdgeList().size() == 0) {
                 line = Line.SOLID_STYLE;
             }
             for (Pipe pipe : node.getPipeList()) {
                 pipe.setStyle(line);
-                Node c = fillNode(pipe.getOutputId(), false);
-                if (c != null) {
+                Node n = fillNode(pipe.getOutputId(), false);
+                if (n != null) {
                     if (node.getNextList() == null) {
                         node.setNextList(new ArrayList<>());
                     }
-                    node.getNextList().add(fillNode(pipe.getOutputId(), false));
+                    node.getNextList().add(n);
                 }
             }
         } else {
@@ -112,15 +117,11 @@ public class NodeImpl implements NodeService {
          * 孩子结点链
          */
         node.setStyle(Node.SINGLE_STYLE);
-        if (node.getEdgeList() != null && node.getEdgeList().size() > 0) {
+        if (node.getChildEdgeList() != null && node.getChildEdgeList().size() > 0) {
             node.setStyle(Node.COMPLEX_STYLE);
-            for (Edge edge : node.getEdgeList()) {
+            for (Edge edge : node.getChildEdgeList()) {
                 /** 左内侧边界结点的pipe：粗线 */
                 edge.setStyle(Line.EDGE_STYLE);
-                // 通过 Bridge的side内侧边标志位，判断是否是Node的右边界
-                if (edge.getSide().equals(Edge.OUTPUT_SIDE)) {
-                    return node;
-                }
                 Node c = fillNode(edge.getChildId(), false);
                 if (c != null) {
                     if (node.getChildList() == null) {
@@ -130,7 +131,7 @@ public class NodeImpl implements NodeService {
                 }
             }
         } else {
-            node.setEdgeList(null);
+            node.setChildEdgeList(null);
         }
         return node;
     }

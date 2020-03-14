@@ -26,7 +26,8 @@ public class Node extends Component {
     private Integer style;
     /** 返回时排除掉这个字段 */
     /** @JsonIgnore */
-    private List<Edge> edgeList;
+    private List<Edge> childEdgeList;
+    private List<Edge> parentEdgeList;
     /** 返回时排除掉这个字段 */
     /** @JsonIgnore */
     private List<Pipe> pipeList;
