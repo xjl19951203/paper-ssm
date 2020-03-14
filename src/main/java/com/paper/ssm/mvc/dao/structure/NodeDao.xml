@@ -3,26 +3,26 @@
 <mapper namespace="com.paper.ssm.mvc.dao.structure.NodeDao">
 
     <sql id="Constant_List" >
-        1 as IS_INNER, 0 as NOT_INNER, 1 as INNER_INPUT_SIDE
+        1 as INPUT_SIDE
     </sql>
 
     <resultMap id="BaseResultMap" type="com.paper.ssm.model.structure.Node">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="label" jdbcType="VARCHAR" property="label" />
-        <collection column="{inputId=id,inner=IS_INNER,side=INNER_INPUT_SIDE}"
-                    property="innerPipeList" ofType="com.paper.ssm.model.structure.Pipe"
-                    javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.PipeDao.selectListByQuery"/>
-        <collection column="{inputId=id,inner=NOT_INNER}"
-                    property="nextPipeList" ofType="com.paper.ssm.model.structure.Pipe"
+        <collection column="{parentId=id,side=INPUT_SIDE}"
+                    property="edgeList" ofType="com.paper.ssm.model.structure.Edge"
+                    javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.EdgeDao.selectListByQuery"/>
+        <collection column="{inputId=id}"
+                    property="pipeList" ofType="com.paper.ssm.model.structure.Pipe"
                     javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.PipeDao.selectListByQuery"/>
     </resultMap>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        SELECT *, <include refid="Constant_List" /> from `component_node` where id = #{pk};
+        SELECT *, <include refid="Constant_List" /> from `com_node` where id = #{pk};
     </select>
 
     <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.structure.Node">
-        select *, <include refid="Constant_List" /> from `component_node`;
+        select *, <include refid="Constant_List" /> from `com_node`;
     </select>
 
 </mapper>

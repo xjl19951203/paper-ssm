@@ -1,5 +1,7 @@
 package com.paper.ssm.mvc.service;
 
+import com.paper.ssm.model.structure.Edge;
+import com.paper.ssm.model.structure.Line;
 import com.paper.ssm.model.structure.Node;
 import com.paper.ssm.model.structure.Pipe;
 import com.paper.ssm.mvc.dao.structure.NodeDao;
@@ -54,21 +56,13 @@ public class NodeImpl implements NodeService {
         if (root == null) {
             return null;
         }
-        if (root.getInnerNodeList() != null) {
-            root.getInnerNodeList().clear();
+        /** 清缓存 */
+        if (root.getChildList() != null) {
+            root.getChildList().clear();
+            root.setChildList(null);
         }
-        root.setType(Node.SINGLE_TYPE);
-        if (root.getInnerPipeList() != null) {
-            root.setType(Node.COMPLEX_TYPE);
-            for (Pipe pipe : root.getInnerPipeList()) {
-                /** 左内侧边界结点的pipe：粗线 */
-                pipe.setLine(Pipe.BOLD_LINE);
-                if (root.getInnerNodeList() == null) {
-                    root.setInnerNodeList(new ArrayList<>());
-                }
-                root.getInnerNodeList().add(this.fillNode(pipe.getOutputId()));
-            }
-        }
+        /** 作为根节点，构造结点多叉树 */
+        root = fillNode(root.getId(), true);
         return root;
     }
 
@@ -82,55 +76,61 @@ public class NodeImpl implements NodeService {
      * @param id 根节点
      * @return Node
      */
-    private Node fillNode (Integer id) {
+    private Node fillNode (Integer id, boolean isRoot) {
         Node node = this.nodeDao.selectByPrimaryKey(id);
         if (node == null) {
             return null;
         }
         /** 默认设置结点为单元结点*/
-        node.setType(Node.SINGLE_TYPE);
-        // 兄弟结点链
-        if (node.getNextPipeList() != null && node.getNextPipeList().size() > 0) {
+        node.setStyle(Node.SINGLE_STYLE);
+        /** 非根节点时才处理，否则过滤兄弟结点的处理
+         * 兄弟结点链
+         */
+        if (!isRoot && node.getPipeList() != null && node.getPipeList().size() > 0) {
             /**
              * 一旦getInnerPipeList不为null，说明该节点是复合结点
              * 其nextPipeList都应该标虚线
              */
-            Integer line = Pipe.DOTTED_LINE;
-            if (node.getInnerPipeList() == null || node.getInnerPipeList().size() == 0) {
-                line = Pipe.SOLID_LINE;
+            Integer line = Line.DOTTED_STYLE;
+            if (node.getEdgeList() == null || node.getEdgeList().size() == 0) {
+                line = Line.SOLID_STYLE;
             }
-            for (Pipe pipe : node.getNextPipeList()) {
-                pipe.setLine(line);
-                Node c = fillNode(pipe.getOutputId());
+            for (Pipe pipe : node.getPipeList()) {
+                pipe.setStyle(line);
+                Node c = fillNode(pipe.getOutputId(), false);
                 if (c != null) {
-                    if (node.getNextNodeList() == null) {
-                        node.setNextNodeList(new ArrayList<>());
+                    if (node.getNextList() == null) {
+                        node.setNextList(new ArrayList<>());
                     }
-                    node.getNextNodeList().add(fillNode(pipe.getOutputId()));
+                    node.getNextList().add(fillNode(pipe.getOutputId(), false));
                 }
             }
+        } else {
+            node.setPipeList(null);
         }
         /**
          * 孩子结点链
          */
-        node.setType(Node.SINGLE_TYPE);
-        if (node.getInnerPipeList() != null && node.getInnerPipeList().size() > 0) {
-            node.setType(Node.COMPLEX_TYPE);
-            for (Pipe pipe : node.getInnerPipeList()) {
+        node.setStyle(Node.SINGLE_STYLE);
+        if (node.getEdgeList() != null && node.getEdgeList().size() > 0) {
+            node.setStyle(Node.COMPLEX_STYLE);
+            for (Edge edge : node.getEdgeList()) {
                 /** 左内侧边界结点的pipe：粗线 */
-                pipe.setLine(Pipe.BOLD_LINE);
+                edge.setStyle(Line.EDGE_STYLE);
                 // 通过 Bridge的side内侧边标志位，判断是否是Node的右边界
-                if (pipe.getSide().equals(Pipe.INNER_OUTPUT_SIDE)) {
+                if (edge.getSide().equals(Edge.OUTPUT_SIDE)) {
                     return node;
                 }
-                Node c = fillNode(pipe.getOutputId());
+                Node c = fillNode(edge.getChildId(), false);
                 if (c != null) {
-                    if (node.getInnerNodeList() == null) {
-                        node.setInnerNodeList(new ArrayList<>());
+                    if (node.getChildList() == null) {
+                        node.setChildList(new ArrayList<>());
                     }
-                    node.getInnerNodeList().add(c);
+                    node.getChildList().add(c);
                 }
             }
+        } else {
+            node.setEdgeList(null);
         }
         return node;
     }

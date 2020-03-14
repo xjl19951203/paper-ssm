@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paper.ssm.mvc.dao.structure.EdgeDao">
+
+    <resultMap id="BaseResultMap" type="com.paper.ssm.model.structure.Edge">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="label" jdbcType="VARCHAR" property="label" />
+    </resultMap>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT * from `com_line_edge` where id = #{pk};
+    </select>
+
+    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.structure.Edge">
+        select * from `com_line_edge`
+        <where>
+            <if test="parentId != null">
+                `parentId` = #{parentId}
+            </if >
+            <if test="childId != null">
+               and `childId` = #{childId}
+            </if >
+            <if test="side != null">
+                and `side` = #{side}
+            </if >
+        </where>
+        ;
+    </select>
+
+</mapper>

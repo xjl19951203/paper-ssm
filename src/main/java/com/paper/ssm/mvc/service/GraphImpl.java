@@ -63,7 +63,6 @@ public class GraphImpl implements GraphService {
                 root.setInnerDataList(new ArrayList<>());
             }
             for (Pipe pipe : root.getInnerPipeList()) {
-//                root.getInnerDataList().add(fillGraph(pipe.getDataId()));
             }
         }
         return root;
@@ -75,26 +74,6 @@ public class GraphImpl implements GraphService {
     }
 
     private Node fillGraph(Integer dataId) {
-        Node node = this.nodeService.selectByPrimaryKey(dataId);
-        if (node == null) {
-            return null;
-        }
-        // 该if判断是递归终止条件，其实只要data存在innerEdgeList就说明该Data是右侧结点，可以终止了
-        if (node.getInnerPipeList() != null) {
-            for (Pipe pipe : node.getInnerPipeList()) {
-                if (pipe.getSide().equals(Pipe.INNER_OUTPUT_SIDE)) {
-                    return node;
-                }
-            }
-        }
-        if (node.getNextPipeList() != null) {
-            if (node.getInnerNodeList() == null) {
-                node.setInnerNodeList(new ArrayList<>());
-            }
-            for (Pipe pipe : node.getNextPipeList()) {
-                node.getInnerNodeList().add(fillGraph(pipe.getOutputId()));
-            }
-        }
-        return node;
+        return null;
     }
 }

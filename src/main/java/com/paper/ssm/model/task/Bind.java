@@ -17,10 +17,15 @@ import lombok.Setter;
 @Setter
 public class Bind extends Model {
 
+    /** 最高优先级，表明该结点不需要继承上层的规则 */
+    public static final int LEVEL_0 = 0;
+
     private Integer taskId;
     private Integer chainId;
     private Integer nodeId;
     private Chain chain;
     private Node node;
+    /** 绑定关系的优先级 */
+    private Integer priority;
 
 }
