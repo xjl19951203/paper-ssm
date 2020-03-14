@@ -23,6 +23,7 @@ public class Node extends Component {
     /** 复合体结点 */
     public static final Integer COMPLEX_TYPE = 1;
 
+    /** 复合结点还是单元结点 */
     private Integer type;
     /** 返回时排除掉这个字段 */
     /** @JsonIgnore */

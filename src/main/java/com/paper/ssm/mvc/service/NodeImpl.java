@@ -87,9 +87,10 @@ public class NodeImpl implements NodeService {
         if (node == null) {
             return null;
         }
+        /** 默认设置结点为单元结点*/
         node.setType(Node.SINGLE_TYPE);
         // 兄弟结点链
-        if (node.getNextPipeList() != null) {
+        if (node.getNextPipeList() != null && node.getNextPipeList().size() > 0) {
             /**
              * 一旦getInnerPipeList不为null，说明该节点是复合结点
              * 其nextPipeList都应该标虚线
@@ -112,8 +113,8 @@ public class NodeImpl implements NodeService {
         /**
          * 孩子结点链
          */
-        node.setType(Node.COMPLEX_TYPE);
-        if (node.getInnerPipeList() != null) {
+        node.setType(Node.SINGLE_TYPE);
+        if (node.getInnerPipeList() != null && node.getInnerPipeList().size() > 0) {
             node.setType(Node.COMPLEX_TYPE);
             for (Pipe pipe : node.getInnerPipeList()) {
                 /** 左内侧边界结点的pipe：粗线 */
