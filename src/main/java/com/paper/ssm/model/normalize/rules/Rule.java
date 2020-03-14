@@ -13,4 +13,16 @@ import lombok.Setter;
 @Getter
 public class Rule extends Model {
 
+    public static final int DEFAULT_TYPE = 1;
+    public static final int RANGE_TYPE = 2;
+    public static final int TYPE_TYPE = 3;
+    public static final int UNIT_TYPE = 4;
+
+    /** 子类型标识符 */
+    protected Integer type;
+    private Integer defaultId;
+    private Integer rangeId;
+    private Integer typeId;
+    private Integer unitId;
+
 }

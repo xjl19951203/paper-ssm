@@ -5,22 +5,14 @@
     <resultMap id="BaseResultMap" type="com.paper.ssm.model.normalize.rules.Rule">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
-        <association property="range" column="rangeId"
-                     select="com.paper.ssm.mvc.dao.normalize.RangeDao.selectByPrimaryKey"/>
-        <association property="defaultValue" column="defaultId"
-                     select="com.paper.ssm.mvc.dao.normalize.DefaultDao.selectByPrimaryKey"/>
-        <association property="unit" column="unitId"
-                     select="com.paper.ssm.mvc.dao.normalize.UnitDao.selectByPrimaryKey"/>
-        <association property="type" column="typeId"
-                     select="com.paper.ssm.mvc.dao.normalize.TypeDao.selectByPrimaryKey"/>
     </resultMap>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        SELECT * from `abstractRule` where id = #{pk};
+        SELECT * from `norm_rule` where id = #{pk};
     </select>
 
     <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.normalize.rules.Rule">
-        select * from `abstractRule`;
+        select * from `norm_rule`;
     </select>
 
 </mapper>

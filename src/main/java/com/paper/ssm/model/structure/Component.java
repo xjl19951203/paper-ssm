@@ -28,4 +28,7 @@ import lombok.Setter;
 @Setter
 public class Component extends Model {
 
+    /** dagre-d3 使用label标识 */
+    protected String label;
+
 }

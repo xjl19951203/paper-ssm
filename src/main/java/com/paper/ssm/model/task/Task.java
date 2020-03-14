@@ -16,14 +16,13 @@ import java.util.List;
 public class Task extends Model {
 
     /**
-     * Task与Cube是M:1的关系：即指定采集任务使用的是哪种模型
+     * Task与Node是M:1的关系：即指定采集任务使用的是哪种模型
      */
     private Integer nodeId;
     private Node node;
     /**
      * Task与Bind是1：M的关系：即指定采集任务包含有多个Bind
      */
-    List<Bind> bindCubeList;
-    List<Bind> bindDataList;
+    List<Bind> bindList;
 
 }

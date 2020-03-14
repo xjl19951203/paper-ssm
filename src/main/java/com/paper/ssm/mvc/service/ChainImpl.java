@@ -1,7 +1,7 @@
 package com.paper.ssm.mvc.service;
 
 import com.paper.ssm.model.normalize.Chain;
-import com.paper.ssm.mvc.dao.ChainDao;
+import com.paper.ssm.mvc.dao.normalize.ChainDao;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -19,6 +19,8 @@ public class ChainImpl implements ChainService {
 
     @Resource
     ChainDao chainDao;
+    @Resource
+    RuleService ruleService;
 
     @Override
     public Chain insert(Chain record) {
@@ -52,7 +54,12 @@ public class ChainImpl implements ChainService {
 
     @Override
     public Chain selectByPrimaryKey(Integer id) {
-        return null;
+        Chain chain = this.chainDao.selectByPrimaryKey(id);
+        chain.setRule(this.ruleService.selectByPrimaryKey(chain.getRuleId()));
+        if (chain.getNextId() != null) {
+            chain.setNext(selectByPrimaryKey(chain.getNextId()));
+        }
+        return chain;
     }
 
     @Override

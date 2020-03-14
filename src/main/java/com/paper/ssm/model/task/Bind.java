@@ -17,13 +17,10 @@ import lombok.Setter;
 @Setter
 public class Bind extends Model {
 
-    public static final Integer BIND_DATA_FLAG = 0;
-    public static final Integer BIND_CUBE_FLAG = 1;
     private Integer taskId;
     private Integer chainId;
     private Integer nodeId;
     private Chain chain;
     private Node node;
-    private Integer flag;
 
 }

@@ -20,14 +20,8 @@
             <if test="ruleId != null">
                 and ruleId = #{ruleId}
             </if>
-            <if test="flag != null">
-                and flag = #{flag}
-            </if>
-            <if test="cubeId != null">
-                and cubeId = #{cubeId}
-            </if>
-            <if test="dataId != null">
-                and dataId = #{dataId}
+            <if test="nodeId != null">
+                and nodeId = #{nodeId}
             </if>
         </where>
         ;

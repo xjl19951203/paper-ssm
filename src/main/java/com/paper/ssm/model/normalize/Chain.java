@@ -15,6 +15,7 @@ public class Chain extends Model {
 
     private Integer ruleId;
     private Rule rule;
+    private Integer nextId;
     private Chain next;
 
 }

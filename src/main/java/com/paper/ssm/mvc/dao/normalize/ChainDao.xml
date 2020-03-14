@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.paper.ssm.mvc.dao.normalize.UnitDao">
+<mapper namespace="com.paper.ssm.mvc.dao.normalize.ChainDao">
 
-    <resultMap id="BaseResultMap" type="com.paper.ssm.model.normalize.rules.Unit">
+    <resultMap id="BaseResultMap" type="com.paper.ssm.model.normalize.Chain">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
     </resultMap>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        SELECT * from `norm_unit` where id = #{pk};
+        SELECT * from `norm_chain` where id = #{pk};
     </select>
 
-    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.normalize.rules.Unit">
-        select * from `norm_unit`;
+    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.normalize.Chain">
+        select * from `norm_chain`;
     </select>
 
 </mapper>
