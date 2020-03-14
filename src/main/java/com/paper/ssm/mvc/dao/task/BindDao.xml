@@ -17,8 +17,8 @@
             <if test="taskId != null">
                 taskId = #{taskId}
             </if>
-            <if test="ruleId != null">
-                and ruleId = #{ruleId}
+            <if test="chainId != null">
+                and chainId = #{chainId}
             </if>
             <if test="nodeId != null">
                 and nodeId = #{nodeId}

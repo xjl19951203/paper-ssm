@@ -8,11 +8,11 @@
     </resultMap>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        SELECT * from `norm_range` where id = #{pk};
+        SELECT * from `norm_rule_range` where id = #{pk};
     </select>
 
     <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.normalize.rules.Range">
-        select * from `norm_range`;
+        select * from `norm_rule_range`;
     </select>
 
 </mapper>
