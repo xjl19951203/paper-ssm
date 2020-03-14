@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.paper.ssm.mvc.dao.normalize.RuleDao">
 
-    <resultMap id="BaseResultMap" type="com.paper.ssm.model.normalize.Rule">
+    <resultMap id="BaseResultMap" type="com.paper.ssm.model.normalize.rules.Rule">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
         <association property="range" column="rangeId"
@@ -16,11 +16,11 @@
     </resultMap>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        SELECT * from `rule` where id = #{pk};
+        SELECT * from `abstractRule` where id = #{pk};
     </select>
 
-    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.normalize.Rule">
-        select * from `rule`;
+    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.normalize.rules.Rule">
+        select * from `abstractRule`;
     </select>
 
 </mapper>

@@ -1,6 +1,6 @@
 package com.paper.ssm.mvc.service;
 
-import com.paper.ssm.model.normalize.Rule;
+import com.paper.ssm.model.normalize.rules.Rule;
 import com.paper.ssm.mvc.dao.normalize.RuleDao;
 import org.springframework.stereotype.Service;
 
@@ -53,23 +53,7 @@ public class RuleImpl implements RuleService{
 
     @Override
     public Rule selectByPrimaryKey(Integer id) {
-        Rule rule = this.ruleDao.selectByPrimaryKey(id);
-        if (rule.getChainList() == null) {
-            rule.setChainList(new ArrayList<>());
-        }
-        if (rule.getRange() != null) {
-            rule.getChainList().add(rule.getRange());
-        }
-        if (rule.getDefaultValue() != null) {
-            rule.getChainList().add(rule.getDefaultValue());
-        }
-        if (rule.getType() != null) {
-            rule.getChainList().add(rule.getType());
-        }
-        if (rule.getUnit() != null) {
-            rule.getChainList().add(rule.getUnit());
-        }
-        return rule;
+        return null;
     }
 
     @Override

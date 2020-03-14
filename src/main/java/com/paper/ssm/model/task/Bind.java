@@ -1,7 +1,7 @@
 package com.paper.ssm.model.task;
 
 import com.paper.ssm.model.Model;
-import com.paper.ssm.model.normalize.Rule;
+import com.paper.ssm.model.normalize.Chain;
 import com.paper.ssm.model.structure.Node;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,12 +20,10 @@ public class Bind extends Model {
     public static final Integer BIND_DATA_FLAG = 0;
     public static final Integer BIND_CUBE_FLAG = 1;
     private Integer taskId;
-    private Integer ruleId;
-    private Integer cubeId;
-    private Integer dataId;
-    private Rule rule;
+    private Integer chainId;
+    private Integer nodeId;
+    private Chain chain;
     private Node node;
-    private Data data;
     private Integer flag;
 
 }

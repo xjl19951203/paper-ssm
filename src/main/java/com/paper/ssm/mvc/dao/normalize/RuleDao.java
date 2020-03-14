@@ -1,6 +1,6 @@
 package com.paper.ssm.mvc.dao.normalize;
 
-import com.paper.ssm.model.normalize.Rule;
+import com.paper.ssm.model.normalize.rules.Rule;
 import com.paper.ssm.mvc.dao.SQL;
 import org.apache.ibatis.annotations.Mapper;
 

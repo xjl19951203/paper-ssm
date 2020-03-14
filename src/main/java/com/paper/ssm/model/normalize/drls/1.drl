@@ -1,6 +1,6 @@
 package com.us.drools;
 import com.us.drools.bean.Message;
-rule "Hello World abel "
+abstractRule "Hello World abel "
 when
     $message:Message (status == "0")
 then

@@ -1,4 +1,4 @@
-package com.paper.ssm.model.normalize.chains;
+package com.paper.ssm.model.normalize.rules;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +9,7 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-public class Type extends Chain {
+public class Type extends Rule {
 
     /**
      * 字符串

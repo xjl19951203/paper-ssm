@@ -1,6 +1,6 @@
 package com.paper.ssm.mvc.controller;
 
-import com.paper.ssm.model.normalize.Rule;
+import com.paper.ssm.model.normalize.rules.Rule;
 import com.paper.ssm.mvc.service.RuleService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;

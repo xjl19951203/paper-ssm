@@ -1,4 +1,4 @@
-package com.paper.ssm.model.normalize.chains;
+package com.paper.ssm.model.normalize.rules;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +9,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class Unit extends Chain {
+public class Unit extends Rule {
 
     private Integer unitId;
 

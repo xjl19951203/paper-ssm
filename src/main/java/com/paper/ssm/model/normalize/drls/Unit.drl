@@ -1,4 +1,4 @@
-package com.paper.ssm.model.normalize.chains;
+package com.paper.ssm.model.normalize.rules;
 import com.paper.ssm.model.normalize.norm.Unit
 dialect  "mvel"
 
@@ -8,7 +8,7 @@ dialect  "mvel"
  2. 单位不能超出给定
 
 */
-rule "Unit"
+abstractRule "Unit"
     when
         $value : Unit(title<16 || age>50)
     then
