@@ -19,4 +19,11 @@ public interface NodeService extends Service<Node> {
      */
     Graph transToGraph(Integer id);
 
+    /**
+     * 获取结点的数据流图
+     * @param id 根节点
+     * @return 根节点对应的数据流图
+     */
+    Graph toGraph(Integer id);
+
 }

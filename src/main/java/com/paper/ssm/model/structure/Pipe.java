@@ -19,14 +19,14 @@ public class Pipe extends Component {
     /** 左内侧边界结点的pipe：粗线 */
     public static final Integer EDGE_STYLE = 2;
     /** 指向同层级结点的管道 */
-    public static final int NEXT_TYPE = 1;
+    public static final int NEXT_DIRECTION = 1;
     /** 指向子层级结点的管道 */
-    public static final int CHILD_TYPE = 2;
+    public static final int CHILD_DIRECTION = 2;
     /** 指向父层级结点的管道 */
-    public static final int PARENT_TYPE = 3;
+    public static final int PARENT_DIRECTION = 3;
 
     private Integer style;
-    private Integer type;
+    private Integer direction;
     private Integer inputId;
     private Integer outputId;
     private Node input;
@@ -38,7 +38,7 @@ public class Pipe extends Component {
     public String toString() {
         return "Pipe{" +
                 "style=" + style +
-                ", type=" + type +
+                ", direction=" + direction +
                 ", inputId=" + inputId +
                 ", outputId=" + outputId +
                 ", input=" + input +

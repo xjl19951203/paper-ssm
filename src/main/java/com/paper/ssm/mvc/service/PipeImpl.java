@@ -44,7 +44,7 @@ public class PipeImpl implements PipeService{
 
     @Override
     public List<Pipe> selectListByQuery(Pipe query) {
-        return null;
+        return this.pipeDao.selectListByQuery(query);
     }
 
     @Override

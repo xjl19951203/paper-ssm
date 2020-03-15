@@ -5,6 +5,7 @@
     <resultMap id="BaseResultMap" type="com.paper.ssm.model.structure.Pipe">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="label" jdbcType="VARCHAR" property="label" />
+        <result column="nodeId" jdbcType="INTEGER" property="nodeId" />
         <result column="inputId" jdbcType="INTEGER" property="inputId" />
         <result column="outputId" jdbcType="INTEGER" property="outputId" />
         <association property="input" column="inputId"
@@ -15,9 +16,9 @@
 
     <insert id="insert" parameterType="com.paper.ssm.model.structure.Pipe" useGeneratedKeys="true" keyProperty="id">
         insert into `com_pipe`
-        (inputId,outputId,`type`)
+        (nodeId,inputId,outputId,`direction`)
         values
-        (#{inputId},#{outputId},#{type})
+        (#{nodeId},#{inputId},#{outputId},#{direction})
     </insert>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -30,11 +31,14 @@
             <if test="inputId != null">
                 `inputId` = #{inputId}
             </if >
-            <if test="outputId != null">
-               and `outputId` = #{outputId}
+            <if test="nodeId != null">
+                and `nodeId` = #{nodeId}
             </if >
-            <if test="type != null">
-                and `type` = #{type}
+            <if test="outputId != null">
+                and `outputId` = #{outputId}
+            </if >
+            <if test="direction != null">
+                and `direction` = #{direction}
             </if >
         </where>
         ;
@@ -42,9 +46,10 @@
 
     <update id="update" parameterType="com.paper.ssm.model.structure.Pipe">
         update `com_pipe` set
+        nodeId = #{nodeId,jdbcType=INTEGER},
         inputId = #{inputId,jdbcType=INTEGER},
         outputId = #{outputId,jdbcType=INTEGER},
-        `type` = #{type,jdbcType=INTEGER}
+        `direction` = #{direction,jdbcType=INTEGER}
         where id = #{id,jdbcType=INTEGER}
     </update>
 

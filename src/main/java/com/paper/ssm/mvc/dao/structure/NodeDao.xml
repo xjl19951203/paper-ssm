@@ -3,7 +3,7 @@
 <mapper namespace="com.paper.ssm.mvc.dao.structure.NodeDao">
 
     <sql id="Constant_List" >
-        1 as NEXT_TYPE, 2 as CHILD_TYPE, 3 as PARENT_TYPE
+        1 as NEXT_DIRECTION, 2 as CHILD_DIRECTION, 3 as PARENT_DIRECTION
     </sql>
 
     <resultMap id="SimpleResultMap" type="com.paper.ssm.model.structure.Node">
@@ -14,13 +14,13 @@
     <resultMap id="BaseResultMap" type="com.paper.ssm.model.structure.Node">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="label" jdbcType="VARCHAR" property="label" />
-        <collection column="{inputId=id,type=CHILD_TYPE}"
+        <collection column="{inputId=id,direction=CHILD_DIRECTION}"
                     property="childPipeList" ofType="com.paper.ssm.model.structure.Pipe"
                     javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.PipeDao.selectListByQuery"/>
-        <collection column="{inputId=id,type=PARENT_TYPE}"
+        <collection column="{inputId=id,direction=PARENT_DIRECTION}"
                     property="parentPipeList" ofType="com.paper.ssm.model.structure.Pipe"
                     javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.PipeDao.selectListByQuery"/>
-        <collection column="{inputId=id,type=NEXT_TYPE}"
+        <collection column="{inputId=id,direction=NEXT_DIRECTION}"
                     property="nextPipeList" ofType="com.paper.ssm.model.structure.Pipe"
                     javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.PipeDao.selectListByQuery"/>
     </resultMap>

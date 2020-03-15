@@ -16,6 +16,8 @@ public class NodeImpl implements NodeService {
 
     @Resource
     NodeDao nodeDao;
+    @Resource
+    PipeService pipeService;
 
     @Override
     public Node insert(Node record) {
@@ -69,6 +71,39 @@ public class NodeImpl implements NodeService {
     public Node selectSimpleByPrimaryKey(Integer id) {
         return null;
     }
+
+    @Override
+    public Graph toGraph(Integer id) {
+        Node root = this.nodeDao.selectByPrimaryKey(id);
+        Graph graph = new Graph();
+        graph.setRoot(root);
+        HashMap<Integer, Node> nodeHashMap = new HashMap<>();
+        Pipe queryPipe = new Pipe();
+        queryPipe.setNodeId(id);
+        List<Node> nodeList = new ArrayList<>();
+        List<Pipe> pipeList = this.pipeService.selectListByQuery(queryPipe);
+        if (pipeList == null || pipeList.size() == 0) {
+            nodeList.add(root);
+        }
+
+        for (Pipe pipe : pipeList) {
+            if (!nodeHashMap.containsKey(pipe.getInputId())) {
+                nodeHashMap.put(pipe.getInputId(), pipe.getInput());
+            }
+            if (!nodeHashMap.containsKey(pipe.getOutputId())) {
+                nodeHashMap.put(pipe.getOutputId(), pipe.getOutput());
+            }
+        }
+
+        for (Integer key : nodeHashMap.keySet()) {
+            nodeList.add(nodeHashMap.get(key));
+        }
+
+        graph.setNodeList(nodeList);
+        graph.setPipeList(pipeList);
+        return graph;
+    }
+
 
     /**
      * 孩子兄弟链法，递归构造Multi-Level DAG多叉树
@@ -137,6 +172,8 @@ public class NodeImpl implements NodeService {
         return node;
     }
 
+
+
     @Override
     public synchronized Graph transToGraph(Integer id) {
         Node root = selectByPrimaryKey(id);
@@ -162,6 +199,7 @@ public class NodeImpl implements NodeService {
         }
         return graph;
     }
+
 
     /**
      * 遍历多叉树
@@ -206,6 +244,5 @@ public class NodeImpl implements NodeService {
             }
         }
     }
-
 
 }
