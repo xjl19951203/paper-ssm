@@ -31,6 +31,8 @@ public class Pipe extends Component {
     private Integer outputId;
     private Node input;
     private Node output;
+    /** 所属多叉树的根结点ID */
+    private Integer nodeId;
 
     @Override
     public String toString() {
