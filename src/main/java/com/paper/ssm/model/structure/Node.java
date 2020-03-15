@@ -26,11 +26,11 @@ public class Node extends Component {
     private Integer style;
     /** 返回时排除掉这个字段 */
     /** @JsonIgnore */
-    private List<Edge> childEdgeList;
-    private List<Edge> parentEdgeList;
+    private List<Pipe> childPipeList;
+    private List<Pipe> parentPipeList;
     /** 返回时排除掉这个字段 */
     /** @JsonIgnore */
-    private List<Pipe> pipeList;
+    private List<Pipe> nextPipeList;
     /** 从属的内左侧集合 */
     private List<Node> childList;
     /** 同级的外右侧集合 */

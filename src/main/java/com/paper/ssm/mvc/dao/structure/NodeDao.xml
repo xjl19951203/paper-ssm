@@ -3,7 +3,7 @@
 <mapper namespace="com.paper.ssm.mvc.dao.structure.NodeDao">
 
     <sql id="Constant_List" >
-        1 as INPUT_SIDE, 0 as OUTPUT_SIDE
+        1 as NEXT_TYPE, 2 as CHILD_TYPE, 3 as PARENT_TYPE
     </sql>
 
     <resultMap id="SimpleResultMap" type="com.paper.ssm.model.structure.Node">
@@ -14,14 +14,14 @@
     <resultMap id="BaseResultMap" type="com.paper.ssm.model.structure.Node">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="label" jdbcType="VARCHAR" property="label" />
-        <collection column="{parentId=id,side=INPUT_SIDE}"
-                    property="childEdgeList" ofType="com.paper.ssm.model.structure.Edge"
-                    javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.EdgeDao.selectListByQuery"/>
-        <collection column="{childId=id,side=OUTPUT_SIDE}"
-                    property="parentEdgeList" ofType="com.paper.ssm.model.structure.Edge"
-                    javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.EdgeDao.selectListByQuery"/>
-        <collection column="{inputId=id}"
-                    property="pipeList" ofType="com.paper.ssm.model.structure.Pipe"
+        <collection column="{inputId=id,type=CHILD_TYPE}"
+                    property="childPipeList" ofType="com.paper.ssm.model.structure.Pipe"
+                    javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.PipeDao.selectListByQuery"/>
+        <collection column="{inputId=id,type=PARENT_TYPE}"
+                    property="parentPipeList" ofType="com.paper.ssm.model.structure.Pipe"
+                    javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.PipeDao.selectListByQuery"/>
+        <collection column="{inputId=id,type=NEXT_TYPE}"
+                    property="nextPipeList" ofType="com.paper.ssm.model.structure.Pipe"
                     javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.PipeDao.selectListByQuery"/>
     </resultMap>
 

@@ -85,26 +85,26 @@ public class NodeImpl implements NodeService {
         /** 判断当前结点是否为不可分解的叶子层结点 */
         boolean isLeafNode = (node.getChildList() == null) || (node.getChildList().size() == 0);
         /** 判断当前结点是否为右边界结点 */
-        boolean isOutputNode = node.getParentEdgeList() != null && node.getParentEdgeList().size() > 0;
+        boolean isOutputNode = node.getParentPipeList() != null && node.getParentPipeList().size() > 0;
         /** 同时满足两个条件的右边界叶子结点，不再处理其pipeList和nextList */
         if (isLeafNode && isOutputNode) {
-            node.setPipeList(null);
+            node.setNextList(null);
             return node;
         }
         /** 非根节点时才处理，否则过滤同层级结点的处理
          * 横向同层结点递归
          */
-        if (!isRoot && node.getPipeList() != null && node.getPipeList().size() > 0) {
+        if (!isRoot && node.getNextPipeList() != null && node.getNextPipeList().size() > 0) {
             /**
              * 一旦getInnerPipeList不为null，说明该节点是复合结点
              * 其nextPipeList都应该标虚线
              */
-            Integer style = Line.COMPLEX_STYLE;
-            if (node.getChildEdgeList() == null || node.getChildEdgeList().size() == 0) {
-                style = Line.SINGLE_STYLE;
+            Integer style = Pipe.COMPLEX_STYLE;
+            if (node.getChildPipeList() == null || node.getChildPipeList().size() == 0) {
+                style = Pipe.SINGLE_STYLE;
             }
             node.setNextList(new ArrayList<>());
-            for (Pipe pipe : node.getPipeList()) {
+            for (Pipe pipe : node.getNextPipeList()) {
                 pipe.setStyle(style);
                 Node n = transToTree(pipe.getOutputId(), false);
                 if (n != null) {
@@ -113,26 +113,26 @@ public class NodeImpl implements NodeService {
             }
         } else {
             node.setNextList(null);
-            node.setPipeList(null);
+            node.setNextPipeList(null);
         }
         /**
          * 纵向层级间结点递归
          */
         node.setStyle(Node.SINGLE_STYLE);
-        if (node.getChildEdgeList() != null && node.getChildEdgeList().size() > 0) {
+        if (node.getChildPipeList() != null && node.getChildPipeList().size() > 0) {
             node.setStyle(Node.COMPLEX_STYLE);
             node.setChildList(new ArrayList<>());
-            for (Edge edge : node.getChildEdgeList()) {
+            for (Pipe pipe : node.getChildPipeList()) {
                 /** 左内侧边界结点的pipe：粗线 */
-                edge.setStyle(Line.EDGE_STYLE);
-                Node c = transToTree(edge.getChildId(), false);
+                pipe.setStyle(Pipe.EDGE_STYLE);
+                Node c = transToTree(pipe.getOutputId(), false);
                 if (c != null) {
                     node.getChildList().add(c);
                 }
             }
         } else {
             node.setChildList(null);
-            node.setChildEdgeList(null);
+            node.setChildPipeList(null);
         }
         return node;
     }
@@ -152,8 +152,8 @@ public class NodeImpl implements NodeService {
         }
 
         nodeSet.add(node.getId());
-        if (node.getPipeList() != null && node.getPipeList().size() > 0) {
-            for (Pipe pipe : node.getPipeList()) {
+        if (node.getNextPipeList() != null && node.getNextPipeList().size() > 0) {
+            for (Pipe pipe : node.getNextPipeList()) {
                 pipeMap.put(pipe.getId(), pipe);
             }
         }

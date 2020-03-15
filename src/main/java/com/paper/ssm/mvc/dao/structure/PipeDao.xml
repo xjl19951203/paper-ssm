@@ -8,17 +8,20 @@
     </resultMap>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        SELECT * from `com_line_pipe` where id = #{pk};
+        SELECT * from `com_pipe` where id = #{pk};
     </select>
 
     <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.structure.Pipe">
-        select * from `com_line_pipe`
+        select * from `com_pipe`
         <where>
             <if test="inputId != null">
                 `inputId` = #{inputId}
             </if >
             <if test="outputId != null">
                and `outputId` = #{outputId}
+            </if >
+            <if test="type != null">
+                and `type` = #{type}
             </if >
         </where>
         ;
