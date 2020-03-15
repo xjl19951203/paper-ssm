@@ -6,6 +6,11 @@
         1 as INPUT_SIDE, 0 as OUTPUT_SIDE
     </sql>
 
+    <resultMap id="SimpleResultMap" type="com.paper.ssm.model.structure.Node">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="label" jdbcType="VARCHAR" property="label" />
+    </resultMap>
+
     <resultMap id="BaseResultMap" type="com.paper.ssm.model.structure.Node">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="label" jdbcType="VARCHAR" property="label" />
@@ -24,8 +29,8 @@
         SELECT *, <include refid="Constant_List" /> from `com_node` where id = #{pk};
     </select>
 
-    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.structure.Node">
-        select *, <include refid="Constant_List" /> from `com_node`;
+    <select id="selectListByQuery" resultMap="SimpleResultMap" parameterType="com.paper.ssm.model.structure.Node">
+        select * from `com_node`;
     </select>
 
 </mapper>

@@ -1,5 +1,6 @@
 package com.paper.ssm.mvc.controller;
 
+import com.paper.ssm.model.structure.Graph;
 import com.paper.ssm.model.structure.Node;
 import com.paper.ssm.mvc.service.NodeService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -45,5 +46,10 @@ public class NodeController extends AbstractController<Node> {
     @Override
     public Node selectByPrimaryKey(@PathVariable Integer id) {
         return this.nodeService.selectByPrimaryKey(id);
+    }
+
+    @RequestMapping(value = "/{id}/dag", method = RequestMethod.GET)
+    public Graph dag(@PathVariable Integer id) {
+        return this.nodeService.transToGraph(id);
     }
 }

@@ -7,6 +7,8 @@ import com.paper.ssm.model.task.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -18,7 +20,8 @@ import java.util.List;
 public class Graph extends Component {
 
     @JsonIgnore
-    private List<Pipe> innerPipeList;
-    private List<Node> innerDataList;
+    private HashSet<Integer> nodeSet;
+    private List<Node> nodeList;
+    private List<Pipe> pipeList;
 
 }

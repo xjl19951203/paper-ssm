@@ -15,9 +15,9 @@ import lombok.Setter;
 public class Line extends Component{
 
     /** 复合结点的pipe：虚线 */
-    public static final Integer DOTTED_STYLE = 0;
+    public static final Integer COMPLEX_STYLE = 0;
     /** 不可再分结点的pipe：实线 */
-    public static final Integer SOLID_STYLE = 1;
+    public static final Integer SINGLE_STYLE = 1;
     /** 左内侧边界结点的pipe：粗线 */
     public static final Integer EDGE_STYLE = 2;
 

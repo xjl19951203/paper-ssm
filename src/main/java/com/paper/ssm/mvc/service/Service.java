@@ -2,6 +2,9 @@ package com.paper.ssm.mvc.service;
 
 import java.util.List;
 
+/**
+ * @author ZengYuan
+ */
 public interface Service<T> {
 
     T insert(T record);
