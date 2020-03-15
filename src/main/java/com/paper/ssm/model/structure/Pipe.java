@@ -29,5 +29,18 @@ public class Pipe extends Component {
     private Integer type;
     private Integer inputId;
     private Integer outputId;
+    private Node input;
+    private Node output;
 
+    @Override
+    public String toString() {
+        return "Pipe{" +
+                "style=" + style +
+                ", type=" + type +
+                ", inputId=" + inputId +
+                ", outputId=" + outputId +
+                ", input=" + input +
+                ", output=" + output +
+                '}';
+    }
 }

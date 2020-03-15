@@ -5,10 +5,8 @@ import com.paper.ssm.mvc.dao.structure.NodeDao;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author ZengYuan
@@ -21,7 +19,8 @@ public class NodeImpl implements NodeService {
 
     @Override
     public Node insert(Node record) {
-        return null;
+        this.nodeDao.insert(record);
+        return record;
     }
 
     @Override
@@ -36,7 +35,8 @@ public class NodeImpl implements NodeService {
 
     @Override
     public Node update(Node record) {
-        return null;
+        this.nodeDao.update(record);
+        return record;
     }
 
     @Override
@@ -138,26 +138,73 @@ public class NodeImpl implements NodeService {
     }
 
     @Override
-    public Graph transToGraph(Integer id) {
+    public synchronized Graph transToGraph(Integer id) {
         Node root = selectByPrimaryKey(id);
+        ConcurrentHashMap<Integer, Node> nodeMap = new ConcurrentHashMap<>(10);
+        ConcurrentHashMap<Integer, Pipe> pipeMap = new ConcurrentHashMap<>(10);
+        readTree(root, nodeMap, pipeMap);
         Graph graph = new Graph();
-        graph.setNodeSet(new HashSet<>());
-        return null;
-    }
-
-    private Node readTree(Node node, HashSet<Integer> nodeSet, HashMap<Integer, Pipe> pipeMap) {
-
-        if (node == null) {
-            return null;
-        }
-
-        nodeSet.add(node.getId());
-        if (node.getNextPipeList() != null && node.getNextPipeList().size() > 0) {
-            for (Pipe pipe : node.getNextPipeList()) {
-                pipeMap.put(pipe.getId(), pipe);
+        graph.setRoot(root);
+        graph.setNodeList(new ArrayList<>());
+        graph.setPipeList(new ArrayList<>());
+        for (int key : pipeMap.keySet()){
+            if (pipeMap.get(key).getOutputId() == null) {
+                continue;
+            }
+            if (nodeMap.containsKey(pipeMap.get(key).getOutputId())){
+                graph.getPipeList().add(pipeMap.get(key));
+            } else {
+                pipeMap.remove(key);
             }
         }
-        return null;
+        for (int key : nodeMap.keySet()){
+            graph.getNodeList().add(nodeMap.get(key));
+        }
+        return graph;
+    }
+
+    /**
+     * 遍历多叉树
+     * @param node 根节点
+     * @param nodeMap 结点集合
+     * @param pipeMap 管道集合
+     */
+    private synchronized void readTree(Node node, ConcurrentHashMap<Integer, Node> nodeMap,
+                                       ConcurrentHashMap<Integer, Pipe> pipeMap) {
+
+        /** 递归终止条件 */
+        if (node == null) {
+            return;
+        }
+        /** 添加当前结点 */
+        nodeMap.put(node.getId(), node);
+        /** 添加当前结点的三类pipe */
+        if (node.getNextPipeList() != null && node.getNextPipeList().size() > 0) {
+            for (Pipe nextPipe : node.getNextPipeList()) {
+                pipeMap.put(nextPipe.getId(), nextPipe);
+            }
+        }
+        if (node.getParentPipeList() != null && node.getParentPipeList().size() > 0) {
+            for (Pipe parentPipe : node.getParentPipeList()) {
+                pipeMap.put(parentPipe.getId(), parentPipe);
+            }
+        }
+        if (node.getChildPipeList() != null && node.getChildPipeList().size() > 0) {
+            for (Pipe childPipe : node.getChildPipeList()) {
+                pipeMap.put(childPipe.getId(), childPipe);
+            }
+        }
+        /** 递归当前结点关联的两类结点 */
+        if (node.getNextList() != null && node.getNextList().size() > 0) {
+            for (Node nextNode : node.getNextList()) {
+                readTree(nextNode, nodeMap, pipeMap);
+            }
+        }
+        if (node.getChildList() != null && node.getChildList().size() > 0) {
+            for (Node childNode : node.getChildList()) {
+                readTree(childNode, nodeMap, pipeMap);
+            }
+        }
     }
 
 

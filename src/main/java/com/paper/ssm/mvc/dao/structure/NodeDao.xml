@@ -25,6 +25,10 @@
                     javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.PipeDao.selectListByQuery"/>
     </resultMap>
 
+    <select id="selectSimpleByPrimaryKey" resultMap="SimpleResultMap" parameterType="java.lang.Integer">
+        SELECT * from `com_node` where id = #{pk};
+    </select>
+
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         SELECT *, <include refid="Constant_List" /> from `com_node` where id = #{pk};
     </select>
@@ -32,5 +36,24 @@
     <select id="selectListByQuery" resultMap="SimpleResultMap" parameterType="com.paper.ssm.model.structure.Node">
         select * from `com_node`;
     </select>
+
+    <insert id="insert" parameterType="com.paper.ssm.model.structure.Node" useGeneratedKeys="true" keyProperty="id">
+        insert into `com_node`
+        (label)
+        values
+        (#{label})
+    </insert>
+
+    <update id="update" parameterType="com.paper.ssm.model.structure.Node">
+        update `com_node` set
+        label = #{label,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="delete" parameterType="com.paper.ssm.model.structure.Node">
+        SET foreign_key_checks = 0;
+        delete from  `com_node` where id = #{id};
+        SET foreign_key_checks = 1;
+    </delete>
 
 </mapper>

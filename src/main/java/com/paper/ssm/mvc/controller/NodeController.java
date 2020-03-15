@@ -27,9 +27,10 @@ public class NodeController extends AbstractController<Node> {
         return this.nodeService.selectListByQuery(query);
     }
 
+    @RequestMapping(value = "", method = RequestMethod.POST)
     @Override
-    public Node insert(Node record) {
-        return null;
+    public Node insert(@RequestBody Node record) {
+        return this.nodeService.insert(record);
     }
 
     @Override
@@ -37,9 +38,10 @@ public class NodeController extends AbstractController<Node> {
         return 0;
     }
 
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     @Override
-    public Node update(Node record) {
-        return null;
+    public Node update(@RequestBody Node record) {
+        return this.nodeService.update(record);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -48,8 +50,8 @@ public class NodeController extends AbstractController<Node> {
         return this.nodeService.selectByPrimaryKey(id);
     }
 
-    @RequestMapping(value = "/{id}/dag", method = RequestMethod.GET)
-    public Graph dag(@PathVariable Integer id) {
+    @RequestMapping(value = "/{id}/graph", method = RequestMethod.GET)
+    public Graph getGraph(@PathVariable Integer id) {
         return this.nodeService.transToGraph(id);
     }
 }

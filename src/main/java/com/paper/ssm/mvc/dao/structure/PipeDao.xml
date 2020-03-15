@@ -5,7 +5,20 @@
     <resultMap id="BaseResultMap" type="com.paper.ssm.model.structure.Pipe">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="label" jdbcType="VARCHAR" property="label" />
+        <result column="inputId" jdbcType="INTEGER" property="inputId" />
+        <result column="outputId" jdbcType="INTEGER" property="outputId" />
+        <association property="input" column="inputId"
+                     select="com.paper.ssm.mvc.dao.structure.NodeDao.selectSimpleByPrimaryKey" />
+        <association property="output" column="outputId"
+                     select="com.paper.ssm.mvc.dao.structure.NodeDao.selectSimpleByPrimaryKey" />
     </resultMap>
+
+    <insert id="insert" parameterType="com.paper.ssm.model.structure.Pipe" useGeneratedKeys="true" keyProperty="id">
+        insert into `com_pipe`
+        (inputId,outputId,`type`)
+        values
+        (#{inputId},#{outputId},#{type})
+    </insert>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         SELECT * from `com_pipe` where id = #{pk};
@@ -26,5 +39,20 @@
         </where>
         ;
     </select>
+
+    <update id="update" parameterType="com.paper.ssm.model.structure.Pipe">
+        update `com_pipe` set
+        inputId = #{inputId,jdbcType=INTEGER},
+        outputId = #{outputId,jdbcType=INTEGER},
+        `type` = #{type,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="delete" parameterType="com.paper.ssm.model.structure.Pipe">
+        SET foreign_key_checks = 0;
+        delete from  `com_pipe` where id = #{id};
+        SET foreign_key_checks = 1;
+    </delete>
+
 
 </mapper>
