@@ -18,11 +18,14 @@ public class Pipe extends Component {
     public static final Integer SINGLE_STYLE = 1;
     /** 左内侧边界结点的pipe：粗线 */
     public static final Integer EDGE_STYLE = 2;
+    /** 指向同层级结点的管道 */
     public static final int NEXT_TYPE = 1;
-    public static final int CHILD_TYPE= 2;
-    public static final int PARENT_TYPE= 3;
+    /** 指向子层级结点的管道 */
+    public static final int CHILD_TYPE = 2;
+    /** 指向父层级结点的管道 */
+    public static final int PARENT_TYPE = 3;
 
-    protected Integer style;
+    private Integer style;
     private Integer type;
     private Integer inputId;
     private Integer outputId;
