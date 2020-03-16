@@ -46,7 +46,7 @@ public class TaskImpl implements TaskService {
 
     @Override
     public List<Task> selectListByQuery(Task query) {
-        return null;
+        return this.taskDao.selectListByQuery(query);
     }
 
     @Override

@@ -43,7 +43,17 @@ public class NodeImpl implements NodeService {
 
     @Override
     public List<Node> selectListByQuery(Node query) {
-        return this.nodeDao.selectListByQuery(query);
+        List<Node> nodeList = this.nodeDao.selectListByQuery(query);
+        for (Node node : nodeList) {
+            if (node.getChildPipeList() != null && node.getChildPipeList().size() > 0) {
+                node.setStyle(Node.COMPLEX_STYLE);
+            } else {
+                node.setStyle(Node.SINGLE_STYLE);
+            }
+            /** 不需要展示给前端 */
+            node.setChildPipeList(null);
+        }
+        return nodeList;
     }
 
     @Override
@@ -77,7 +87,7 @@ public class NodeImpl implements NodeService {
         Node root = this.nodeDao.selectByPrimaryKey(id);
         Graph graph = new Graph();
         graph.setRoot(root);
-        HashMap<Integer, Node> nodeHashMap = new HashMap<>();
+        HashMap<Integer, Node> nodeHashMap = new HashMap<>(10);
         Pipe queryPipe = new Pipe();
         queryPipe.setNodeId(id);
         List<Node> nodeList = new ArrayList<>();
@@ -85,16 +95,16 @@ public class NodeImpl implements NodeService {
         if (pipeList == null || pipeList.size() == 0) {
             nodeList.add(root);
         }
-
-        for (Pipe pipe : pipeList) {
-            if (!nodeHashMap.containsKey(pipe.getInputId())) {
-                nodeHashMap.put(pipe.getInputId(), pipe.getInput());
-            }
-            if (!nodeHashMap.containsKey(pipe.getOutputId())) {
-                nodeHashMap.put(pipe.getOutputId(), pipe.getOutput());
+        if (pipeList != null) {
+            for (Pipe pipe : pipeList) {
+                if (!nodeHashMap.containsKey(pipe.getInputId())) {
+                    nodeHashMap.put(pipe.getInputId(), pipe.getInput());
+                }
+                if (!nodeHashMap.containsKey(pipe.getOutputId())) {
+                    nodeHashMap.put(pipe.getOutputId(), pipe.getOutput());
+                }
             }
         }
-
         for (Integer key : nodeHashMap.keySet()) {
             nodeList.add(nodeHashMap.get(key));
         }

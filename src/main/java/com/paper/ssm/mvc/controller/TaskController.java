@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @className: TaskController
@@ -22,6 +23,12 @@ public class TaskController extends AbstractController<Task> {
 
     @Resource
     TaskService taskService;
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    @Override
+    public List<Task> selectListByQuery(Task query) {
+        return this.taskService.selectListByQuery(query);
+    }
 
     @Override
     public Task insert(Task record) {

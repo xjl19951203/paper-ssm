@@ -8,6 +8,7 @@ import java.util.List;
 public interface SQL<T> {
 
     int insert(T recode);
+    int insertList(List<T> recodes);
     int delete(T recode);
     int update(T recode);
     T selectSimpleByPrimaryKey(Integer pk);

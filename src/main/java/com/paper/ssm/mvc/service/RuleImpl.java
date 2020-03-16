@@ -1,12 +1,10 @@
 package com.paper.ssm.mvc.service;
 
-import com.paper.ssm.model.normalize.rules.Default;
-import com.paper.ssm.model.normalize.rules.Rule;
+import com.paper.ssm.model.normalize.Rule;
 import com.paper.ssm.mvc.dao.normalize.*;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,7 +20,7 @@ public class RuleImpl implements RuleService{
     @Resource
     RuleDao ruleDao;
     @Resource
-    DefaultDao defaultDao;
+    InitialDao initialDao;
     @Resource
     RangeDao rangeDao;
     @Resource
@@ -52,7 +50,7 @@ public class RuleImpl implements RuleService{
 
     @Override
     public List<Rule> selectListByQuery(Rule query) {
-        return null;
+        return this.ruleDao.selectListByQuery(query);
     }
 
     @Override
@@ -64,22 +62,30 @@ public class RuleImpl implements RuleService{
     public Rule selectByPrimaryKey(Integer id) {
         Rule res;
         Rule rule = this.ruleDao.selectByPrimaryKey(id);
-        switch (rule.getType()) {
-            case Rule.DEFAULT_TYPE:
-                res = this.defaultDao.selectByPrimaryKey(rule.getDefaultId());
-                res.setType(Rule.DEFAULT_TYPE);
+        switch (rule.getStyle()) {
+            case Rule.INITIAL_STYLE:
+                res = this.initialDao.selectByPrimaryKey(rule.getInitialId());
+                if (res != null) {
+                    res.setStyle(Rule.INITIAL_STYLE);
+                }
                 return res;
-            case Rule.RANGE_TYPE:
+            case Rule.RANGE_STYLE:
                 res = this.rangeDao.selectByPrimaryKey(rule.getRangeId());
-                res.setType(Rule.RANGE_TYPE);
+                if (res != null) {
+                    res.setStyle(Rule.RANGE_STYLE);
+                }
                 return res;
-            case Rule.TYPE_TYPE:
+            case Rule.TYPE_STYLE:
                 res = this.typeDao.selectByPrimaryKey(rule.getTypeId());
-                res.setType(Rule.TYPE_TYPE);
+                if (res != null) {
+                    res.setStyle(Rule.TYPE_STYLE);
+                }
                 return res;
-            case Rule.UNIT_TYPE:
+            case Rule.UNIT_STYLE:
                 res = this.unitDao.selectByPrimaryKey(rule.getUnitId());
-                res.setType(Rule.UNIT_TYPE);
+                if (res != null) {
+                    res.setStyle(Rule.RANGE_STYLE);
+                }
                 return res;
             default:
                 return rule;

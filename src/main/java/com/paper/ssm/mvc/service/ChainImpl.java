@@ -1,10 +1,14 @@
 package com.paper.ssm.mvc.service;
 
 import com.paper.ssm.model.normalize.Chain;
+import com.paper.ssm.model.normalize.Link;
+import com.paper.ssm.model.normalize.Rule;
 import com.paper.ssm.mvc.dao.normalize.ChainDao;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -44,7 +48,7 @@ public class ChainImpl implements ChainService {
 
     @Override
     public List<Chain> selectListByQuery(Chain query) {
-        return null;
+        return this.chainDao.selectListByQuery(query);
     }
 
     @Override
@@ -55,9 +59,20 @@ public class ChainImpl implements ChainService {
     @Override
     public Chain selectByPrimaryKey(Integer id) {
         Chain chain = this.chainDao.selectByPrimaryKey(id);
-        chain.setRule(this.ruleService.selectByPrimaryKey(chain.getRuleId()));
-        if (chain.getNextId() != null) {
-            chain.setNext(selectByPrimaryKey(chain.getNextId()));
+        if (chain.getLinkList() != null) {
+            HashMap<Integer, Rule> ruleHashMap = new HashMap<>(10);
+            for (Link link : chain.getLinkList()) {
+                if (!ruleHashMap.containsKey(link.getLeftId())) {
+                    ruleHashMap.put(link.getLeftId(), link.getLeft());
+                }
+                if (!ruleHashMap.containsKey(link.getRightId())) {
+                    ruleHashMap.put(link.getRightId(), link.getRight());
+                }
+            }
+            chain.setRuleList(new ArrayList<>());
+            for (Integer key : ruleHashMap.keySet()) {
+                chain.getRuleList().add(ruleHashMap.get(key));
+            }
         }
         return chain;
     }

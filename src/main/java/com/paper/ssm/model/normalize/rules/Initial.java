@@ -1,5 +1,6 @@
 package com.paper.ssm.model.normalize.rules;
 
+import com.paper.ssm.model.normalize.Rule;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +10,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class Default extends Rule {
+public class Initial extends Rule {
 
     private String value;
 

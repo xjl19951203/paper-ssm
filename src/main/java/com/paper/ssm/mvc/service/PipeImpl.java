@@ -28,6 +28,7 @@ public class PipeImpl implements PipeService{
 
     @Override
     public int insert(List<Pipe> records) {
+        this.pipeDao.insertList(records);
         return 0;
     }
 

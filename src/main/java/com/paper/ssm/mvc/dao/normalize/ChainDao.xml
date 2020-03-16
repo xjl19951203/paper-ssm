@@ -5,6 +5,8 @@
     <resultMap id="BaseResultMap" type="com.paper.ssm.model.normalize.Chain">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
+        <collection property="linkList" column="{chainId=id}" ofType="java.util.List"
+                    select="com.paper.ssm.mvc.dao.normalize.LinkDao.selectListByQuery" />
     </resultMap>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">

@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @className: PipeController
@@ -27,6 +28,15 @@ public class PipeController extends AbstractController<Pipe>{
     @Override
     public Pipe insert(@RequestBody Pipe record) {
         return this.pipeService.insert(record);
+    }
+
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    @Override
+    public int insert(@RequestBody List<Pipe> records) {
+        if (records == null || records.size() == 0) {
+            return 0;
+        }
+        return this.pipeService.insert(records);
     }
 
     @RequestMapping(value = "", method = RequestMethod.DELETE)

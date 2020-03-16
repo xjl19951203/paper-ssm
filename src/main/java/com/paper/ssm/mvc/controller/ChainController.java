@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @className: ChainController
@@ -22,6 +23,12 @@ public class ChainController extends AbstractController<Chain> {
 
     @Resource
     ChainService chainService;
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    @Override
+    public List<Chain> selectListByQuery(Chain query) {
+        return this.chainService.selectListByQuery(query);
+    }
 
     @Override
     public Chain insert(Chain record) {

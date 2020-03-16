@@ -6,6 +6,14 @@
         1 as NEXT_DIRECTION, 2 as CHILD_DIRECTION, 3 as PARENT_DIRECTION
     </sql>
 
+    <resultMap id="ListResultMap" type="com.paper.ssm.model.structure.Node">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="label" jdbcType="VARCHAR" property="label" />
+        <collection column="{inputId=id,direction=CHILD_DIRECTION}"
+                    property="childPipeList" ofType="com.paper.ssm.model.structure.Pipe"
+                    javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.PipeDao.selectListByQuery"/>
+    </resultMap>
+
     <resultMap id="SimpleResultMap" type="com.paper.ssm.model.structure.Node">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="label" jdbcType="VARCHAR" property="label" />
@@ -26,15 +34,15 @@
     </resultMap>
 
     <select id="selectSimpleByPrimaryKey" resultMap="SimpleResultMap" parameterType="java.lang.Integer">
-        SELECT * from `com_node` where id = #{pk};
+        SELECT *, <include refid="Constant_List" /> from `com_node` where id = #{pk};
     </select>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         SELECT *, <include refid="Constant_List" /> from `com_node` where id = #{pk};
     </select>
 
-    <select id="selectListByQuery" resultMap="SimpleResultMap" parameterType="com.paper.ssm.model.structure.Node">
-        select * from `com_node`;
+    <select id="selectListByQuery" resultMap="ListResultMap" parameterType="com.paper.ssm.model.structure.Node">
+        select *, <include refid="Constant_List" /> from `com_node`;
     </select>
 
     <insert id="insert" parameterType="com.paper.ssm.model.structure.Node" useGeneratedKeys="true" keyProperty="id">

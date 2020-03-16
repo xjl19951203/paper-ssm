@@ -2,6 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.paper.ssm.mvc.dao.structure.PipeDao">
 
+    <sql id="Base_Column_List" >
+        nodeId,inputId,outputId,`direction`
+    </sql>
+
     <resultMap id="BaseResultMap" type="com.paper.ssm.model.structure.Pipe">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="label" jdbcType="VARCHAR" property="label" />
@@ -16,7 +20,7 @@
 
     <insert id="insert" parameterType="com.paper.ssm.model.structure.Pipe" useGeneratedKeys="true" keyProperty="id">
         insert into `com_pipe`
-        (nodeId,inputId,outputId,`direction`)
+        (<include refid="Base_Column_List" /> )
         values
         (#{nodeId},#{inputId},#{outputId},#{direction})
     </insert>
@@ -59,5 +63,13 @@
         SET foreign_key_checks = 1;
     </delete>
 
+    <insert id="insertList" parameterType="java.util.List">
+        insert into `com_pipe` (<include refid="Base_Column_List" /> )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.nodeId,jdbcType=INTEGER}, #{item.inputId,jdbcType=INTEGER},
+            #{item.outputId,jdbcType=INTEGER}, #{item.direction,jdbcType=INTEGER})
+        </foreach>
+    </insert>
 
 </mapper>

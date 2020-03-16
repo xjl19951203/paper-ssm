@@ -1,9 +1,10 @@
 package com.paper.ssm.model.normalize;
 
 import com.paper.ssm.model.Model;
-import com.paper.ssm.model.normalize.rules.Rule;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 /**
  * 规则链，与规则库构建关联关系
@@ -13,9 +14,7 @@ import lombok.Setter;
 @Setter
 public class Chain extends Model {
 
-    private Integer ruleId;
-    private Rule rule;
-    private Integer nextId;
-    private Chain next;
-
+    private List<Link> linkList;
+    /** 不关注次序 */
+    private List<Rule> ruleList;
 }
