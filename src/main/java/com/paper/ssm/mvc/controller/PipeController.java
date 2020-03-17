@@ -24,6 +24,12 @@ public class PipeController extends AbstractController<Pipe>{
     @Resource
     PipeService pipeService;
 
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    @Override
+    public List<Pipe> selectListByQuery(@RequestBody Pipe query) {
+        return this.pipeService.selectListByQuery(query);
+    }
+
     @RequestMapping(value = "", method = RequestMethod.POST)
     @Override
     public Pipe insert(@RequestBody Pipe record) {
@@ -51,8 +57,9 @@ public class PipeController extends AbstractController<Pipe>{
         return this.pipeService.update(record);
     }
 
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @Override
-    public Pipe selectByPrimaryKey(Integer id) {
-        return null;
+    public Pipe selectByPrimaryKey(@PathVariable Integer id) {
+        return this.pipeService.selectByPrimaryKey(id);
     }
 }

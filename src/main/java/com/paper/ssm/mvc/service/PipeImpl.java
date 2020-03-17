@@ -55,7 +55,7 @@ public class PipeImpl implements PipeService{
 
     @Override
     public Pipe selectByPrimaryKey(Integer id) {
-        return null;
+        return this.pipeDao.selectByPrimaryKey(id);
     }
 
     @Override
