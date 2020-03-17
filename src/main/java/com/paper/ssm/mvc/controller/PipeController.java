@@ -26,7 +26,7 @@ public class PipeController extends AbstractController<Pipe>{
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     @Override
-    public List<Pipe> selectListByQuery(@RequestBody Pipe query) {
+    public List<Pipe> selectListByQuery(Pipe query) {
         return this.pipeService.selectListByQuery(query);
     }
 
