@@ -17,5 +17,6 @@ public class Graph extends Component {
     private Node root;
     private List<Node> nodeList;
     private List<Pipe> pipeList;
+    private List<Flow> flowList;
 
 }

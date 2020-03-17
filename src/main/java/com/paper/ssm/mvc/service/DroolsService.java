@@ -5,6 +5,9 @@ import org.kie.api.KieBase;
 import org.springframework.stereotype.Service;
 
 
+/**
+ * @author ZengYuan
+ */
 @Service
 public class DroolsService {
     /**

@@ -16,6 +16,8 @@
                      select="com.paper.ssm.mvc.dao.structure.NodeDao.selectSimpleByPrimaryKey" />
         <association property="output" column="outputId"
                      select="com.paper.ssm.mvc.dao.structure.NodeDao.selectSimpleByPrimaryKey" />
+        <collection property="flowList" column="{pipeId=id}"
+                     select="com.paper.ssm.mvc.dao.structure.FlowDao.selectByPrimaryKey" />
     </resultMap>
 
     <insert id="insert" parameterType="com.paper.ssm.model.structure.Pipe" useGeneratedKeys="true" keyProperty="id">
