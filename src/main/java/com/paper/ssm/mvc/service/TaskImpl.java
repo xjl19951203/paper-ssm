@@ -57,6 +57,9 @@ public class TaskImpl implements TaskService {
     @Override
     public Task selectByPrimaryKey(Integer id) {
         Task task = this.taskDao.selectByPrimaryKey(id);
+        if (task == null) {
+            return null;
+        }
         if (task.getNodeId() != null) {
             task.setNode(this.nodeService.selectByPrimaryKey(task.getNodeId()));
         }

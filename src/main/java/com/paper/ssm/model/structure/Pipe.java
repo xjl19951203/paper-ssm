@@ -3,6 +3,8 @@ package com.paper.ssm.model.structure;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 /**
  * 边结点，连接两个简单的Data结点
  * 1. left和right数据是
@@ -25,7 +27,9 @@ public class Pipe extends Component {
     /** 指向父层级结点的管道 */
     public static final int PARENT_DIRECTION = 3;
 
+    /** 管道的显示样式 */
     private Integer style;
+    /** 管道的指向方向：指向子节点、指向同级结点、指向父节点 */
     private Integer direction;
     private Integer inputId;
     private Integer outputId;
@@ -33,6 +37,8 @@ public class Pipe extends Component {
     private Node output;
     /** 所属多叉树的根结点ID */
     private Integer nodeId;
+    /** 两个结点之间的管道存在：零条、一条、或多条数据流，*/
+    private List<Flow> flowList;
 
     @Override
     public String toString() {
