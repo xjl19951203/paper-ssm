@@ -63,18 +63,7 @@ public class NodeImpl implements NodeService {
 
     @Override
     public Node selectByPrimaryKey(Integer id) {
-        Node root = this.nodeDao.selectByPrimaryKey(id);
-        if (root == null) {
-            return null;
-        }
-        /** 清缓存 */
-        if (root.getChildList() != null) {
-            root.getChildList().clear();
-            root.setChildList(null);
-        }
-        /** 作为根节点，构造结点多叉树 */
-        root = buildTree(root.getId(), true);
-        return root;
+        return toTree(id);
     }
 
     @Override
@@ -114,14 +103,20 @@ public class NodeImpl implements NodeService {
         return graph;
     }
 
+    @Override
+    public Node toTree(Integer id) {
+        return this.buildTree(id, true, 1, 1);
+    }
+
     /**
      * 孩子兄弟链法，递归构造Multi-Level DAG对应的多叉树
      * @param id 结点主键
      * @param isRoot 当前结点是否是根节点
+     * @param latitude 纬度
+     * @param longitude 经度
      * @return Node
      */
-    @Override
-    public Node buildTree (Integer id, boolean isRoot) {
+    public Node buildTree (Integer id, boolean isRoot, int latitude, int longitude) {
         Node node = this.nodeDao.selectByPrimaryKey(id);
         if (node == null) {
             return null;
@@ -151,9 +146,11 @@ public class NodeImpl implements NodeService {
                 style = Pipe.SINGLE_STYLE;
             }
             node.setNextList(new ArrayList<>());
+            int index = 1;
             for (Pipe pipe : node.getNextPipeList()) {
                 pipe.setStyle(style);
-                Node next = buildTree(pipe.getOutputId(), false);
+                Node next = buildTree(pipe.getOutputId(), false, latitude, longitude + 1);
+                next.setName(latitude + "." + longitude + "." + index++);
                 node.getNextList().add(next);
             }
         } else {
@@ -166,10 +163,12 @@ public class NodeImpl implements NodeService {
         if ((node.getChildPipeList() != null) && (node.getChildPipeList().size() > 0)) {
             node.setStyle(Node.COMPLEX_STYLE);
             node.setChildList(new ArrayList<>());
+            int index = 1;
             for (Pipe pipe : node.getChildPipeList()) {
                 /** 左内侧边界结点的pipe：粗线 */
                 pipe.setStyle(Pipe.EDGE_STYLE);
-                Node child = buildTree(pipe.getOutputId(), false);
+                Node child = buildTree(pipe.getOutputId(), false, latitude + 1, 1);
+                child.setName(latitude + "." + longitude + "." + index++);
                 node.getChildList().add(child);
             }
         } else {
@@ -178,7 +177,6 @@ public class NodeImpl implements NodeService {
         }
         return node;
     }
-
 
 
     @Override
