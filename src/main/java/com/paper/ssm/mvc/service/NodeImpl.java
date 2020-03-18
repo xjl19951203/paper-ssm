@@ -66,6 +66,10 @@ public class NodeImpl implements NodeService {
         graph.setRoot(root);
         root.setLabel("(1,1)");
         graph.setPointList(new ArrayList<>());
+        Point point = new Point();
+        point.setNode(root);
+        point.setLabel(root.getLabel());
+        graph.getPointList().add(point);
         graph.setPipeList(new ArrayList<>());
         try {
             buildGraph(root, graph.getPointList(), graph.getPipeList());
@@ -78,6 +82,16 @@ public class NodeImpl implements NodeService {
     public void buildGraph(Node node, List<Point> pointList, List<Pipe> pipeList) throws CloneNotSupportedException {
         if (node == null) {
             return;
+        }
+        if (node.getChildList() != null) {
+            for (Point childPoint : node.getChildList()) {
+                Pipe childPipe = new Pipe();
+                childPipe.setInputLabel(node.getLabel());
+                String outputLabel = node.getLabel() + "(" + childPoint.getVertical()
+                        + "," + childPoint.getHorizontal() + ")";
+                childPipe.setOutputLabel(outputLabel);
+                pipeList.add(childPipe);
+            }
         }
         if (node.getPointList() != null) {
             for (Point point : node.getPointList()) {

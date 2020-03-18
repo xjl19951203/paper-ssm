@@ -21,6 +21,7 @@ public class Pipe extends Component implements Cloneable{
 
     /** 管道的显示样式 */
     private Integer style;
+    private Integer direction;
     private Integer inputId;
     private Integer outputId;
     private String inputLabel;

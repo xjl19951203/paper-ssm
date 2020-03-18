@@ -6,16 +6,23 @@
         parentId,nodeId
     </sql>
 
+    <sql id="Constant_List" >
+        0 as NEXT_DIRECTION, 1 as CHILD_DIRECTION, 2 as PARENT_DIRECTION
+    </sql>
+
     <resultMap id="BaseResultMap" type="com.paper.ssm.model.structure.Point">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="vertical" jdbcType="INTEGER" property="vertical" />
         <result column="vertical" jdbcType="INTEGER" property="vertical" />
         <result column="horizontal" jdbcType="INTEGER" property="horizontal" />
         <result column="parentId" jdbcType="INTEGER" property="parentId" />
         <result column="nodeId" jdbcType="INTEGER" property="nodeId" />
         <association property="node" column="nodeId"
                      select="com.paper.ssm.mvc.dao.structure.NodeDao.selectByPrimaryKey" />
-        <collection property="outputList" column="{inputId=id}"
+        <collection property="outputList" column="{inputId=id,direction=NEXT_DIRECTION}"
+                    select="com.paper.ssm.mvc.dao.structure.PipeDao.selectListByQuery" />
+        <collection property="childList" column="{inputId=id,direction=CHILD_DIRECTION}"
                     select="com.paper.ssm.mvc.dao.structure.PipeDao.selectListByQuery" />
     </resultMap>
 
@@ -38,21 +45,24 @@
     </insert>
 
     <select id="selectSimpleByPrimaryKey" resultMap="SimpleResultMap" parameterType="java.lang.Integer">
-        SELECT * from `com_point` where id = #{pk};
+        SELECT *, <include refid="Constant_List" /> from `com_point` where id = #{pk};
     </select>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        SELECT * from `com_point` where id = #{pk};
+        SELECT *, <include refid="Constant_List" /> from `com_point` where id = #{pk};
     </select>
 
     <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.structure.Point">
-        select * from `com_point`
+        select *, <include refid="Constant_List" /> from `com_point`
         <where>
             <if test="parentId != null">
                 `parentId` = #{parentId}
             </if >
             <if test="nodeId != null">
                 and `nodeId` = #{nodeId}
+            </if >
+            <if test="vertical != null">
+                and `vertical` = #{vertical}
             </if >
         </where>
         ;

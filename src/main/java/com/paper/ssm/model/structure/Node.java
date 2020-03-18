@@ -29,6 +29,7 @@ public class Node extends Component implements Cloneable{
      * 由多叉树递归算法，按层级深度和宽度计算 */
     private String namespace;
     private List<Point> pointList;
+    private List<Point> childList;
 
     /** 该chain并不一定存在于MySQL中，
      * 而是通过规则链的降维、合并、冲突等算法计算出来的

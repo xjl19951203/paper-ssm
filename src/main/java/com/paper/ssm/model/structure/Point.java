@@ -33,6 +33,7 @@ public class Point extends Model implements Cloneable{
     private Integer nodeId;
     @JsonIgnore
     private Node node;
+    private List<Pipe> childList;
     @JsonIgnore
     private List<Pipe> inputList;
     @JsonIgnore
@@ -41,8 +42,8 @@ public class Point extends Model implements Cloneable{
     @Override
     public Object clone() throws CloneNotSupportedException {
         Point point = (Point) super.clone();
-        Node node = (Node) point.getNode().clone();
-        point.setNode(node);
+//        Node node = (Node) point.getNode().clone();
+//        point.setNode(node);
         return point;
     }
 }
