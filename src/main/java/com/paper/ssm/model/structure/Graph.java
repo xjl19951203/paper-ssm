@@ -15,7 +15,7 @@ public class Graph extends Component {
 
     /** 根节点*/
     private Node root;
-    private List<Node> nodeList;
+    private List<Point> pointList;
     private List<Pipe> pipeList;
     private List<Flow> flowList;
 

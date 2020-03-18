@@ -3,19 +3,18 @@
 <mapper namespace="com.paper.ssm.mvc.dao.structure.PipeDao">
 
     <sql id="Base_Column_List" >
-        nodeId,inputId,outputId,`direction`
+        inputId,outputId
     </sql>
 
     <resultMap id="BaseResultMap" type="com.paper.ssm.model.structure.Pipe">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="label" jdbcType="VARCHAR" property="label" />
-        <result column="nodeId" jdbcType="INTEGER" property="nodeId" />
         <result column="inputId" jdbcType="INTEGER" property="inputId" />
         <result column="outputId" jdbcType="INTEGER" property="outputId" />
         <association property="input" column="inputId"
-                     select="com.paper.ssm.mvc.dao.structure.NodeDao.selectSimpleByPrimaryKey" />
+                     select="com.paper.ssm.mvc.dao.structure.PointDao.selectSimpleByPrimaryKey" />
         <association property="output" column="outputId"
-                     select="com.paper.ssm.mvc.dao.structure.NodeDao.selectSimpleByPrimaryKey" />
+                     select="com.paper.ssm.mvc.dao.structure.PointDao.selectSimpleByPrimaryKey" />
         <collection property="flowList" column="{pipeId=id}"
                      select="com.paper.ssm.mvc.dao.structure.FlowDao.selectListByQuery" />
     </resultMap>
@@ -24,7 +23,7 @@
         insert into `com_pipe`
         (<include refid="Base_Column_List" /> )
         values
-        (#{nodeId},#{inputId},#{outputId},#{direction})
+        (#{inputId},#{outputId})
     </insert>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -37,14 +36,8 @@
             <if test="inputId != null">
                 `inputId` = #{inputId}
             </if >
-            <if test="nodeId != null">
-                and `nodeId` = #{nodeId}
-            </if >
             <if test="outputId != null">
                 and `outputId` = #{outputId}
-            </if >
-            <if test="direction != null">
-                and `direction` = #{direction}
             </if >
         </where>
         ;
@@ -52,10 +45,8 @@
 
     <update id="update" parameterType="com.paper.ssm.model.structure.Pipe">
         update `com_pipe` set
-        nodeId = #{nodeId,jdbcType=INTEGER},
         inputId = #{inputId,jdbcType=INTEGER},
-        outputId = #{outputId,jdbcType=INTEGER},
-        `direction` = #{direction,jdbcType=INTEGER}
+        outputId = #{outputId,jdbcType=INTEGER}
         where id = #{id,jdbcType=INTEGER}
     </update>
 
@@ -69,8 +60,7 @@
         insert into `com_pipe` (<include refid="Base_Column_List" /> )
         values
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.nodeId,jdbcType=INTEGER}, #{item.inputId,jdbcType=INTEGER},
-            #{item.outputId,jdbcType=INTEGER}, #{item.direction,jdbcType=INTEGER})
+            (#{item.inputId,jdbcType=INTEGER}, #{item.outputId,jdbcType=INTEGER})
         </foreach>
     </insert>
 

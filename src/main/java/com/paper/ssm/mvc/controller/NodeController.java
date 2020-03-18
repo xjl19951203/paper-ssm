@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @EnableAutoConfiguration
 @RequestMapping("/api/nodes")
-public class NodeController extends AbstractController<Node> {
+public class NodeController extends AbstractController<Node> implements Cloneable{
 
     @Resource
     NodeService nodeService;
@@ -53,5 +53,10 @@ public class NodeController extends AbstractController<Node> {
     @RequestMapping(value = "/{id}/graph", method = RequestMethod.GET)
     public Graph getGraph(@PathVariable Integer id) {
         return this.nodeService.transToGraph(id);
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }
