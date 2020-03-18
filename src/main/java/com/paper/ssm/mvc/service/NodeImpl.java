@@ -63,7 +63,7 @@ public class NodeImpl implements NodeService {
 
     @Override
     public Node selectByPrimaryKey(Integer id) {
-        Node root = this.buildTree(id, true, 1, 1);
+        Node root = this.buildTree(id, true, 1, 1, 1);
         return root;
     }
 
@@ -112,13 +112,28 @@ public class NodeImpl implements NodeService {
      * @param longitude 经度
      * @return Node
      */
-    public Node buildTree (Integer id, boolean isRoot, int latitude, int longitude) {
+    public Node buildTree (Integer id, boolean isRoot, int latitude, int longitude, int index) {
         Node node = this.nodeDao.selectByPrimaryKey(id);
         if (node == null) {
             return null;
         }
         /** 默认设置结点为单元结点*/
         node.setStyle(Node.SINGLE_STYLE);
+        if (node.getName() == null) {
+            node.setName(latitude + "." + longitude + "." + index);
+        }
+        if(node.getInputPipeList() != null) {
+            for (Pipe inputPipe : node.getInputPipeList()) {
+                inputPipe.setOutputName(node.getName());
+                System.out.println(inputPipe.getId() + " " + inputPipe.getInputName() + " " + inputPipe.getOutputName());
+            }
+        }
+        if(node.getOutputPipeList() != null) {
+            for (Pipe outputPipe : node.getOutputPipeList()) {
+                outputPipe.setInputName(node.getName());
+                System.out.println(outputPipe.getId() + " " + outputPipe.getInputName() + " " + outputPipe.getOutputName());
+            }
+        }
         /** 判断当前结点是否为不可分解的叶子层结点 */
         boolean isLeafNode = (node.getChildList() == null) || (node.getChildList().size() == 0);
         /** 判断当前结点是否为右边界结点 */
@@ -128,9 +143,7 @@ public class NodeImpl implements NodeService {
             node.setNextList(null);
             return node;
         }
-        if (isRoot) {
-            node.setName(latitude + "." + longitude + "." + 1);
-        }
+
         /** 非根节点时才处理，否则过滤同层级结点的处理
          * 横向同层结点递归
          */
@@ -145,13 +158,10 @@ public class NodeImpl implements NodeService {
                 style = Pipe.SINGLE_STYLE;
             }
             node.setNextList(new ArrayList<>());
-            int index = 0;
+            int i = 0;
             for (Pipe pipe : node.getNextPipeList()) {
                 pipe.setStyle(style);
-                Node next = buildTree(pipe.getOutputId(), false, latitude, longitude + 1);
-                index++;
-                next.setName(latitude + "." + (longitude + 1) + "." + index);
-                pipe.setInputName(latitude + "." + longitude + "." + index);
+                Node next = buildTree(pipe.getOutputId(), false, latitude, longitude + 1, ++i);
                 node.getNextList().add(next);
             }
         } else {
@@ -164,14 +174,11 @@ public class NodeImpl implements NodeService {
         if ((node.getChildPipeList() != null) && (node.getChildPipeList().size() > 0)) {
             node.setStyle(Node.COMPLEX_STYLE);
             node.setChildList(new ArrayList<>());
-            int index = 0;
+            int i = 0;
             for (Pipe pipe : node.getChildPipeList()) {
                 /** 左内侧边界结点的pipe：粗线 */
                 pipe.setStyle(Pipe.EDGE_STYLE);
-                Node child = buildTree(pipe.getOutputId(), false, latitude + 1, 1);
-                index++;
-                child.setName(latitude + "." + longitude + "." + index);
-                pipe.setInputName(latitude + "." + longitude + "." + index);
+                Node child = buildTree(pipe.getOutputId(), false, latitude + 1, 1, ++i);
                 node.getChildList().add(child);
             }
         } else {
@@ -185,21 +192,15 @@ public class NodeImpl implements NodeService {
     public synchronized Graph transToGraph(Integer id) {
         Node root = selectByPrimaryKey(id);
         ConcurrentHashMap<String, Node> nodeMap = new ConcurrentHashMap<>(10);
-        ConcurrentHashMap<Integer, Pipe> pipeMap = new ConcurrentHashMap<>(10);
+        ConcurrentHashMap<String, Pipe> pipeMap = new ConcurrentHashMap<>(10);
         readTree(root, nodeMap, pipeMap);
         Graph graph = new Graph();
         graph.setRoot(root);
         graph.setNodeList(new ArrayList<>());
         graph.setPipeList(new ArrayList<>());
-        for (int key : pipeMap.keySet()){
-            if (pipeMap.get(key).getOutputId() == null) {
-                continue;
-            }
-            if (nodeMap.containsKey(pipeMap.get(key).getOutputName())){
-                graph.getPipeList().add(pipeMap.get(key));
-            } else {
-                pipeMap.remove(key);
-            }
+
+        for (String key : pipeMap.keySet()){
+            graph.getPipeList().add(pipeMap.get(key));
         }
         for (String key : nodeMap.keySet()){
             graph.getNodeList().add(nodeMap.get(key));
@@ -215,7 +216,7 @@ public class NodeImpl implements NodeService {
      * @param pipeMap 管道集合
      */
     private synchronized void readTree(Node node, ConcurrentHashMap<String, Node> nodeMap,
-                                       ConcurrentHashMap<Integer, Pipe> pipeMap) {
+                                       ConcurrentHashMap<String, Pipe> pipeMap) {
 
         /** 递归终止条件 */
         if (node == null) {
@@ -224,19 +225,9 @@ public class NodeImpl implements NodeService {
         /** 添加当前结点 */
         nodeMap.put(node.getName(), node);
         /** 添加当前结点的三类pipe */
-        if (node.getNextPipeList() != null && node.getNextPipeList().size() > 0) {
-            for (Pipe nextPipe : node.getNextPipeList()) {
-                pipeMap.put(nextPipe.getId(), nextPipe);
-            }
-        }
-        if (node.getParentPipeList() != null && node.getParentPipeList().size() > 0) {
-            for (Pipe parentPipe : node.getParentPipeList()) {
-                pipeMap.put(parentPipe.getId(), parentPipe);
-            }
-        }
-        if (node.getChildPipeList() != null && node.getChildPipeList().size() > 0) {
-            for (Pipe childPipe : node.getChildPipeList()) {
-                pipeMap.put(childPipe.getId(), childPipe);
+        if (node.getOutputPipeList() != null) {
+            for (Pipe outputPipe : node.getOutputPipeList()) {
+                pipeMap.put(outputPipe.getInputName() + "-" + outputPipe.getOutputName(), outputPipe);
             }
         }
         /** 递归当前结点关联的两类结点 */

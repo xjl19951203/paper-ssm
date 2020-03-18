@@ -31,6 +31,12 @@
         <collection column="{inputId=id,direction=NEXT_DIRECTION}"
                     property="nextPipeList" ofType="com.paper.ssm.model.structure.Pipe"
                     javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.PipeDao.selectListByQuery"/>
+        <collection column="{outputId=id}"
+                    property="inputPipeList" ofType="com.paper.ssm.model.structure.Pipe"
+                    javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.PipeDao.selectListByQuery"/>
+        <collection column="{inputId=id}"
+                    property="outputPipeList" ofType="com.paper.ssm.model.structure.Pipe"
+                    javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.PipeDao.selectListByQuery"/>
     </resultMap>
 
     <select id="selectSimpleByPrimaryKey" resultMap="SimpleResultMap" parameterType="java.lang.Integer">
