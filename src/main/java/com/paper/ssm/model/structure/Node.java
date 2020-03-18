@@ -23,6 +23,11 @@ public class Node extends Component {
     /** 复合体结点 */
     public static final Integer COMPLEX_STYLE = 1;
 
+    /** 采用结点空间策略，保障相同或不同的结点在数据流图空间中都有唯一的结点名称，
+     * 使得同一个结点能在不同层级，同一层级的不同位置出现多次
+     * 该属性不是数据表字段，而是在多叉树算法组织结点关系时由程序计算填充的
+     * 由多叉树递归算法，按层级深度和宽度计算 */
+    private String name;
     /** 复合结点还是单元结点 */
     private Integer style;
     /** 返回时排除掉这个字段 */

@@ -35,6 +35,9 @@ public class Pipe extends Component {
     private Integer outputId;
     private Node input;
     private Node output;
+    /** 保证结点复用时，仍具备辨识性 */
+    private String inputName;
+    private String outputName;
     /** 所属多叉树的根结点ID */
     private Integer nodeId;
     /** 两个结点之间的管道存在：零条、一条、或多条数据流，*/
