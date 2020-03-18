@@ -26,4 +26,11 @@ public interface NodeService extends Service<Node> {
      */
     Graph toGraph(Integer id);
 
+    /** 获取结点的多叉树
+     * @param id 结点id
+     * @param isRoot 当前结点是否是根节点
+     * @return 多叉树根节点
+     */
+    Node buildTree(Integer id, boolean isRoot);
+
 }

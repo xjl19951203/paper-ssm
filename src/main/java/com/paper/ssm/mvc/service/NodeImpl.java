@@ -73,7 +73,7 @@ public class NodeImpl implements NodeService {
             root.setChildList(null);
         }
         /** 作为根节点，构造结点多叉树 */
-        root = transToTree(root.getId(), true);
+        root = buildTree(root.getId(), true);
         return root;
     }
 
@@ -114,13 +114,14 @@ public class NodeImpl implements NodeService {
         return graph;
     }
 
-
     /**
-     * 孩子兄弟链法，递归构造Multi-Level DAG多叉树
-     * @param id 根节点
+     * 孩子兄弟链法，递归构造Multi-Level DAG对应的多叉树
+     * @param id 结点主键
+     * @param isRoot 当前结点是否是根节点
      * @return Node
      */
-    private Node transToTree (Integer id, boolean isRoot) {
+    @Override
+    public Node buildTree (Integer id, boolean isRoot) {
         Node node = this.nodeDao.selectByPrimaryKey(id);
         if (node == null) {
             return null;
@@ -130,7 +131,7 @@ public class NodeImpl implements NodeService {
         /** 判断当前结点是否为不可分解的叶子层结点 */
         boolean isLeafNode = (node.getChildList() == null) || (node.getChildList().size() == 0);
         /** 判断当前结点是否为右边界结点 */
-        boolean isOutputNode = node.getParentPipeList() != null && node.getParentPipeList().size() > 0;
+        boolean isOutputNode = (node.getParentPipeList() != null) && (node.getParentPipeList().size() > 0);
         /** 同时满足两个条件的右边界叶子结点，不再处理其pipeList和nextList */
         if (isLeafNode && isOutputNode) {
             node.setNextList(null);
@@ -139,7 +140,8 @@ public class NodeImpl implements NodeService {
         /** 非根节点时才处理，否则过滤同层级结点的处理
          * 横向同层结点递归
          */
-        if (!isRoot && node.getNextPipeList() != null && node.getNextPipeList().size() > 0) {
+        node.setNextList(null);
+        if (!isRoot && (node.getNextPipeList() != null) && (node.getNextPipeList().size() > 0)) {
             /**
              * 一旦getInnerPipeList不为null，说明该节点是复合结点
              * 其nextPipeList都应该标虚线
@@ -151,29 +153,24 @@ public class NodeImpl implements NodeService {
             node.setNextList(new ArrayList<>());
             for (Pipe pipe : node.getNextPipeList()) {
                 pipe.setStyle(style);
-                Node n = transToTree(pipe.getOutputId(), false);
-                if (n != null) {
-                    node.getNextList().add(n);
-                }
+                Node next = buildTree(pipe.getOutputId(), false);
+                node.getNextList().add(next);
             }
         } else {
             node.setNextList(null);
             node.setNextPipeList(null);
         }
-        /**
-         * 纵向层级间结点递归
-         */
+        /** 纵向层级间结点递归 */
         node.setStyle(Node.SINGLE_STYLE);
-        if (node.getChildPipeList() != null && node.getChildPipeList().size() > 0) {
+        node.setChildList(null);
+        if ((node.getChildPipeList() != null) && (node.getChildPipeList().size() > 0)) {
             node.setStyle(Node.COMPLEX_STYLE);
             node.setChildList(new ArrayList<>());
             for (Pipe pipe : node.getChildPipeList()) {
                 /** 左内侧边界结点的pipe：粗线 */
                 pipe.setStyle(Pipe.EDGE_STYLE);
-                Node c = transToTree(pipe.getOutputId(), false);
-                if (c != null) {
-                    node.getChildList().add(c);
-                }
+                Node child = buildTree(pipe.getOutputId(), false);
+                node.getChildList().add(child);
             }
         } else {
             node.setChildList(null);
