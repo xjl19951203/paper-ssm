@@ -31,11 +31,8 @@ public class Node extends Component {
     /** 复合结点还是单元结点 */
     private Integer style;
     /** 返回时排除掉这个字段 */
-    @JsonIgnore
     private List<Pipe> childPipeList;
-    @JsonIgnore
     private List<Pipe> parentPipeList;
-    @JsonIgnore
     private List<Pipe> nextPipeList;
     /** 从属的内左侧集合 */
     private List<Node> childList;

@@ -26,10 +26,4 @@ public interface NodeService extends Service<Node> {
      */
     Graph toGraph(Integer id);
 
-    /** 获取结点的多叉树
-     * @param id 结点id
-     * @return 多叉树根节点
-     */
-    Node toTree(Integer id);
-
 }

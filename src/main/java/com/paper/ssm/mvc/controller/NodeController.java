@@ -52,6 +52,6 @@ public class NodeController extends AbstractController<Node> {
 
     @RequestMapping(value = "/{id}/graph", method = RequestMethod.GET)
     public Graph getGraph(@PathVariable Integer id) {
-        return this.nodeService.toGraph(id);
+        return this.nodeService.transToGraph(id);
     }
 }

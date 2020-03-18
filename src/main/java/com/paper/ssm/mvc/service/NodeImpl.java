@@ -63,7 +63,8 @@ public class NodeImpl implements NodeService {
 
     @Override
     public Node selectByPrimaryKey(Integer id) {
-        return toTree(id);
+        Node root = this.buildTree(id, true, 1, 1);
+        return root;
     }
 
     @Override
@@ -103,11 +104,6 @@ public class NodeImpl implements NodeService {
         return graph;
     }
 
-    @Override
-    public Node toTree(Integer id) {
-        return this.buildTree(id, true, 1, 1);
-    }
-
     /**
      * 孩子兄弟链法，递归构造Multi-Level DAG对应的多叉树
      * @param id 结点主键
@@ -132,6 +128,9 @@ public class NodeImpl implements NodeService {
             node.setNextList(null);
             return node;
         }
+        if (isRoot) {
+            node.setName(latitude + "." + longitude + "." + 1);
+        }
         /** 非根节点时才处理，否则过滤同层级结点的处理
          * 横向同层结点递归
          */
@@ -146,11 +145,13 @@ public class NodeImpl implements NodeService {
                 style = Pipe.SINGLE_STYLE;
             }
             node.setNextList(new ArrayList<>());
-            int index = 1;
+            int index = 0;
             for (Pipe pipe : node.getNextPipeList()) {
                 pipe.setStyle(style);
                 Node next = buildTree(pipe.getOutputId(), false, latitude, longitude + 1);
-                next.setName(latitude + "." + longitude + "." + index++);
+                index++;
+                next.setName(latitude + "." + (longitude + 1) + "." + index);
+                pipe.setInputName(latitude + "." + longitude + "." + index);
                 node.getNextList().add(next);
             }
         } else {
@@ -163,12 +164,14 @@ public class NodeImpl implements NodeService {
         if ((node.getChildPipeList() != null) && (node.getChildPipeList().size() > 0)) {
             node.setStyle(Node.COMPLEX_STYLE);
             node.setChildList(new ArrayList<>());
-            int index = 1;
+            int index = 0;
             for (Pipe pipe : node.getChildPipeList()) {
                 /** 左内侧边界结点的pipe：粗线 */
                 pipe.setStyle(Pipe.EDGE_STYLE);
                 Node child = buildTree(pipe.getOutputId(), false, latitude + 1, 1);
-                child.setName(latitude + "." + longitude + "." + index++);
+                index++;
+                child.setName(latitude + "." + longitude + "." + index);
+                pipe.setInputName(latitude + "." + longitude + "." + index);
                 node.getChildList().add(child);
             }
         } else {
@@ -178,11 +181,10 @@ public class NodeImpl implements NodeService {
         return node;
     }
 
-
     @Override
     public synchronized Graph transToGraph(Integer id) {
         Node root = selectByPrimaryKey(id);
-        ConcurrentHashMap<Integer, Node> nodeMap = new ConcurrentHashMap<>(10);
+        ConcurrentHashMap<String, Node> nodeMap = new ConcurrentHashMap<>(10);
         ConcurrentHashMap<Integer, Pipe> pipeMap = new ConcurrentHashMap<>(10);
         readTree(root, nodeMap, pipeMap);
         Graph graph = new Graph();
@@ -193,13 +195,13 @@ public class NodeImpl implements NodeService {
             if (pipeMap.get(key).getOutputId() == null) {
                 continue;
             }
-            if (nodeMap.containsKey(pipeMap.get(key).getOutputId())){
+            if (nodeMap.containsKey(pipeMap.get(key).getOutputName())){
                 graph.getPipeList().add(pipeMap.get(key));
             } else {
                 pipeMap.remove(key);
             }
         }
-        for (int key : nodeMap.keySet()){
+        for (String key : nodeMap.keySet()){
             graph.getNodeList().add(nodeMap.get(key));
         }
         return graph;
@@ -212,7 +214,7 @@ public class NodeImpl implements NodeService {
      * @param nodeMap 结点集合
      * @param pipeMap 管道集合
      */
-    private synchronized void readTree(Node node, ConcurrentHashMap<Integer, Node> nodeMap,
+    private synchronized void readTree(Node node, ConcurrentHashMap<String, Node> nodeMap,
                                        ConcurrentHashMap<Integer, Pipe> pipeMap) {
 
         /** 递归终止条件 */
@@ -220,7 +222,7 @@ public class NodeImpl implements NodeService {
             return;
         }
         /** 添加当前结点 */
-        nodeMap.put(node.getId(), node);
+        nodeMap.put(node.getName(), node);
         /** 添加当前结点的三类pipe */
         if (node.getNextPipeList() != null && node.getNextPipeList().size() > 0) {
             for (Pipe nextPipe : node.getNextPipeList()) {
