@@ -14,13 +14,11 @@ import java.util.List;
 @Setter
 public class Pipe extends Component implements Cloneable{
 
-    /** 复合结点的pipe：虚线 */
-    public static final Integer COMPLEX_STYLE = 0;
-    /** 不可再分结点的pipe：实线 */
-    public static final Integer SINGLE_STYLE = 1;
 
-    /** 管道的显示样式 */
-    private Integer style;
+    public static final Integer CHILD_DIRECTION = 0;
+    public static final Integer NEXT_DIRECTION = 1;
+    public static final Integer PARENT_DIRECTION = 3;
+
     private Integer direction;
     private Integer inputId;
     private Integer outputId;
@@ -34,7 +32,6 @@ public class Pipe extends Component implements Cloneable{
     @Override
     public String toString() {
         return "Pipe{" +
-                "style=" + style +
                 ", inputId=" + inputId +
                 ", outputId=" + outputId +
                 ", input=" + input +

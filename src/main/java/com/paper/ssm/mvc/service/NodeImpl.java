@@ -20,7 +20,8 @@ public class NodeImpl implements NodeService {
 
     @Override
     public Node insert(Node record) {
-        return null;
+        this.nodeDao.insert(record);
+        return record;
     }
 
     @Override
@@ -40,7 +41,16 @@ public class NodeImpl implements NodeService {
 
     @Override
     public List<Node> selectListByQuery(Node query) {
-        return this.nodeDao.selectListByQuery(query);
+        List<Node> nodeList = this.nodeDao.selectListByQuery(query);
+        for (Node node : nodeList) {
+            if (node.getPointList().size() > 0) {
+                node.setStyle(Point.COMPLEX_STYLE);
+            } else {
+                node.setStyle(Point.SINGLE_STYLE);
+            }
+        }
+
+        return nodeList;
     }
 
     @Override
@@ -69,6 +79,12 @@ public class NodeImpl implements NodeService {
         Point point = new Point();
         point.setNode(root);
         point.setLabel(root.getLabel());
+        point.setTitle(root.getTitle());
+        if (root.getChildList().size() > 0) {
+            point.setStyle(Point.COMPLEX_STYLE);
+        } else {
+            point.setStyle(Point.SINGLE_STYLE);
+        }
         graph.getPointList().add(point);
         graph.setPipeList(new ArrayList<>());
         try {
@@ -86,6 +102,7 @@ public class NodeImpl implements NodeService {
         if (node.getChildList() != null) {
             for (Point childPoint : node.getChildList()) {
                 Pipe childPipe = new Pipe();
+                childPipe.setDirection(Pipe.CHILD_DIRECTION);
                 childPipe.setInputLabel(node.getLabel());
                 String outputLabel = node.getLabel() + "(" + childPoint.getVertical()
                         + "," + childPoint.getHorizontal() + ")";
@@ -97,9 +114,16 @@ public class NodeImpl implements NodeService {
             for (Point point : node.getPointList()) {
                 String inputLabel = node.getLabel() + "(" + point.getVertical() + "," + point.getHorizontal() + ")";
                 point.setLabel(inputLabel);
+                if (point.getNode().getChildList().size() > 0) {
+                    point.setStyle(Point.COMPLEX_STYLE);
+                } else {
+                    point.setStyle(Point.SINGLE_STYLE);
+                }
+                point.setTitle(point.getNode().getTitle());
                 pointList.add((Point) point.clone());
                 if (point.getOutputList() != null) {
                     for (Pipe outputPipe : point.getOutputList()) {
+                        outputPipe.setDirection(Pipe.NEXT_DIRECTION);
                         outputPipe.setInputLabel(point.getLabel());
                         String outputLabel = node.getLabel() + "(" + outputPipe.getOutput().getVertical()
                                 + "," + outputPipe.getOutput().getHorizontal() + ")";
@@ -109,7 +133,6 @@ public class NodeImpl implements NodeService {
                 }
                 /** 将每个坐标点的标签传递给与其关联的结点 */
                 Node pointNode = (Node) point.getNode().clone();
-                point.setTitle(pointNode.getTitle());
                 pointNode.setLabel(point.getLabel());
                 buildGraph(pointNode, pointList, pipeList);
             }

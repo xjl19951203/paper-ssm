@@ -22,8 +22,6 @@
                      select="com.paper.ssm.mvc.dao.structure.NodeDao.selectByPrimaryKey" />
         <collection property="outputList" column="{inputId=id,direction=NEXT_DIRECTION}"
                     select="com.paper.ssm.mvc.dao.structure.PipeDao.selectListByQuery" />
-        <collection property="childList" column="{inputId=id,direction=CHILD_DIRECTION}"
-                    select="com.paper.ssm.mvc.dao.structure.PipeDao.selectListByQuery" />
     </resultMap>
 
     <resultMap id="SimpleResultMap" type="com.paper.ssm.model.structure.Point">
