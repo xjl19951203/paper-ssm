@@ -15,8 +15,6 @@ public class NodeImpl implements NodeService {
 
     @Resource
     NodeDao nodeDao;
-    @Resource
-    PipeService pipeService;
 
     @Override
     public Node insert(Node record) {
@@ -50,7 +48,6 @@ public class NodeImpl implements NodeService {
                 node.setStyle(Point.SINGLE_STYLE);
             }
         }
-
         return nodeList;
     }
 
@@ -61,7 +58,24 @@ public class NodeImpl implements NodeService {
 
     @Override
     public Node selectByPrimaryKey(Integer id) {
-        return this.nodeDao.selectByPrimaryKey(id);
+        Node root = this.nodeDao.selectByPrimaryKey(id);
+        HashMap<Integer, Node> nodeHashMap = new HashMap<>(10);
+        root.setNodeList(new ArrayList<>());
+        countNode(root, nodeHashMap, root.getNodeList());
+        return root;
+    }
+
+    private void countNode(Node node, HashMap<Integer, Node> nodeHashMap, List<Node> nodeList) {
+        if (node == null) {
+            return;
+        }
+        for (Point point : node.getPointList()) {
+            if (!nodeHashMap.containsKey(point.getNodeId())) {
+                nodeHashMap.put(point.getNodeId(), point.getNode());
+                nodeList.add(point.getNode());
+                countNode(point.getNode(), nodeHashMap, nodeList);
+            }
+        }
     }
 
     @Override
@@ -71,8 +85,7 @@ public class NodeImpl implements NodeService {
 
     @Override
     public Graph transToGraph(Integer id) {
-        Node root = this.selectByPrimaryKey(id);
-
+        Node root = this.nodeDao.selectByPrimaryKey(id);
         Graph graph = new Graph();
         graph.setRoot(root);
         root.setLabel("(1,1)");

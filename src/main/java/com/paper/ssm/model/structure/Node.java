@@ -25,6 +25,8 @@ public class Node extends Component implements Cloneable{
     private Integer style;
     private List<Point> pointList;
     private List<Point> childList;
+    /** 该结点中所含的结点 */
+    private List<Node> nodeList;
 
     /** 该chain并不一定存在于MySQL中，
      * 而是通过规则链的降维、合并、冲突等算法计算出来的
