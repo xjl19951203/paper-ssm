@@ -30,9 +30,10 @@ public class ChainController extends AbstractController<Chain> {
         return this.chainService.selectListByQuery(query);
     }
 
+    @RequestMapping(value = "", method = RequestMethod.POST)
     @Override
-    public Chain insert(Chain record) {
-        return null;
+    public Chain insert(@RequestBody Chain record) {
+        return this.chainService.insert(record);
     }
 
     @Override
@@ -40,9 +41,10 @@ public class ChainController extends AbstractController<Chain> {
         return 0;
     }
 
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     @Override
-    public Chain update(Chain record) {
-        return null;
+    public Chain update(@RequestBody Chain record) {
+        return this.chainService.update(record);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

@@ -4,20 +4,8 @@
 
     <resultMap id="BaseResultMap" type="com.paper.ssm.model.normalize.Rule">
         <id column="id" jdbcType="INTEGER" property="id" />
-        <result column="title" jdbcType="VARCHAR" property="title" />
-        <result column="style" jdbcType="VARCHAR" property="style" />
-        <result column="initialId" jdbcType="INTEGER" property="initialId" />
-        <result column="rangeId" jdbcType="INTEGER" property="rangeId" />
-        <result column="typeId" jdbcType="INTEGER" property="typeId" />
-        <result column="unitId" jdbcType="INTEGER" property="unitId" />
-        <association column="initialId" property="initial"
-                     select="com.paper.ssm.mvc.dao.normalize.InitialDao.selectByPrimaryKey" />
-        <association column="rangeId" property="range"
-                     select="com.paper.ssm.mvc.dao.normalize.RangeDao.selectByPrimaryKey" />
-        <association column="typeId" property="type"
-                     select="com.paper.ssm.mvc.dao.normalize.TypeDao.selectByPrimaryKey" />
-        <association column="unitId" property="unit"
-                     select="com.paper.ssm.mvc.dao.normalize.UnitDao.selectByPrimaryKey" />
+        <result column="label" jdbcType="VARCHAR" property="label" />
+        <result column="value" jdbcType="VARCHAR" property="value" />
     </resultMap>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -27,5 +15,19 @@
     <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.normalize.Rule">
         select * from `norm_rule`;
     </select>
+
+    <insert id="insert" parameterType="com.paper.ssm.model.normalize.Rule" useGeneratedKeys="true" keyProperty="id">
+        insert into `norm_rule`
+        (label, `value`)
+        values
+        (#{label},#{value})
+    </insert>
+
+    <update id="update" parameterType="com.paper.ssm.model.normalize.Rule">
+        update `norm_rule` set
+        label = #{label,jdbcType=VARCHAR},
+        `value` = #{value,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 
 </mapper>

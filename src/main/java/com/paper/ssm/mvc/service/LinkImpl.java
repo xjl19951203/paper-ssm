@@ -22,7 +22,8 @@ public class LinkImpl implements LinkService {
 
     @Override
     public Link insert(Link record) {
-        return null;
+        this.linkDao.insert(record);
+        return record;
     }
 
     @Override

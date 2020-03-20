@@ -16,5 +16,5 @@ public class Chain extends Model {
 
     private List<Link> linkList;
     /** 不关注次序 */
-    private List<Rule> ruleList;
+    private List<Base> ruleList;
 }

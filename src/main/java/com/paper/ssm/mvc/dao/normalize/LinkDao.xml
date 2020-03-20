@@ -6,12 +6,11 @@
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
         <result column="chainId" jdbcType="INTEGER" property="chainId" />
-        <result column="leftId" jdbcType="INTEGER" property="leftId" />
-        <result column="rightId" jdbcType="INTEGER" property="rightId" />
-        <association column="leftId" property="left"
-                     select="com.paper.ssm.mvc.dao.normalize.RuleDao.selectByPrimaryKey" />
-        <association column="rightId" property="right"
-                     select="com.paper.ssm.mvc.dao.normalize.RuleDao.selectByPrimaryKey" />
+        <result column="baseId" jdbcType="INTEGER" property="baseId" />
+        <association column="chainId" property="chain"
+                     select="com.paper.ssm.mvc.dao.normalize.ChainDao.selectSimpleByPrimaryKey" />
+        <association column="baseId" property="base"
+                     select="com.paper.ssm.mvc.dao.normalize.BaseDao.selectByPrimaryKey" />
     </resultMap>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -27,5 +26,12 @@
         </where>
         ;
     </select>
+
+    <insert id="insert" parameterType="com.paper.ssm.model.normalize.Link" useGeneratedKeys="true" keyProperty="id">
+        insert into `norm_link`
+        (chainId, `baseId`)
+        values
+        (#{chainId},#{baseId})
+    </insert>
 
 </mapper>

@@ -1,10 +1,6 @@
 package com.paper.ssm.model.normalize;
 
 import com.paper.ssm.model.Model;
-import com.paper.ssm.model.normalize.rules.Initial;
-import com.paper.ssm.model.normalize.rules.Range;
-import com.paper.ssm.model.normalize.rules.Type;
-import com.paper.ssm.model.normalize.rules.Unit;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,34 +13,7 @@ import lombok.Setter;
 @Getter
 public class Rule extends Model {
 
-    public static final int INITIAL_STYLE = 1;
-    public static final int RANGE_STYLE= 2;
-    public static final int TYPE_STYLE = 3;
-    public static final int UNIT_STYLE = 4;
+    private String label;
+    private String value;
 
-    /** 子类型标识符 */
-    protected Integer style;
-    private Integer initialId;
-    private Integer rangeId;
-    private Integer typeId;
-    private Integer unitId;
-    private Initial initial;
-    private Range range;
-    private Type type;
-    private Unit unit;
-
-    @Override
-    public String toString() {
-        return "Rule{" +
-                "style=" + style +
-                ", initialId=" + initialId +
-                ", rangeId=" + rangeId +
-                ", typeId=" + typeId +
-                ", unitId=" + unitId +
-                ", initial=" + initial +
-                ", range=" + range +
-                ", type=" + type +
-                ", unit=" + unit +
-                '}';
-    }
 }

@@ -28,7 +28,8 @@ public class ChainImpl implements ChainService {
 
     @Override
     public Chain insert(Chain record) {
-        return null;
+        this.chainDao.insert(record);
+        return record;
     }
 
     @Override
@@ -43,7 +44,8 @@ public class ChainImpl implements ChainService {
 
     @Override
     public Chain update(Chain record) {
-        return null;
+        this.chainDao.update(record);
+        return record;
     }
 
     @Override
@@ -59,21 +61,6 @@ public class ChainImpl implements ChainService {
     @Override
     public Chain selectByPrimaryKey(Integer id) {
         Chain chain = this.chainDao.selectByPrimaryKey(id);
-        if (chain.getLinkList() != null) {
-            HashMap<Integer, Rule> ruleHashMap = new HashMap<>(10);
-            for (Link link : chain.getLinkList()) {
-                if (!ruleHashMap.containsKey(link.getLeftId())) {
-                    ruleHashMap.put(link.getLeftId(), link.getLeft());
-                }
-                if (!ruleHashMap.containsKey(link.getRightId())) {
-                    ruleHashMap.put(link.getRightId(), link.getRight());
-                }
-            }
-            chain.setRuleList(new ArrayList<>());
-            for (Integer key : ruleHashMap.keySet()) {
-                chain.getRuleList().add(ruleHashMap.get(key));
-            }
-        }
         return chain;
     }
 

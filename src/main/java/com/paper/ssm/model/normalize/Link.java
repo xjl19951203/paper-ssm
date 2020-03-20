@@ -16,8 +16,7 @@ import lombok.Setter;
 public class Link extends Model {
 
     private Integer chainId;
-    private Integer leftId;
-    private Integer rightId;
-    private Rule left;
-    private Rule right;
+    private Integer baseId;
+    private Chain chain;
+    private Base base;
 }

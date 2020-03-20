@@ -19,18 +19,11 @@ public class RuleImpl implements RuleService{
 
     @Resource
     RuleDao ruleDao;
-    @Resource
-    InitialDao initialDao;
-    @Resource
-    RangeDao rangeDao;
-    @Resource
-    UnitDao unitDao;
-    @Resource
-    TypeDao typeDao;
 
     @Override
     public Rule insert(Rule record) {
-        return null;
+        this.ruleDao.insert(record);
+        return record;
     }
 
     @Override
@@ -45,7 +38,8 @@ public class RuleImpl implements RuleService{
 
     @Override
     public Rule update(Rule record) {
-        return null;
+        this.ruleDao.update(record);
+        return record;
     }
 
     @Override
@@ -60,36 +54,7 @@ public class RuleImpl implements RuleService{
 
     @Override
     public Rule selectByPrimaryKey(Integer id) {
-        Rule res;
-        Rule rule = this.ruleDao.selectByPrimaryKey(id);
-        switch (rule.getStyle()) {
-            case Rule.INITIAL_STYLE:
-                res = this.initialDao.selectByPrimaryKey(rule.getInitialId());
-                if (res != null) {
-                    res.setStyle(Rule.INITIAL_STYLE);
-                }
-                return res;
-            case Rule.RANGE_STYLE:
-                res = this.rangeDao.selectByPrimaryKey(rule.getRangeId());
-                if (res != null) {
-                    res.setStyle(Rule.RANGE_STYLE);
-                }
-                return res;
-            case Rule.TYPE_STYLE:
-                res = this.typeDao.selectByPrimaryKey(rule.getTypeId());
-                if (res != null) {
-                    res.setStyle(Rule.TYPE_STYLE);
-                }
-                return res;
-            case Rule.UNIT_STYLE:
-                res = this.unitDao.selectByPrimaryKey(rule.getUnitId());
-                if (res != null) {
-                    res.setStyle(Rule.RANGE_STYLE);
-                }
-                return res;
-            default:
-                return rule;
-        }
+        return this.ruleDao.selectByPrimaryKey(id);
     }
 
     @Override

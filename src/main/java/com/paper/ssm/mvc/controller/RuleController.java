@@ -30,9 +30,10 @@ public class RuleController extends AbstractController<Rule> {
         return this.ruleService.selectListByQuery(query);
     }
 
+    @RequestMapping(value = "", method = RequestMethod.POST)
     @Override
-    public Rule insert(Rule record) {
-        return null;
+    public Rule insert(@RequestBody Rule record) {
+        return this.ruleService.insert(record);
     }
 
     @Override
@@ -40,9 +41,10 @@ public class RuleController extends AbstractController<Rule> {
         return 0;
     }
 
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     @Override
-    public Rule update(Rule record) {
-        return null;
+    public Rule update(@RequestBody Rule record) {
+        return this.ruleService.update(record);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
