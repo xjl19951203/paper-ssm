@@ -47,14 +47,14 @@
 
     <insert id="insert" parameterType="com.paper.ssm.model.structure.Node" useGeneratedKeys="true" keyProperty="id">
         insert into `com_node`
-        (label)
+        (title)
         values
-        (#{label})
+        (#{title})
     </insert>
 
     <update id="update" parameterType="com.paper.ssm.model.structure.Node">
         update `com_node` set
-        label = #{label,jdbcType=VARCHAR}
+        title = #{title,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>
 

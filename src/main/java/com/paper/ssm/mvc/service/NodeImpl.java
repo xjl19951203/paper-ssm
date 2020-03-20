@@ -36,7 +36,8 @@ public class NodeImpl implements NodeService {
 
     @Override
     public Node update(Node record) {
-        return null;
+        this.nodeDao.update(record);
+        return record;
     }
 
     @Override
