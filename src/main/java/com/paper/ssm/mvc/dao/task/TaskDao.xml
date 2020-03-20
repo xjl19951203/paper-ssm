@@ -20,4 +20,17 @@
         select * from `task`;
     </select>
 
+    <insert id="insert" parameterType="com.paper.ssm.model.task.Task" useGeneratedKeys="true" keyProperty="id">
+        insert into `task`
+        (title, `nodeId`)
+        values
+        (#{title},#{nodeId})
+    </insert>
+
+    <update id="update" parameterType="com.paper.ssm.model.task.Task">
+        update `task` set
+        title = #{title,jdbcType=VARCHAR},
+        `nodeId` = #{nodeId,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

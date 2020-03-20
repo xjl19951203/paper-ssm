@@ -5,6 +5,12 @@
     <resultMap id="BaseResultMap" type="com.paper.ssm.model.task.Bind">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="chainId" jdbcType="INTEGER" property="chainId" />
+        <result column="nodeId" jdbcType="INTEGER" property="nodeId" />
+        <association column="chainId" property="chain"
+                     select="com.paper.ssm.mvc.dao.normalize.ChainDao.selectSimpleByPrimaryKey" />
+        <association column="nodeId" property="node"
+                     select="com.paper.ssm.mvc.dao.structure.NodeDao.selectSimpleByPrimaryKey" />
     </resultMap>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">

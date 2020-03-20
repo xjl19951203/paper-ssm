@@ -30,9 +30,10 @@ public class TaskController extends AbstractController<Task> {
         return this.taskService.selectListByQuery(query);
     }
 
+    @RequestMapping(value = "", method = RequestMethod.POST)
     @Override
-    public Task insert(Task record) {
-        return null;
+    public Task insert(@RequestBody Task record) {
+        return this.taskService.insert(record);
     }
 
     @Override
@@ -40,9 +41,10 @@ public class TaskController extends AbstractController<Task> {
         return 0;
     }
 
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     @Override
-    public Task update(Task record) {
-        return null;
+    public Task update(@RequestBody Task record) {
+        return this.taskService.update(record);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)

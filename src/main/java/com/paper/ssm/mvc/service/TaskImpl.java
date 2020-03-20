@@ -26,7 +26,8 @@ public class TaskImpl implements TaskService {
 
     @Override
     public Task insert(Task record) {
-        return null;
+        this.taskDao.insert(record);
+        return record;
     }
 
     @Override
@@ -41,7 +42,8 @@ public class TaskImpl implements TaskService {
 
     @Override
     public Task update(Task record) {
-        return null;
+        this.taskDao.update(record);
+        return record;
     }
 
     @Override
