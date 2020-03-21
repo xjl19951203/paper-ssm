@@ -79,6 +79,9 @@ public class TaskImpl implements TaskService {
         HashMap<Integer, Chain> bindMap = new HashMap<>(10);
         for (Bind bind : task.getBindList()) {
             bindMap.put(bind.getNodeId(), this.chainService.selectByPrimaryKey(bind.getChainId()));
+            if (bind.getNodeId().equals(task.getNodeId())) {
+                task.getNode().setChain(bindMap.get(task.getNodeId()));
+            }
         }
         try {
             ArrayList<Point> pointList = new ArrayList<>();
@@ -133,7 +136,11 @@ public class TaskImpl implements TaskService {
                 }
                 /** 2. 拼接point自身关联的node的chain */
                 if (bindMap.containsKey(point.getNodeId())) {
-                    chain = bindMap.get(point.getNodeId()).append(chain);
+                    if (chain == null) {
+                        chain = bindMap.get(point.getNodeId());
+                    } else {
+                        chain = chain.append(bindMap.get(point.getNodeId()));
+                    }
                 }
                 Point point1 = (Point) point.clone();
                 point1.setChain(chain);

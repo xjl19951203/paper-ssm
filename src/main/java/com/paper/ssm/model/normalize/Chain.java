@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class Chain extends Model {
+public class Chain extends Model implements Cloneable{
 
     private List<Link> linkList;
     /** 不关注次序 */
@@ -24,9 +24,14 @@ public class Chain extends Model {
             return null;
         }
         Chain newChain = new Chain();
-        chain.setBaseList(new ArrayList<>());
-        chain.getBaseList().addAll(this.baseList);
-        chain.getBaseList().addAll(chain.baseList);
+        newChain.setBaseList(new ArrayList<>());
+        for (Base base : this.getBaseList()) {
+            newChain.getBaseList().add(base);
+        }
+        for (Base base : chain.getBaseList()) {
+            newChain.getBaseList().add(base);
+        }
         return newChain;
     }
+
 }
