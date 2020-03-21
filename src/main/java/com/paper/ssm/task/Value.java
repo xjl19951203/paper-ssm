@@ -32,17 +32,11 @@ public class Value {
     private Long id;
     private Long messageId;
 
-    /**
-     * 一个Data实例对应一组Value数据实例，是1：M的关系
-     */
+    /** 一个Point实例对应一组Value数据实例，是1：M的关系 */
     private Integer pointId;
-    /**
-     * Value是属于某个采集任务的
-     */
+    /** Value是属于某个采集任务的 */
     private Integer taskId;
-    /**
-     * 具体的值
-     */
+    /** 具体的值 */
     private String value;
 
 }
