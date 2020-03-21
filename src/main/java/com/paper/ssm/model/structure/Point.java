@@ -2,6 +2,7 @@ package com.paper.ssm.model.structure;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.paper.ssm.model.Model;
+import com.paper.ssm.model.normalize.Chain;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -43,6 +44,8 @@ public class Point extends Model implements Cloneable{
     private List<Pipe> inputList;
     @JsonIgnore
     private List<Pipe> outputList;
+    /** 1.从关联的Node承接过来，2.从上层继承下来 */
+    private Chain chain;
 
     @Override
     public Object clone() throws CloneNotSupportedException {

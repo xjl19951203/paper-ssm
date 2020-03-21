@@ -35,14 +35,16 @@
 
     <insert id="insert" parameterType="com.paper.ssm.model.task.Bind" useGeneratedKeys="true" keyProperty="id">
         insert into `task_bind`
-        (chainId,nodeId)
+        (taskId, chainId,nodeId)
         values
-        (#{chainId},#{nodeId})
+        (#{taskId},#{chainId},#{nodeId})
     </insert>
 
     <update id="update" parameterType="com.paper.ssm.model.task.Bind">
         update `task_bind` set
-        chainId = #{chainId,jdbcType=INTEGER},nodeId = #{nodeId,jdbcType=INTEGER}
+        taskId = #{taskId,jdbcType=INTEGER},
+        chainId = #{chainId,jdbcType=INTEGER},
+        nodeId = #{nodeId,jdbcType=INTEGER}
         where id = #{id,jdbcType=INTEGER}
     </update>
 </mapper>

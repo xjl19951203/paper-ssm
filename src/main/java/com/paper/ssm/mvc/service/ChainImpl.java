@@ -24,7 +24,7 @@ public class ChainImpl implements ChainService {
     @Resource
     ChainDao chainDao;
     @Resource
-    RuleService ruleService;
+    BaseService baseService;
 
     @Override
     public Chain insert(Chain record) {
@@ -61,6 +61,10 @@ public class ChainImpl implements ChainService {
     @Override
     public Chain selectByPrimaryKey(Integer id) {
         Chain chain = this.chainDao.selectByPrimaryKey(id);
+        chain.setBaseList(new ArrayList<>());
+        for (Link link : chain.getLinkList()) {
+            chain.getBaseList().add(this.baseService.selectByPrimaryKey(link.getBaseId()));
+        }
         return chain;
     }
 

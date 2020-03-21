@@ -1,6 +1,7 @@
 package com.paper.ssm.mvc.service;
 
 import com.paper.ssm.model.structure.*;
+import com.paper.ssm.model.task.Bind;
 import com.paper.ssm.mvc.dao.structure.NodeDao;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,10 @@ public class NodeImpl implements NodeService {
 
     @Resource
     NodeDao nodeDao;
+    @Resource
+    BindService bindService;
+    @Resource
+    ChainService chainService;
 
     @Override
     public Node insert(Node record) {

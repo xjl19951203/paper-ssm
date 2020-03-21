@@ -4,6 +4,7 @@ import com.paper.ssm.model.Model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,5 +17,16 @@ public class Chain extends Model {
 
     private List<Link> linkList;
     /** 不关注次序 */
-    private List<Base> ruleList;
+    private List<Base> baseList;
+
+    public Chain append(Chain chain) {
+        if (chain == null) {
+            return null;
+        }
+        Chain newChain = new Chain();
+        chain.setBaseList(new ArrayList<>());
+        chain.getBaseList().addAll(this.baseList);
+        chain.getBaseList().addAll(chain.baseList);
+        return newChain;
+    }
 }

@@ -2,6 +2,7 @@ package com.paper.ssm.model.structure;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.paper.ssm.model.normalize.Chain;
+import com.paper.ssm.model.task.Bind;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,6 +25,7 @@ public class Node extends Component implements Cloneable{
      * 由多叉树递归算法，按层级深度和宽度计算 */
     private Integer style;
     private List<Point> pointList;
+    @JsonIgnore
     private List<Point> childList;
     /** 该结点中所含的结点 */
     private List<Node> nodeList;
