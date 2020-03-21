@@ -1,6 +1,6 @@
-package com.paper.ssm.influx;
+package com.paper.ssm.task.influx;
 
-import com.paper.ssm.model.task.Message;
+import com.paper.ssm.task.Message;
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
 import org.influxdb.dto.BatchPoints;

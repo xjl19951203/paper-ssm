@@ -1,5 +1,7 @@
-package com.paper.ssm.model.task;
+package com.paper.ssm.task;
 
+import com.paper.ssm.model.Model;
+import com.paper.ssm.model.task.Task;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,10 +19,30 @@ import lombok.Setter;
  * 另外一方面：输入具体指的是输入了什么东西，有什么用？
  * data又输出了什么？和输入有什么关系？
  *
- * @author ZengYuan
+ * @className: Value
+ * @author: ZengYuan
+ * @description:
+ * @date 2020/3/10 10:35
+ * @version: 1.0
  */
 @Getter
 @Setter
-public class Data{
+public class Value {
+
+    private Long id;
+    private Long messageId;
+
+    /**
+     * 一个Data实例对应一组Value数据实例，是1：M的关系
+     */
+    private Integer pointId;
+    /**
+     * Value是属于某个采集任务的
+     */
+    private Integer taskId;
+    /**
+     * 具体的值
+     */
+    private String value;
 
 }

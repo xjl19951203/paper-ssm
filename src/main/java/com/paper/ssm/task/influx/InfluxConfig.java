@@ -1,4 +1,4 @@
-package com.paper.ssm.influx;
+package com.paper.ssm.task.influx;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;

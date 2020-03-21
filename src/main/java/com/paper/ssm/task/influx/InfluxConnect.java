@@ -1,4 +1,4 @@
-package com.paper.ssm.influx;
+package com.paper.ssm.task.influx;
 
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;

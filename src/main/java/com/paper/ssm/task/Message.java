@@ -1,6 +1,5 @@
-package com.paper.ssm.model.task;
+package com.paper.ssm.task;
 
-import com.paper.ssm.influx.data.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.influxdb.annotation.Column;
@@ -29,7 +28,7 @@ public class Message implements Serializable {
     private Integer messageType;
     @Column(name = "methodId")
     private Integer methodId;
-    @Column(name = "dataList")
-    private List<Data> dataList;
+    @Column(name = "valueList")
+    private List<Value> valueList;
 
 }

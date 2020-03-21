@@ -1,4 +1,4 @@
-package com.paper.ssm.model.task;
+package com.paper.ssm.task;
 
 /**
  * 日志记录

@@ -1,6 +1,6 @@
-package com.paper.ssm.influx;
+package com.paper.ssm.task.influx;
 
-import com.paper.ssm.model.task.Message;
+import com.paper.ssm.task.Message;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.BeanWrapperImpl;
