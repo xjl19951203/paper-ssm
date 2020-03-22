@@ -1,36 +1,28 @@
 package com.paper.ssm.task.influx;
 
-import org.influxdb.InfluxDB;
-import org.influxdb.dto.QueryResult;
+
+import com.paper.ssm.task.Value;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
- * @className: InfluxService
- * @author: ZengYuan
- * @description:
- * @date 2020/3/22 11:05
- * @version: 1.0
+ * @author ZengYuan
  */
 @Resource
 public interface InfluxService {
 
     /**
-     * d
-     * @return InfluxDB
+     * 添加记录
+     *  @param record 消息
+     * @return 返回id
      */
-    InfluxDB connect();
+    long insert(Value record);
 
     /**
-     * 查询
-     * @param command 查询参数
-     * @return 查询结果集
+     * 批量添加记录
+     * @param records 记录集合
+     * @return 插入情况
      */
-    QueryResult selectByQuery(String command);
-
-    /**
-     * 插入记录
-     * @param record 插入一条记录
-     */
-    void insert(Record record);
+    int insert(List<Value> records);
 }

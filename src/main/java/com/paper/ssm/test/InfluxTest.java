@@ -1,54 +1,40 @@
 package com.paper.ssm.test;
 
-import com.paper.ssm.task.Message;
-import com.paper.ssm.task.influx.InfluxImpl;
-import com.paper.ssm.task.influx.ValueImpl;
+import com.paper.ssm.SsmApplication;
+import com.paper.ssm.task.Value;
 import com.paper.ssm.task.influx.ValueService;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.BeanWrapperImpl;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author ZengYuan
  */
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = SsmApplication.class)
 public class InfluxTest {
-
-    private InfluxImpl influxConnect;
-    private String username = "admin";
-    private String password = "admin";
-    private String url = "http://39.108.132.71:8086";
-    private String database = "collection";
-    private String measurement = "property";
 
     @Resource
     private ValueService valueService;
 
     @Before
-    public void setUp(){
-        //创建 连接
-        influxConnect = new InfluxImpl(username, password, url, database);
-        influxConnect.connect();
+    public void setup() {
     }
 
     @Test
     public void testInsert(){//测试数据插入
-        Map<String, String> tags = new HashMap<>();
-        Map<String, Object> fields = new HashMap<>();
-        List<Message> messageList = new ArrayList<>();
 
-        Message message = new Message();
-        message.setId(1L);
-        message.setDeviceId(1);
-        message.setMessageType(Message.MESSAGE_ATTRIBUTE);
-
-        this.valueService = new ValueImpl();
-        this.valueService.insert(message);
+        Value value = new Value();
+        value.setId(1L);
+        value.setPointId(1);
+        this.valueService.insert(value);
     }
 
     @Test
@@ -113,11 +99,11 @@ public class InfluxTest {
     }
 
     /***整理列名、行数据***/
-    private List<Message> getQueryData(List<String> columns, List<List<Object>>  values){
+    private List<Value> getQueryData(List<String> columns, List<List<Object>>  values){
 
-        List<Message> lists = new ArrayList<>();
+        List<Value> lists = new ArrayList<>();
         for (List<Object> list : values) {
-            Message info = new Message();
+            Value info = new Value();
             BeanWrapperImpl bean = new BeanWrapperImpl(info);
             for(int i=0; i< list.size(); i++){
                 /** 字段名 */

@@ -1,13 +1,9 @@
 package com.paper.ssm.task;
 
-import com.paper.ssm.model.Model;
-import com.paper.ssm.model.task.Task;
 import lombok.Getter;
 import lombok.Setter;
 import org.influxdb.annotation.Column;
 import org.influxdb.annotation.Measurement;
-
-import java.util.List;
 
 /**
  * Data是不可再细分的数据结点，属于最小粒度的结点类型

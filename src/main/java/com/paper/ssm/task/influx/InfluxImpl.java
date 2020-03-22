@@ -1,85 +1,60 @@
 package com.paper.ssm.task.influx;
 
+import com.paper.ssm.task.Value;
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
+import org.influxdb.dto.BatchPoints;
 import org.influxdb.dto.Point;
-import org.influxdb.dto.Point.Builder;
 import org.influxdb.dto.Query;
-import org.influxdb.dto.QueryResult;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
- * 时序数据库 InfluxDB 连接
- * @author Dai_LW
- *
+ * @author ZengYuan
  */
 @Service("influxService")
-public class InfluxImpl implements InfluxService{
+public class InfluxImpl implements InfluxService {
 
-    private String username;
-    private String password;
-    private String url;
-    private String database;
-    private static InfluxDB influxDB;
+    private InfluxDB influxDB;
+    private BatchPoints batchPoints;
 
-    public InfluxImpl(String username, String password, String url, String database){
-        this.username = username;
-        this.password = password;
-        this.url = url;
-        this.database = database;
-    }
+    public InfluxImpl() {
+        String url = "http://39.108.132.71:8086";
+        String database = "collection";
+        this.influxDB = InfluxDBFactory.connect(url);
+        this.influxDB.setDatabase(database)
+                .setRetentionPolicy("default")
+                .enableBatch(20,200, TimeUnit.MILLISECONDS);
 
-    /**连接时序数据库；获得InfluxDB**/
-    @Override
-    public InfluxDB connect(){
-        if(influxDB == null){
-            influxDB = InfluxDBFactory.connect(url, username, password);
-            influxDB.createDatabase(database);
-        }
-        this.createRetentionPolicy();
-        return influxDB;
-    }
+        this.batchPoints = BatchPoints.database(database)
+                .retentionPolicy("default")
+                .build();
 
-    /**
-     * 设置数据保存策略
-     * default 策略名 /database 数据库名/ 30d 数据保存时限30天/ 1  副本个数为1/ 结尾DEFAULT 表示 设为默认的策略
-     */
-    private void createRetentionPolicy(){
+        /**
+         * 设置数据保存策略
+         * default 策略名 /database 数据库名/ 30d 数据保存时限30天/ 1  副本个数为1/ 结尾DEFAULT 表示 设为默认的策略
+         */
         String command = String.format("CREATE RETENTION POLICY \"%s\" ON \"%s\" DURATION %s REPLICATION %s DEFAULT",
-                "default", database, "30d", 1);
-        this.selectByQuery(command);
+                "default", database, "30d", 2);
+        influxDB.query(new Query(command, database));
     }
-
-    /**
-     * 查询
-     * @param command 查询语句
-     * @return QueryResult
-     */
-    @Override
-    public QueryResult selectByQuery(String command){
-        return influxDB.query(new Query(command, database));
-    }
-
 
     @Override
-    public void insert(Record record){
-        Builder builder = Point.measurement(record.getMeasurement());
-        builder.tag(record.getTags());
-        builder.fields(record.getFields());
-        influxDB.write(database, "", builder.build());
+    public long insert(Value record) {
+
+        Point point = Point.measurementByPOJO(record.getClass()).
+                tag("pointId", record.getPointId().toString()).build();
+
+        batchPoints.point(point);
+        // 出于业务考量,设备可以设置不同的保存策略(策略名为固定前缀+设备ID)
+        this.influxDB.write(batchPoints);
+        return 0;
     }
 
-    /**
-     * 删除
-     * @param command 删除语句
-     * @return 返回错误信息
-     */
-    public String deleteMeasurementData(String command){
-        QueryResult result = influxDB.query(new Query(command, database));
-        return result.getError();
+    @Override
+    public int insert(List<Value> records) {
+        return 0;
     }
-
-
 }

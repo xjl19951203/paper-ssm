@@ -13,6 +13,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class InfluxConfig {
 
+//    private String username = "admin";
+//    private String password = "admin";
+//    private String url = "http://39.108.132.71:8086";
+//    private String database = "collection";
+//    private String measurement = "property";
+
     @Value("${spring.influx.url:''}")
     private String influxUrl;
 
@@ -25,7 +31,4 @@ public class InfluxConfig {
     @Value("${spring.influx.database:''}")
     private String database;
 
-    public InfluxDbUtils influxDbUtils() {
-        return new InfluxDbUtils(userName, password, influxUrl, database, "");
-    }
 }
