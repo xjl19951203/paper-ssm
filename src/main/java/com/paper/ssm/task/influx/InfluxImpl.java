@@ -17,14 +17,14 @@ import java.util.concurrent.TimeUnit;
 @Service("influxService")
 public class InfluxImpl implements InfluxService {
 
-    private InfluxDB influxDB;
+    private InfluxDB influxdb;
     private BatchPoints batchPoints;
 
     public InfluxImpl() {
         String url = "http://39.108.132.71:8086";
         String database = "collection";
-        this.influxDB = InfluxDBFactory.connect(url);
-        this.influxDB.setDatabase(database)
+        this.influxdb = InfluxDBFactory.connect(url);
+        this.influxdb.setDatabase(database)
                 .setRetentionPolicy("default")
                 .enableBatch(20,200, TimeUnit.MILLISECONDS);
 
@@ -38,18 +38,19 @@ public class InfluxImpl implements InfluxService {
          */
         String command = String.format("CREATE RETENTION POLICY \"%s\" ON \"%s\" DURATION %s REPLICATION %s DEFAULT",
                 "default", database, "30d", 2);
-        influxDB.query(new Query(command, database));
+        influxdb.query(new Query(command, database));
     }
 
     @Override
     public long insert(Value record) {
 
-        Point point = Point.measurementByPOJO(record.getClass()).
-                tag("pointId", record.getPointId().toString()).build();
+        Point point = Point.measurementByPOJO(record.getClass())
+                .addFieldsFromPOJO(record)
+                .build();
 
         batchPoints.point(point);
         // 出于业务考量,设备可以设置不同的保存策略(策略名为固定前缀+设备ID)
-        this.influxDB.write(batchPoints);
+        this.influxdb.write(batchPoints);
         return 0;
     }
 

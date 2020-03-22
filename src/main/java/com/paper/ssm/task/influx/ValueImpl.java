@@ -18,6 +18,10 @@ public class ValueImpl implements ValueService {
 
     @Override
     public long insert(Value record) {
+        /**
+         *
+         * 在influx插入之前，执行规则引擎，可以用AOP
+         */
         this.influxService.insert(record);
         return 0;
     }

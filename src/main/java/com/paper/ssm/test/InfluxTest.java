@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author ZengYuan
@@ -31,10 +32,15 @@ public class InfluxTest {
     @Test
     public void testInsert(){//测试数据插入
 
-        Value value = new Value();
-        value.setId(1L);
-        value.setPointId(1);
-        this.valueService.insert(value);
+        Random random = new Random();
+        for (int i = 0; i < 100; i++) {
+            Value value = Value.builder()
+                    .pointId(i)
+                    .taskId(1)
+                    .value(String.valueOf(random.nextInt(62)))
+                    .build();
+            this.valueService.insert(value);
+        }
     }
 
     @Test
@@ -102,19 +108,19 @@ public class InfluxTest {
     private List<Value> getQueryData(List<String> columns, List<List<Object>>  values){
 
         List<Value> lists = new ArrayList<>();
-        for (List<Object> list : values) {
-            Value info = new Value();
-            BeanWrapperImpl bean = new BeanWrapperImpl(info);
-            for(int i=0; i< list.size(); i++){
-                /** 字段名 */
-                String propertyName = setColumns(columns.get(i));
-                /** 相应字段值 */
-                Object value = list.get(i);
-                bean.setPropertyValue(propertyName, value);
-            }
-
-            lists.add(info);
-        }
+//        for (List<Object> list : values) {
+//            Value info = new Value();
+//            BeanWrapperImpl bean = new BeanWrapperImpl(info);
+//            for(int i=0; i< list.size(); i++){
+//                /** 字段名 */
+//                String propertyName = setColumns(columns.get(i));
+//                /** 相应字段值 */
+//                Object value = list.get(i);
+//                bean.setPropertyValue(propertyName, value);
+//            }
+//
+//            lists.add(info);
+//        }
         return lists;
     }
 
