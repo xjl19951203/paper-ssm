@@ -1,6 +1,9 @@
-package com.paper.ssm.task.influx;
+package com.paper.ssm.test;
 
 import com.paper.ssm.task.Message;
+import com.paper.ssm.task.influx.InfluxImpl;
+import com.paper.ssm.task.influx.ValueImpl;
+import com.paper.ssm.task.influx.ValueService;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.BeanWrapperImpl;
@@ -11,13 +14,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  * @author ZengYuan
  */
 public class InfluxTest {
 
-    private InfluxConnect influxConnect;
+    private InfluxImpl influxConnect;
     private String username = "admin";
     private String password = "admin";
     private String url = "http://39.108.132.71:8086";
@@ -25,19 +27,13 @@ public class InfluxTest {
     private String measurement = "property";
 
     @Resource
-    private MessageService messageService;
+    private ValueService valueService;
 
     @Before
     public void setUp(){
         //创建 连接
-        influxConnect = new InfluxConnect(username, password, url, database);
-
-        influxConnect.influxDbBuild();
-
-        influxConnect.createRetentionPolicy();
-
-//		influxDB.deleteDB(database);
-        influxConnect.createDB(database);
+        influxConnect = new InfluxImpl(username, password, url, database);
+        influxConnect.connect();
     }
 
     @Test
@@ -51,8 +47,8 @@ public class InfluxTest {
         message.setDeviceId(1);
         message.setMessageType(Message.MESSAGE_ATTRIBUTE);
 
-        this.messageService = new MessageImpl();
-        this.messageService.insert(message);
+        this.valueService = new ValueImpl();
+        this.valueService.insert(message);
     }
 
     @Test
@@ -118,28 +114,28 @@ public class InfluxTest {
 
     /***整理列名、行数据***/
     private List<Message> getQueryData(List<String> columns, List<List<Object>>  values){
-        List<Message> lists = new ArrayList<>();
 
+        List<Message> lists = new ArrayList<>();
         for (List<Object> list : values) {
             Message info = new Message();
             BeanWrapperImpl bean = new BeanWrapperImpl(info);
             for(int i=0; i< list.size(); i++){
-
-                String propertyName = setColumns(columns.get(i));//字段名
-                Object value = list.get(i);//相应字段值
+                /** 字段名 */
+                String propertyName = setColumns(columns.get(i));
+                /** 相应字段值 */
+                Object value = list.get(i);
                 bean.setPropertyValue(propertyName, value);
             }
 
             lists.add(info);
         }
-
         return lists;
     }
 
     /***转义字段***/
     private String setColumns(String column){
         String[] cols = column.split("_");
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for(int i=0; i< cols.length; i++){
             String col = cols[i].toLowerCase();
             if(i != 0){

@@ -1,5 +1,4 @@
-package com.paper.ssm.task.normalize;
-
+package com.paper.ssm.task.drools;
 
 /**
  * @author ZengYuan

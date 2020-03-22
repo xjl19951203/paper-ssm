@@ -1,4 +1,4 @@
-package com.paper.ssm.task.normalize;
+package com.paper.ssm.task.drools;
 
 import org.kie.api.KieBase;
 import org.kie.api.io.ResourceType;

@@ -1,11 +1,15 @@
 package com.paper.ssm.task.influx;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 /**
  * @author ZengYuan
  */
+@Getter
+@Setter
 @Configuration
 public class InfluxConfig {
 
@@ -21,7 +25,7 @@ public class InfluxConfig {
     @Value("${spring.influx.database:''}")
     private String database;
 
-    public InfluxDBUtils influxDbUtils() {
-        return new InfluxDBUtils(userName, password, influxUrl, database, "");
+    public InfluxDbUtils influxDbUtils() {
+        return new InfluxDbUtils(userName, password, influxUrl, database, "");
     }
 }

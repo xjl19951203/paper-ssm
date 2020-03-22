@@ -4,6 +4,10 @@ import com.paper.ssm.model.Model;
 import com.paper.ssm.model.task.Task;
 import lombok.Getter;
 import lombok.Setter;
+import org.influxdb.annotation.Column;
+import org.influxdb.annotation.Measurement;
+
+import java.util.List;
 
 /**
  * Data是不可再细分的数据结点，属于最小粒度的结点类型
@@ -25,18 +29,26 @@ import lombok.Setter;
  * @date 2020/3/10 10:35
  * @version: 1.0
  */
+@Measurement(name = "value")
 @Getter
 @Setter
 public class Value {
 
+    private static final long serialVersionUID = 1L;
+
+    @Column(name = "id")
     private Long id;
-    private Long messageId;
 
     /** 一个Point实例对应一组Value数据实例，是1：M的关系 */
+    @Column(name = "pointId")
     private Integer pointId;
+
     /** Value是属于某个采集任务的 */
+    @Column(name = "taskId")
     private Integer taskId;
+
     /** 具体的值 */
+    @Column(name = "value")
     private String value;
 
 }

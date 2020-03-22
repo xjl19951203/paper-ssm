@@ -1,6 +1,6 @@
 package com.paper.ssm.task.influx;
 
-import com.paper.ssm.task.Message;
+import com.paper.ssm.task.Value;
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
 import org.influxdb.dto.BatchPoints;
@@ -15,12 +15,12 @@ import java.util.concurrent.TimeUnit;
  * @author ZengYuan
  */
 @Service("messageService")
-public class MessageImpl implements MessageService {
+public class ValueImpl implements ValueService {
 
     private InfluxDB influxDB;
     private BatchPoints batchPoints;
 
-    public MessageImpl () {
+    public ValueImpl() {
         this.connect();
     }
 
@@ -49,10 +49,10 @@ public class MessageImpl implements MessageService {
     }
 
     @Override
-    public long insert(Message record) {
+    public long insert(Value record) {
 
         Point point = Point.measurementByPOJO(record.getClass()).
-                tag("deviceId", record.getDeviceId().toString()).build();
+                tag("pointId", record.getPointId().toString()).build();
 
         batchPoints.point(point);
         // 出于业务考量,设备可以设置不同的保存策略(策略名为固定前缀+设备ID)
@@ -61,7 +61,7 @@ public class MessageImpl implements MessageService {
     }
 
     @Override
-    public int insert(List<Message> records) {
+    public int insert(List<Value> records) {
         return 0;
     }
 }

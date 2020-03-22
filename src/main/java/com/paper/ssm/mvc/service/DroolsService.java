@@ -1,6 +1,6 @@
 package com.paper.ssm.mvc.service;
 
-import com.paper.ssm.task.normalize.NewKieBase;
+import com.paper.ssm.task.drools.NewKieBase;
 import org.kie.api.KieBase;
 import org.springframework.stereotype.Service;
 

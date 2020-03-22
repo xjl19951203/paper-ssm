@@ -7,8 +7,11 @@ import org.influxdb.dto.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @author ZengYuan
+ */
 @Data
-public class InfluxDBUtils {
+public class InfluxDbUtils {
 
     private String userName;
     private String password;
@@ -28,12 +31,12 @@ public class InfluxDBUtils {
     // InfluxDB实例
     private InfluxDB influxDB;
 
-    Logger logger = LoggerFactory.getLogger(InfluxDBUtils.class);
+    Logger logger = LoggerFactory.getLogger(InfluxDbUtils.class);
 
     // 数据保存策略
     public static String policyNamePix = "logmonitor";
 
-    public InfluxDBUtils(String userName, String password, String url, String database,
+    public InfluxDbUtils(String userName, String password, String url, String database,
                          String retentionPolicy) {
         this.userName = userName;
         this.password = password;
