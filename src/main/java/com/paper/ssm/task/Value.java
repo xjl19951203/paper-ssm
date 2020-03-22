@@ -46,6 +46,6 @@ public class Value {
     @Column(name = "value")
     private String value;
 
-    private List<Field> fieldList;
+//    private List<Field> fieldList;
 
 }

@@ -1,6 +1,7 @@
 package com.paper.ssm.task.influx;
 
 
+import com.paper.ssm.task.Query;
 import com.paper.ssm.task.Value;
 
 import javax.annotation.Resource;
@@ -11,6 +12,13 @@ import java.util.List;
  */
 @Resource
 public interface ValueService {
+
+    /**
+     * d
+     * @param query
+     * @return
+     */
+    List<Value> select(Query query);
 
     /**
      * 添加记录

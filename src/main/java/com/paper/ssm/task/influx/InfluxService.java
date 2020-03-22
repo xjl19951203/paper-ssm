@@ -1,7 +1,9 @@
 package com.paper.ssm.task.influx;
 
 
+import com.paper.ssm.task.Query;
 import com.paper.ssm.task.Value;
+import org.influxdb.dto.QueryResult;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -11,6 +13,13 @@ import java.util.List;
  */
 @Resource
 public interface InfluxService {
+
+    /**
+     * genuine
+     * @param query
+     * @return
+     */
+    QueryResult select(Query query);
 
     /**
      * 添加记录

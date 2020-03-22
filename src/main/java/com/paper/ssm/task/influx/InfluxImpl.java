@@ -6,6 +6,7 @@ import org.influxdb.InfluxDBFactory;
 import org.influxdb.dto.BatchPoints;
 import org.influxdb.dto.Point;
 import org.influxdb.dto.Query;
+import org.influxdb.dto.QueryResult;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,10 +20,10 @@ public class InfluxImpl implements InfluxService {
 
     private InfluxDB influxdb;
     private BatchPoints batchPoints;
+    private static String url = "http://39.108.132.71:8086";
+    private static String database = "collection";
 
     public InfluxImpl() {
-        String url = "http://39.108.132.71:8086";
-        String database = "collection";
         this.influxdb = InfluxDBFactory.connect(url);
         this.influxdb.setDatabase(database)
                 .setRetentionPolicy("default")
@@ -42,6 +43,23 @@ public class InfluxImpl implements InfluxService {
     }
 
     @Override
+    public QueryResult select(com.paper.ssm.task.Query query) {
+        /** InfluxDB支持分页查询,因此可以设置分页查询条件 */
+        String pageQuery = " LIMIT " + query.getPageSize() +
+                " OFFSET " + ((query.getPageNum() - 1) * query.getPageSize());
+        /** 此处查询所有内容,如果 */
+        String queryCmd = "SELECT * FROM " +
+                // 查询指定设备下的日志信息
+                // 要指定从 RetentionPolicyName(保存策略前缀+设备ID).measurement(logInfo) 中查询指定数据)
+                query.getMeasurement()
+                // 查询结果需要按照时间排序
+                + " ORDER BY time DESC"
+                // 添加分页查询条件
+                + pageQuery;
+        return influxdb.query(new Query(queryCmd, database));
+    }
+
+    @Override
     public long insert(Value record) {
 
         Point point = Point.measurementByPOJO(record.getClass())
@@ -56,6 +74,13 @@ public class InfluxImpl implements InfluxService {
 
     @Override
     public int insert(List<Value> records) {
+        for (Value record : records) {
+            Point point = Point.measurementByPOJO(record.getClass())
+                    .addFieldsFromPOJO(record)
+                    .build();
+            batchPoints.point(point);
+        }
+        this.influxdb.write(batchPoints);
         return 0;
     }
 }
