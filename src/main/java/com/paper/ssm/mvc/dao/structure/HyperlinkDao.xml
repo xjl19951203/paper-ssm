@@ -6,46 +6,28 @@
         pipeId,inputId,outputId
     </sql>
 
-    <resultMap id="BaseResultMap" type="com.paper.ssm.model.structure.Flow">
+    <resultMap id="BaseResultMap" type="com.paper.ssm.model.structure.Hyperlink">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="label" jdbcType="VARCHAR" property="label" />
-        <result column="inputId" jdbcType="INTEGER" property="inputId" />
-        <result column="outputId" jdbcType="INTEGER" property="outputId" />
-        <association property="input" column="inputId"
-                     select="com.paper.ssm.mvc.dao.structure.NodeDao.selectSimpleByPrimaryKey" />
-        <association property="output" column="outputId"
-                     select="com.paper.ssm.mvc.dao.structure.NodeDao.selectSimpleByPrimaryKey" />
+        <result column="pointId" jdbcType="INTEGER" property="pointId" />
+        <result column="nodeId" jdbcType="INTEGER" property="nodeId" />
+        <association property="node" column="nodeId"
+                     select="com.paper.ssm.mvc.dao.structure.NodeDao.selectByPrimaryKey" />
     </resultMap>
-
-    <insert id="insert" parameterType="com.paper.ssm.model.structure.Flow" useGeneratedKeys="true" keyProperty="id">
-        insert into `com_flow`
+    <insert id="insert" parameterType="com.paper.ssm.model.structure.Hyperlink" useGeneratedKeys="true" keyProperty="id">
+        insert into `com_hyperlink`
         (<include refid="Base_Column_List" /> )
         values
         (#{pipeId},#{inputId},#{outputId})
     </insert>
 
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-        SELECT * from `com_flow` where id = #{pk};
-    </select>
 
-    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.structure.Flow">
-        select * from `com_flow`
-        <where>
-            <if test="pipeId != null">
-                `pipeId` = #{pipeId}
-            </if >
-            <if test="inputId != null">
-                and `inputId` = #{inputId}
-            </if >
-            <if test="outputId != null">
-                and `outputId` = #{outputId}
-            </if >
-        </where>
-        ;
+    <select id="selectByPointId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select * from `com_hyperlink` where pointId = #{pointId} limit 0, 1;
     </select>
 
     <update id="update" parameterType="com.paper.ssm.model.structure.Flow">
-        update `com_flow` set
+        update `com_hyperlink` set
         pipeId = #{pipeId,jdbcType=INTEGER},
         inputId = #{inputId,jdbcType=INTEGER},
         outputId = #{outputId,jdbcType=INTEGER}
@@ -54,12 +36,12 @@
 
     <delete id="delete" parameterType="com.paper.ssm.model.structure.Flow">
         SET foreign_key_checks = 0;
-        delete from  `com_flow` where id = #{id};
+        delete from  `com_hyperlink` where id = #{id};
         SET foreign_key_checks = 1;
     </delete>
 
     <insert id="insertList" parameterType="java.util.List">
-        insert into `com_flow` (<include refid="Base_Column_List" /> )
+        insert into `com_hyperlink` (<include refid="Base_Column_List" /> )
         values
         <foreach collection="list" item="item" index="index" separator=",">
             (#{item.pipeId,jdbcType=INTEGER}, #{item.inputId,jdbcType=INTEGER},

@@ -1,4 +1,4 @@
-package com.paper.ssm.process;
+package com.paper.ssm.process.data;
 
 import org.influxdb.annotation.Column;
 import org.influxdb.annotation.Measurement;

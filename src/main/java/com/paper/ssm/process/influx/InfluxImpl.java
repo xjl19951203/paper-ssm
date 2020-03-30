@@ -1,6 +1,6 @@
 package com.paper.ssm.process.influx;
 
-import com.paper.ssm.process.Data;
+import com.paper.ssm.process.data.Data;
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
 import org.influxdb.dto.BatchPoints;
@@ -43,7 +43,7 @@ public class InfluxImpl implements InfluxService {
     }
 
     @Override
-    public QueryResult select(com.paper.ssm.process.Query query) {
+    public QueryResult select(com.paper.ssm.process.data.Query query) {
 
         if (query.getPageSize() == null) {
             query.setPageSize(10);

@@ -120,12 +120,12 @@ public class InstanceImpl implements InstanceService {
                     String inputLabel = node.getLabel() + "(" + point.getX()
                             + "," + point.getY() + ")";
                     point.setLabel(inputLabel);
-                    if (point.getNode().getLeftPointList().size() > 0) {
+                    if (point.getHyperlink().getNode().getLeftPointList().size() > 0) {
                         point.setStyle(Point.COMPLEX_STYLE);
                     } else {
                         point.setStyle(Point.SINGLE_STYLE);
                     }
-                    point.setTitle(point.getNode().getTitle());
+                    point.setTitle(point.getHyperlink().getNode().getTitle());
                 }
                 /**============================ 给Point和node设置规则链==========================*/
                 Chain chain = null;
@@ -135,18 +135,18 @@ public class InstanceImpl implements InstanceService {
                     chain = point.getChain();
                 }
                 /** 2. 拼接point自身关联的node的chain */
-                if (bindMap.containsKey(point.getNodeId())) {
+                if (bindMap.containsKey(point.getHyperlink().getNodeId())) {
                     if (chain == null) {
-                        chain = bindMap.get(point.getNodeId());
+                        chain = bindMap.get(point.getHyperlink().getNodeId());
                     } else {
-                        chain = chain.append(bindMap.get(point.getNodeId()));
+                        chain = chain.append(bindMap.get(point.getHyperlink().getNodeId()));
                     }
                 }
                 Point point1 = (Point) point.clone();
                 point1.setChain(chain);
                 pointList.add(point1);
                 /** 将每个坐标点的标签传递给与其关联的结点 */
-                Node pointNode = (Node) point.getNode().clone();
+                Node pointNode = (Node) point.getHyperlink().getNode().clone();
                 pointNode.setChain(chain);
                 pointNode.setLabel(point.getLabel());
                 buildChainTree(pointNode, pointList, bindMap);

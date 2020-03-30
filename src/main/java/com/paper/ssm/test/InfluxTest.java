@@ -1,8 +1,8 @@
 package com.paper.ssm.test;
 
 import com.paper.ssm.SsmApplication;
-import com.paper.ssm.process.Data;
-import com.paper.ssm.process.Query;
+import com.paper.ssm.process.data.Data;
+import com.paper.ssm.process.data.Query;
 import com.paper.ssm.process.influx.DataService;
 import org.junit.Before;
 import org.junit.Test;

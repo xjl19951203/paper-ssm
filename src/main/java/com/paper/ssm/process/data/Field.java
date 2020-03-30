@@ -1,4 +1,4 @@
-package com.paper.ssm.process;
+package com.paper.ssm.process.data;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,7 +1,7 @@
 package com.paper.ssm.process.influx;
 
-import com.paper.ssm.process.Data;
-import com.paper.ssm.process.Query;
+import com.paper.ssm.process.data.Data;
+import com.paper.ssm.process.data.Query;
 import org.influxdb.dto.QueryResult;
 import org.springframework.stereotype.Service;
 

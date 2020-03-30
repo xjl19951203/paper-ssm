@@ -73,10 +73,10 @@ public class NodeImpl implements NodeService {
             return;
         }
         for (Point point : node.getPointList()) {
-            if (!nodeHashMap.containsKey(point.getNodeId())) {
-                nodeHashMap.put(point.getNodeId(), point.getNode());
-                nodeList.add(point.getNode());
-                countNode(point.getNode(), nodeHashMap, nodeList);
+            if (!nodeHashMap.containsKey(point.getHyperlink().getNodeId())) {
+                nodeHashMap.put(point.getHyperlink().getNodeId(), point.getHyperlink().getNode());
+                nodeList.add(point.getHyperlink().getNode());
+                countNode(point.getHyperlink().getNode(), nodeHashMap, nodeList);
             }
         }
     }
@@ -131,12 +131,12 @@ public class NodeImpl implements NodeService {
             for (Point point : node.getPointList()) {
                 String inputLabel = node.getLabel() + "(" + point.getX() + "," + point.getY() + ")";
                 point.setLabel(inputLabel);
-                if (point.getNode().getLeftPointList().size() > 0) {
+                if (point.getHyperlink().getNode().getLeftPointList().size() > 0) {
                     point.setStyle(Point.COMPLEX_STYLE);
                 } else {
                     point.setStyle(Point.SINGLE_STYLE);
                 }
-                point.setTitle(point.getNode().getTitle());
+                point.setTitle(point.getHyperlink().getNode().getTitle());
                 pointList.add((Point) point.clone());
                 if (point.getOutputList() != null) {
                     for (Pipe outputPipe : point.getOutputList()) {
@@ -149,7 +149,7 @@ public class NodeImpl implements NodeService {
                     }
                 }
                 /** 将每个坐标点的标签传递给与其关联的结点 */
-                Node pointNode = (Node) point.getNode().clone();
+                Node pointNode = (Node) point.getHyperlink().getNode().clone();
                 pointNode.setLabel(point.getLabel());
                 buildGraph(pointNode, pointList, pipeList);
             }

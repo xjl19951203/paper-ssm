@@ -1,6 +1,6 @@
 package com.paper.ssm;
 
-import com.paper.ssm.process.Data;
+import com.paper.ssm.process.data.Data;
 import com.paper.ssm.process.influx.DataService;
 import com.paper.ssm.process.mqtt.Mqtt;
 

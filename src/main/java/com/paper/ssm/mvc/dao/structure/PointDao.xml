@@ -16,9 +16,8 @@
         <result column="x" jdbcType="INTEGER" property="x" />
         <result column="y" jdbcType="INTEGER" property="y" />
         <result column="parentId" jdbcType="INTEGER" property="parentId" />
-        <result column="nodeId" jdbcType="INTEGER" property="nodeId" />
-        <association property="node" column="nodeId"
-                     select="com.paper.ssm.mvc.dao.structure.NodeDao.selectByPrimaryKey" />
+        <association property="hyperlink" column="id"
+                     select="com.paper.ssm.mvc.dao.structure.HyperlinkDao.selectByPointId" />
         <collection property="outputList" column="{inputId=id,direction=NEXT_DIRECTION}"
                     select="com.paper.ssm.mvc.dao.structure.PipeDao.selectListByQuery" />
     </resultMap>
@@ -29,9 +28,9 @@
         <result column="x" jdbcType="INTEGER" property="x" />
         <result column="y" jdbcType="INTEGER" property="y" />
         <result column="parentId" jdbcType="INTEGER" property="parentId" />
-        <result column="nodeId" jdbcType="INTEGER" property="nodeId" />
-        <association property="node" column="nodeId"
-                     select="com.paper.ssm.mvc.dao.structure.NodeDao.selectSimpleByPrimaryKey" />
+<!--        <result column="nodeId" jdbcType="INTEGER" property="nodeId" />-->
+<!--        <association property="node" column="nodeId"-->
+<!--                     select="com.paper.ssm.mvc.dao.structure.NodeDao.selectSimpleByPrimaryKey" />-->
     </resultMap>
 
     <insert id="insert" parameterType="com.paper.ssm.model.structure.Point" useGeneratedKeys="true" keyProperty="id">
@@ -54,9 +53,6 @@
         <where>
             <if test="parentId != null">
                 `parentId` = #{parentId}
-            </if >
-            <if test="nodeId != null">
-                and `nodeId` = #{nodeId}
             </if >
             <if test="x != null">
                 and `x` = #{x}
