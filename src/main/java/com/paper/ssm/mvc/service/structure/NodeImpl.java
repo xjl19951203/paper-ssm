@@ -140,7 +140,7 @@ public class NodeImpl implements NodeService {
                 pointList.add((Point) point.clone());
                 if (point.getOutputList() != null) {
                     for (Pipe outputPipe : point.getOutputList()) {
-                        outputPipe.setDirection(Pipe.NEXT_DIRECTION);
+                        outputPipe.setDirection(Pipe.SIBLING_DIRECTION);
                         outputPipe.setInputLabel(point.getLabel());
                         String outputLabel = node.getLabel() + "(" + outputPipe.getOutput().getX()
                                 + "," + outputPipe.getOutput().getY() + ")";

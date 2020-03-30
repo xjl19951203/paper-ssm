@@ -16,8 +16,11 @@ import java.util.List;
 public class Pipe extends Model implements Cloneable{
 
 
-    public static final Integer CHILD_DIRECTION = 0;
-    public static final Integer NEXT_DIRECTION = 1;
+    /** 指向子级孩子坐标 */
+    public static final Integer CHILD_DIRECTION = 1;
+    /** 指向同级兄弟坐标 */
+    public static final Integer SIBLING_DIRECTION = 2;
+    /** 指向父级父亲坐标 */
     public static final Integer PARENT_DIRECTION = 3;
 
     private Integer direction;
