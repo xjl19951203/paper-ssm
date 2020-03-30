@@ -1,6 +1,10 @@
-package com.paper.ssm.model.structure;
+package com.paper.ssm.model.instantiate;
 
 import com.paper.ssm.model.Model;
+import com.paper.ssm.model.structure.Flow;
+import com.paper.ssm.model.structure.Node;
+import com.paper.ssm.model.structure.Pipe;
+import com.paper.ssm.model.structure.Point;
 import lombok.Getter;
 import lombok.Setter;
 

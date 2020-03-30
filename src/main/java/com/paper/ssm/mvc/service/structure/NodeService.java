@@ -1,6 +1,6 @@
 package com.paper.ssm.mvc.service.structure;
 
-import com.paper.ssm.model.structure.Graph;
+import com.paper.ssm.model.instantiate.Graph;
 import com.paper.ssm.model.structure.Node;
 import com.paper.ssm.mvc.service.Service;
 

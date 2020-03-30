@@ -1,4 +1,4 @@
-package com.paper.ssm.task.drools;
+package com.paper.ssm.process.drools;
 
 /**
  * @author ZengYuan

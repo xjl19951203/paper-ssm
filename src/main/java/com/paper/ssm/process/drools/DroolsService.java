@@ -1,6 +1,5 @@
-package com.paper.ssm.task.drools;
+package com.paper.ssm.process.drools;
 
-import com.paper.ssm.task.drools.NewKieBase;
 import org.kie.api.KieBase;
 import org.springframework.stereotype.Service;
 

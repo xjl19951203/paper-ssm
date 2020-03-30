@@ -1,5 +1,6 @@
 package com.paper.ssm.mvc.service.structure;
 
+import com.paper.ssm.model.instantiate.Graph;
 import com.paper.ssm.model.structure.*;
 import com.paper.ssm.mvc.dao.structure.NodeDao;
 import com.paper.ssm.mvc.service.instantiate.BindService;

@@ -1,4 +1,4 @@
-package com.paper.ssm.task;
+package com.paper.ssm.process;
 
 import lombok.Data;
 import org.influxdb.annotation.Column;

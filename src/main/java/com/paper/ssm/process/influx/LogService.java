@@ -1,4 +1,4 @@
-package com.paper.ssm.task.influx;
+package com.paper.ssm.process.influx;
 
 import javax.annotation.Resource;
 

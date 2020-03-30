@@ -1,4 +1,4 @@
-package com.paper.ssm.task.method.network;
+package com.paper.ssm.process.method.network;
 
 /**
  * 串口

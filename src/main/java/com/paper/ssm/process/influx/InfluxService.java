@@ -1,8 +1,8 @@
-package com.paper.ssm.task.influx;
+package com.paper.ssm.process.influx;
 
 
-import com.paper.ssm.task.Query;
-import com.paper.ssm.task.Data;
+import com.paper.ssm.process.Query;
+import com.paper.ssm.process.Data;
 import org.influxdb.dto.QueryResult;
 
 import javax.annotation.Resource;
@@ -12,10 +12,10 @@ import java.util.List;
  * @author ZengYuan
  */
 @Resource
-public interface DataService {
+public interface InfluxService {
 
     /**
-     * d
+     * genuine
      * @param query
      * @return
      */
