@@ -14,8 +14,8 @@ import java.util.List;
  * @date 2020/3/20 13:50
  * @version: 1.0
  */
-@Service("baseService")
-public class AttributeImpl implements BaseService {
+@Service("attributeService")
+public class AttributeImpl implements AttributeService {
 
     @Resource
     AttributeDao attributeDao;

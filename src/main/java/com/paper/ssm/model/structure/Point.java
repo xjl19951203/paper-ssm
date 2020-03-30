@@ -26,16 +26,15 @@ public class Point extends Model implements Cloneable{
     public static final Integer COMPLEX_STYLE = 1;
 
     /**
-     * 通过point(vertical, horizontal)二元组实现node的一级子节点内容的二维平面组织关系
+     * 通过point(x, y)二元组实现node的一级子节点内容的二维平面组织关系
      * 通过point(namespace, vertical, horizontal)三元组确定模型在多层级三维空间中的结构组织关系
      */
-    private Integer vertical;
-    private Integer horizontal;
-    private String label;
+    private Integer x;
+    private Integer y;
+    /** 复合坐标还是数据坐标，由其超链接关联的结点类型决定 */
     private Integer style;
     /** 该坐标点所属的结点模型*/
     private Integer parentId;
-    private Node parent;
     /** 该坐标点关联的结点模型 */
     private Integer nodeId;
     @JsonIgnore

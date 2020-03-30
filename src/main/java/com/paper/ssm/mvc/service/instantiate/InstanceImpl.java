@@ -117,8 +117,8 @@ public class InstanceImpl implements InstanceService {
         if (node.getPointList() != null) {
             for (Point point : node.getPointList()) {
                 { /**============================ 给Point和node命名==========================*/
-                    String inputLabel = node.getLabel() + "(" + point.getVertical()
-                            + "," + point.getHorizontal() + ")";
+                    String inputLabel = node.getLabel() + "(" + point.getX()
+                            + "," + point.getY() + ")";
                     point.setLabel(inputLabel);
                     if (point.getNode().getChildList().size() > 0) {
                         point.setStyle(Point.COMPLEX_STYLE);

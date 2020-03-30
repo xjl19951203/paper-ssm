@@ -18,7 +18,7 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/api/Attributes")
+@RequestMapping("/api/attributes")
 public class AttributeController extends AbstractController<Attribute> {
 
     @Resource

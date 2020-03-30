@@ -6,10 +6,10 @@
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
         <result column="chainId" jdbcType="INTEGER" property="chainId" />
-        <result column="baseId" jdbcType="INTEGER" property="baseId" />
+        <result column="attributeId" jdbcType="INTEGER" property="attributeId" />
         <association column="chainId" property="chain"
                      select="com.paper.ssm.mvc.dao.normalize.ChainDao.selectSimpleByPrimaryKey" />
-        <association column="baseId" property="attribute"
+        <association column="attributeId" property="attribute"
                      select="com.paper.ssm.mvc.dao.normalize.AttributeDao.selectByPrimaryKey" />
     </resultMap>
 
@@ -29,9 +29,9 @@
 
     <insert id="insert" parameterType="com.paper.ssm.model.normalize.Link" useGeneratedKeys="true" keyProperty="id">
         insert into `norm_link`
-        (chainId, `baseId`)
+        (chainId, `attributeId`)
         values
-        (#{chainId},#{baseId})
+        (#{chainId},#{attributeId})
     </insert>
 
 </mapper>

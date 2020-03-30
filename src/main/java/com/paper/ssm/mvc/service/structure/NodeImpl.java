@@ -18,10 +18,6 @@ public class NodeImpl implements NodeService {
 
     @Resource
     NodeDao nodeDao;
-    @Resource
-    BindService bindService;
-    @Resource
-    ChainService chainService;
 
     @Override
     public Node insert(Node record) {
@@ -125,15 +121,15 @@ public class NodeImpl implements NodeService {
                 Pipe childPipe = new Pipe();
                 childPipe.setDirection(Pipe.CHILD_DIRECTION);
                 childPipe.setInputLabel(node.getLabel());
-                String outputLabel = node.getLabel() + "(" + childPoint.getVertical()
-                        + "," + childPoint.getHorizontal() + ")";
+                String outputLabel = node.getLabel() + "(" + childPoint.getX()
+                        + "," + childPoint.getY() + ")";
                 childPipe.setOutputLabel(outputLabel);
                 pipeList.add(childPipe);
             }
         }
         if (node.getPointList() != null) {
             for (Point point : node.getPointList()) {
-                String inputLabel = node.getLabel() + "(" + point.getVertical() + "," + point.getHorizontal() + ")";
+                String inputLabel = node.getLabel() + "(" + point.getX() + "," + point.getY() + ")";
                 point.setLabel(inputLabel);
                 if (point.getNode().getChildList().size() > 0) {
                     point.setStyle(Point.COMPLEX_STYLE);
@@ -146,8 +142,8 @@ public class NodeImpl implements NodeService {
                     for (Pipe outputPipe : point.getOutputList()) {
                         outputPipe.setDirection(Pipe.NEXT_DIRECTION);
                         outputPipe.setInputLabel(point.getLabel());
-                        String outputLabel = node.getLabel() + "(" + outputPipe.getOutput().getVertical()
-                                + "," + outputPipe.getOutput().getHorizontal() + ")";
+                        String outputLabel = node.getLabel() + "(" + outputPipe.getOutput().getX()
+                                + "," + outputPipe.getOutput().getY() + ")";
                         outputPipe.setOutputLabel(outputLabel);
                         pipeList.add((Pipe) outputPipe.clone());
                     }

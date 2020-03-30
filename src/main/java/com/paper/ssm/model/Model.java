@@ -10,11 +10,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 /**
- * Model是模型的父类：分为结构化和规范化两个支线
- * a. Component: 组件，结构化的父类
- * b. Rule：规则，规范化的父类
- * 其中，Component 与 Rule 是 M:1的关系，即一个Rule可以被多个Component复用，
- * 将Rule与Component构建关系，可以实现对模型结构的不同层级，不同模块，不同粒度的嵌入规则
+ * Model是模型的父类：分为结构化、规范化、实例化等三个支线
+ * a. 结构化:
+ * b. 规范化：
+ * c. 实例化：
  */
 /** 返回的json中去掉值为null的属性
  * @author ZengYuan*/

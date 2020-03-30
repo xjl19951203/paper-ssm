@@ -17,7 +17,7 @@ import lombok.Setter;
 public class Link extends Model {
 
     private Integer chainId;
-    private Integer baseId;
+    private Integer attributeId;
     private Chain chain;
     private Attribute attribute;
 }

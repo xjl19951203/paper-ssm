@@ -13,9 +13,8 @@
     <resultMap id="BaseResultMap" type="com.paper.ssm.model.structure.Point">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
-        <result column="vertical" jdbcType="INTEGER" property="vertical" />
-        <result column="vertical" jdbcType="INTEGER" property="vertical" />
-        <result column="horizontal" jdbcType="INTEGER" property="horizontal" />
+        <result column="x" jdbcType="INTEGER" property="x" />
+        <result column="y" jdbcType="INTEGER" property="y" />
         <result column="parentId" jdbcType="INTEGER" property="parentId" />
         <result column="nodeId" jdbcType="INTEGER" property="nodeId" />
         <association property="node" column="nodeId"
@@ -27,8 +26,8 @@
     <resultMap id="SimpleResultMap" type="com.paper.ssm.model.structure.Point">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
-        <result column="vertical" jdbcType="INTEGER" property="vertical" />
-        <result column="horizontal" jdbcType="INTEGER" property="horizontal" />
+        <result column="x" jdbcType="INTEGER" property="x" />
+        <result column="y" jdbcType="INTEGER" property="y" />
         <result column="parentId" jdbcType="INTEGER" property="parentId" />
         <result column="nodeId" jdbcType="INTEGER" property="nodeId" />
         <association property="node" column="nodeId"
@@ -59,8 +58,8 @@
             <if test="nodeId != null">
                 and `nodeId` = #{nodeId}
             </if >
-            <if test="vertical != null">
-                and `vertical` = #{vertical}
+            <if test="x != null">
+                and `x` = #{x}
             </if >
         </where>
         ;

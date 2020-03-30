@@ -3,7 +3,7 @@
 <mapper namespace="com.paper.ssm.mvc.dao.structure.NodeDao">
 
     <sql id="Constant_List" >
-        1 as FIRST_VERTICAL
+        1 as FIRST_X
     </sql>
 
     <resultMap id="ListResultMap" type="com.paper.ssm.model.structure.Node">
@@ -12,7 +12,7 @@
         <collection column="{parentId=id}"
                     property="pointList" ofType="com.paper.ssm.model.structure.Point"
                     javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.PointDao.selectListByQuery"/>
-        <collection column="{parentId=id,vertical=FIRST_VERTICAL}"
+        <collection column="{parentId=id,x=FIRST_X}"
                     property="childList" ofType="com.paper.ssm.model.structure.Point"
                     javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.PointDao.selectListByQuery"/>
     </resultMap>
@@ -28,7 +28,7 @@
         <collection column="{parentId=id}"
                     property="pointList" ofType="com.paper.ssm.model.structure.Point"
                     javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.PointDao.selectListByQuery"/>
-        <collection column="{parentId=id,vertical=FIRST_VERTICAL}"
+        <collection column="{parentId=id,x=FIRST_X}"
                     property="childList" ofType="com.paper.ssm.model.structure.Point"
                     javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.PointDao.selectListByQuery"/>
     </resultMap>
