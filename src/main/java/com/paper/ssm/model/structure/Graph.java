@@ -1,5 +1,6 @@
 package com.paper.ssm.model.structure;
 
+import com.paper.ssm.model.Model;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +12,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class Graph extends Component {
+public class Graph extends Model {
 
     /** 根节点*/
     private Node root;

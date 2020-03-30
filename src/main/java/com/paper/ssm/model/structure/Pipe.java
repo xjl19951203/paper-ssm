@@ -1,5 +1,6 @@
 package com.paper.ssm.model.structure;
 
+import com.paper.ssm.model.Model;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +13,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class Pipe extends Component implements Cloneable{
+public class Pipe extends Model implements Cloneable{
 
 
     public static final Integer CHILD_DIRECTION = 0;

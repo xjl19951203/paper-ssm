@@ -1,6 +1,6 @@
 package com.paper.ssm.task.influx;
 
-import com.paper.ssm.task.Value;
+import com.paper.ssm.task.Data;
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
 import org.influxdb.dto.BatchPoints;
@@ -44,6 +44,14 @@ public class InfluxImpl implements InfluxService {
 
     @Override
     public QueryResult select(com.paper.ssm.task.Query query) {
+
+        if (query.getPageSize() == null) {
+            query.setPageSize(10);
+        }
+        if (query.getPageNum() == null) {
+            query.setPageNum(1);
+        }
+
         /** InfluxDB支持分页查询,因此可以设置分页查询条件 */
         String pageQuery = " LIMIT " + query.getPageSize() +
                 " OFFSET " + ((query.getPageNum() - 1) * query.getPageSize());
@@ -60,7 +68,7 @@ public class InfluxImpl implements InfluxService {
     }
 
     @Override
-    public long insert(Value record) {
+    public long insert(Data record) {
 
         Point point = Point.measurementByPOJO(record.getClass())
                 .addFieldsFromPOJO(record)
@@ -73,8 +81,8 @@ public class InfluxImpl implements InfluxService {
     }
 
     @Override
-    public int insert(List<Value> records) {
-        for (Value record : records) {
+    public int insert(List<Data> records) {
+        for (Data record : records) {
             Point point = Point.measurementByPOJO(record.getClass())
                     .addFieldsFromPOJO(record)
                     .build();

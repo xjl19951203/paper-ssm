@@ -2,7 +2,7 @@ package com.paper.ssm.task.influx;
 
 
 import com.paper.ssm.task.Query;
-import com.paper.ssm.task.Value;
+import com.paper.ssm.task.Data;
 import org.influxdb.dto.QueryResult;
 
 import javax.annotation.Resource;
@@ -26,12 +26,12 @@ public interface InfluxService {
      *  @param record 消息
      * @return 返回id
      */
-    long insert(Value record);
+    long insert(Data record);
 
     /**
      * 批量添加记录
      * @param records 记录集合
      * @return 插入情况
      */
-    int insert(List<Value> records);
+    int insert(List<Data> records);
 }

@@ -25,6 +25,7 @@ public class Model {
 
     protected Integer id;
     protected String title;
+    protected String label;
     @DateTimeFormat(pattern="yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
     protected Date createdAt;

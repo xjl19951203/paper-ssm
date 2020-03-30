@@ -1,7 +1,7 @@
 package com.paper.ssm.mvc.controller;
 
 import com.paper.ssm.model.normalize.Link;
-import com.paper.ssm.mvc.service.LinkService;
+import com.paper.ssm.mvc.service.normalize.LinkService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 

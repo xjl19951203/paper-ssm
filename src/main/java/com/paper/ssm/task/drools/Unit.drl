@@ -1,0 +1,15 @@
+package com.paper.ssm.model.normalize.rules;
+import com.paper.ssm.model.normalize.norm.Unit
+dialect  "mvel"
+
+/**
+ 单位规范定义
+ 1. 单位转换规则，
+ 2. 单位不能超出给定
+
+*/
+abstractRule "Unit"
+    when
+        $data : Unit(title<16 || age>50)
+    then
+end

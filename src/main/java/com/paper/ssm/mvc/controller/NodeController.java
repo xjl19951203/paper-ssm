@@ -2,7 +2,7 @@ package com.paper.ssm.mvc.controller;
 
 import com.paper.ssm.model.structure.Graph;
 import com.paper.ssm.model.structure.Node;
-import com.paper.ssm.mvc.service.NodeService;
+import com.paper.ssm.mvc.service.structure.NodeService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 

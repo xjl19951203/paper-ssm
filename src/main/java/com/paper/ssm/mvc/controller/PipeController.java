@@ -1,7 +1,7 @@
 package com.paper.ssm.mvc.controller;
 
 import com.paper.ssm.model.structure.Pipe;
-import com.paper.ssm.mvc.service.PipeService;
+import com.paper.ssm.mvc.service.structure.PipeService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 

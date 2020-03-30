@@ -1,19 +1,16 @@
 package com.paper.ssm.test;
 
 import com.paper.ssm.SsmApplication;
+import com.paper.ssm.task.Data;
 import com.paper.ssm.task.Query;
-import com.paper.ssm.task.Value;
-import com.paper.ssm.task.influx.ValueService;
+import com.paper.ssm.task.influx.DataService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -24,7 +21,7 @@ import java.util.Random;
 public class InfluxTest {
 
     @Resource
-    private ValueService valueService;
+    private DataService dataService;
 
     @Before
     public void setup() {
@@ -35,23 +32,22 @@ public class InfluxTest {
         int loop = 100;
         Random random = new Random();
         for (int i = 0; i < loop; i++) {
-            Value value = Value.builder()
-                    .pointId(i)
-                    .taskId(1)
-                    .value(String.valueOf(random.nextInt(62)))
-                    .build();
-            this.valueService.insert(value);
+            Data data = new Data();
+            data.setPointId(i);
+            data.setTaskId(1);
+            data.setValue(String.valueOf(random.nextInt(62)));
+            this.dataService.insert(data);
         }
     }
 
     @Test
     public void testQuery(){
         Query query = new Query();
-        query.setMeasurement("value");
+        query.setMeasurement("data");
         query.setPageNum(10);
         query.setPageSize(5);
         query.setPointId(1);
-        this.valueService.select(query);
+        this.dataService.select(query);
     }
 
     @Test

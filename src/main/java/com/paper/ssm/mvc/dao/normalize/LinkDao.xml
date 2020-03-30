@@ -9,8 +9,8 @@
         <result column="baseId" jdbcType="INTEGER" property="baseId" />
         <association column="chainId" property="chain"
                      select="com.paper.ssm.mvc.dao.normalize.ChainDao.selectSimpleByPrimaryKey" />
-        <association column="baseId" property="base"
-                     select="com.paper.ssm.mvc.dao.normalize.BaseDao.selectByPrimaryKey" />
+        <association column="baseId" property="attribute"
+                     select="com.paper.ssm.mvc.dao.normalize.AttributeDao.selectByPrimaryKey" />
     </resultMap>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">

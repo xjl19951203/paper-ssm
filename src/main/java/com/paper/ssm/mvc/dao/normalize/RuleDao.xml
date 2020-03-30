@@ -5,7 +5,7 @@
     <resultMap id="BaseResultMap" type="com.paper.ssm.model.normalize.Rule">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="label" jdbcType="VARCHAR" property="label" />
-        <result column="value" jdbcType="VARCHAR" property="value" />
+        <result column="data" jdbcType="VARCHAR" property="data" />
     </resultMap>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -18,15 +18,15 @@
 
     <insert id="insert" parameterType="com.paper.ssm.model.normalize.Rule" useGeneratedKeys="true" keyProperty="id">
         insert into `norm_rule`
-        (label, `value`)
+        (label, `data`)
         values
-        (#{label},#{value})
+        (#{label},#{data})
     </insert>
 
     <update id="update" parameterType="com.paper.ssm.model.normalize.Rule">
         update `norm_rule` set
         label = #{label,jdbcType=VARCHAR},
-        `value` = #{value,jdbcType=VARCHAR}
+        `data` = #{data,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>
 

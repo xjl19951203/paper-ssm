@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paper.ssm.mvc.dao.instance.TaskDao">
+
+    <resultMap id="BaseResultMap" type="com.paper.ssm.model.instantiate.Instance">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="nodeId" jdbcType="INTEGER" property="nodeId" />
+        <association column="nodeId" property="node"
+                     select="com.paper.ssm.mvc.dao.structure.NodeDao.selectSimpleByPrimaryKey" />
+        <collection property="bindList" column="{taskId=id}" ofType="java.util.List"
+                    select="com.paper.ssm.mvc.dao.instance.BindDao.selectListByQuery"/>
+    </resultMap>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT * from `instance` where id = #{pk};
+    </select>
+
+    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.model.instantiate.Instance">
+        select * from `instance`;
+    </select>
+
+    <insert id="insert" parameterType="com.paper.ssm.model.instantiate.Instance" useGeneratedKeys="true" keyProperty="id">
+        insert into `instance`
+        (title, `nodeId`)
+        values
+        (#{title},#{nodeId})
+    </insert>
+
+    <update id="update" parameterType="com.paper.ssm.model.instantiate.Instance">
+        update `instance` set
+        title = #{title,jdbcType=VARCHAR},
+        `nodeId` = #{nodeId,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

@@ -1,8 +1,8 @@
 package com.paper.ssm.model.structure;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.paper.ssm.model.Model;
 import com.paper.ssm.model.normalize.Chain;
-import com.paper.ssm.model.task.Bind;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class Node extends Component implements Cloneable{
+public class Node extends Model implements Cloneable{
 
     /** 采用结点空间策略，保障相同或不同的结点在数据流图空间中都有唯一的结点名称，
      * 使得同一个结点能在不同层级，同一层级的不同位置出现多次
@@ -27,7 +27,8 @@ public class Node extends Component implements Cloneable{
     private List<Point> pointList;
     @JsonIgnore
     private List<Point> childList;
-    /** 该结点中所含的结点 */
+    /** 该结点中所含的结点（多层级递归的综合
+     * ） */
     private List<Node> nodeList;
 
     /** 该chain并不一定存在于MySQL中，

@@ -18,5 +18,5 @@ public class Link extends Model {
     private Integer chainId;
     private Integer baseId;
     private Chain chain;
-    private Base base;
+    private Attribute attribute;
 }

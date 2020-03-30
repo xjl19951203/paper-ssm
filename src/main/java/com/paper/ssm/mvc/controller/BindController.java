@@ -1,7 +1,7 @@
 package com.paper.ssm.mvc.controller;
 
-import com.paper.ssm.model.task.Bind;
-import com.paper.ssm.mvc.service.BindService;
+import com.paper.ssm.model.instantiate.Bind;
+import com.paper.ssm.mvc.service.instantiate.BindService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 

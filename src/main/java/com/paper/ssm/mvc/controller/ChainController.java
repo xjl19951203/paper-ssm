@@ -1,7 +1,7 @@
 package com.paper.ssm.mvc.controller;
 
 import com.paper.ssm.model.normalize.Chain;
-import com.paper.ssm.mvc.service.ChainService;
+import com.paper.ssm.mvc.service.normalize.ChainService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
