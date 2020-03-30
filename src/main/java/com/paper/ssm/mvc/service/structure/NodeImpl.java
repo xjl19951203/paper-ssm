@@ -97,7 +97,7 @@ public class NodeImpl implements NodeService {
         point.setNode(root);
         point.setLabel(root.getLabel());
         point.setTitle(root.getTitle());
-        if (root.getChildList().size() > 0) {
+        if (root.getLeftPointList().size() > 0) {
             point.setStyle(Point.COMPLEX_STYLE);
         } else {
             point.setStyle(Point.SINGLE_STYLE);
@@ -116,8 +116,8 @@ public class NodeImpl implements NodeService {
         if (node == null) {
             return;
         }
-        if (node.getChildList() != null) {
-            for (Point childPoint : node.getChildList()) {
+        if (node.getLeftPointList() != null) {
+            for (Point childPoint : node.getLeftPointList()) {
                 Pipe childPipe = new Pipe();
                 childPipe.setDirection(Pipe.CHILD_DIRECTION);
                 childPipe.setInputLabel(node.getLabel());
@@ -131,7 +131,7 @@ public class NodeImpl implements NodeService {
             for (Point point : node.getPointList()) {
                 String inputLabel = node.getLabel() + "(" + point.getX() + "," + point.getY() + ")";
                 point.setLabel(inputLabel);
-                if (point.getNode().getChildList().size() > 0) {
+                if (point.getNode().getLeftPointList().size() > 0) {
                     point.setStyle(Point.COMPLEX_STYLE);
                 } else {
                     point.setStyle(Point.SINGLE_STYLE);

@@ -26,7 +26,7 @@ public class Node extends Model implements Cloneable{
     private Integer style;
     private List<Point> pointList;
     @JsonIgnore
-    private List<Point> childList;
+    private List<Point> leftPointList;
     /** 该结点中所含的结点（多层级递归的综合
      * ） */
     private List<Node> nodeList;

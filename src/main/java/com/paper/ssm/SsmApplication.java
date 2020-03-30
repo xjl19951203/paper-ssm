@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SsmApplication {
 
 	public static void main(String[] args) {
+		Context.startup();
 		SpringApplication.run(SsmApplication.class, args);
 	}
 

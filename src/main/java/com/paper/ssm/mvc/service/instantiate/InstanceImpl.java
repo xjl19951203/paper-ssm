@@ -120,7 +120,7 @@ public class InstanceImpl implements InstanceService {
                     String inputLabel = node.getLabel() + "(" + point.getX()
                             + "," + point.getY() + ")";
                     point.setLabel(inputLabel);
-                    if (point.getNode().getChildList().size() > 0) {
+                    if (point.getNode().getLeftPointList().size() > 0) {
                         point.setStyle(Point.COMPLEX_STYLE);
                     } else {
                         point.setStyle(Point.SINGLE_STYLE);

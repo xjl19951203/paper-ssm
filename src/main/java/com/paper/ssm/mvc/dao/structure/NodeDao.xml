@@ -13,7 +13,7 @@
                     property="pointList" ofType="com.paper.ssm.model.structure.Point"
                     javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.PointDao.selectListByQuery"/>
         <collection column="{parentId=id,x=FIRST_X}"
-                    property="childList" ofType="com.paper.ssm.model.structure.Point"
+                    property="leftPointList" ofType="com.paper.ssm.model.structure.Point"
                     javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.PointDao.selectListByQuery"/>
     </resultMap>
 
@@ -29,7 +29,7 @@
                     property="pointList" ofType="com.paper.ssm.model.structure.Point"
                     javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.PointDao.selectListByQuery"/>
         <collection column="{parentId=id,x=FIRST_X}"
-                    property="childList" ofType="com.paper.ssm.model.structure.Point"
+                    property="leftPointList" ofType="com.paper.ssm.model.structure.Point"
                     javaType="java.util.List" select="com.paper.ssm.mvc.dao.structure.PointDao.selectListByQuery"/>
     </resultMap>
 
