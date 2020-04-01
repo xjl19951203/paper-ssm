@@ -1,0 +1,31 @@
+package rules;
+import com.paper.ssm.process.data.Data
+import com.paper.ssm.process.data.Field
+import com.paper.ssm.process.data.Compare
+import com.paper.ssm.model.normalize.Rule
+import com.paper.ssm.model.normalize.RuleMacro
+import com.paper.ssm.model.normalize.Attribute
+
+//dialect  "mvel"
+
+rule  "test"
+    when
+        eval(true)
+    then
+        System.out.println("drools is running");
+end
+
+
+rule "label(field == null)"
+    when
+        $compare: Compare(field == null)
+        $attribute: Attribute() from $compare.attribute
+        $rule: Rule(type == Rule.LABEL_TYPE)
+    then
+        Field f = new Field();
+        f.setRuleId($compare.getAttribute().getRuleId());
+        f.setValue($compare.getAttribute().getValue());
+        $compare.getData().getFieldList().add(f);
+end
+
+

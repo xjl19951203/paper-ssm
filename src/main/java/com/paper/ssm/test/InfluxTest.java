@@ -34,7 +34,7 @@ public class InfluxTest {
         for (int i = 0; i < loop; i++) {
             Data data = new Data();
             data.setPointId(i);
-            data.setTaskId(1);
+            data.setInstanceId(1);
             data.setValue(String.valueOf(random.nextInt(62)));
             this.dataService.insert(data);
         }

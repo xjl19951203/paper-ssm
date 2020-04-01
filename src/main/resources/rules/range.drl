@@ -1,0 +1,55 @@
+package rules;
+import com.paper.ssm.process.data.Data
+import com.paper.ssm.process.data.Field
+import com.paper.ssm.process.data.Compare
+import com.paper.ssm.model.normalize.RuleMacro
+import com.paper.ssm.model.normalize.Attribute
+dialect  "mvel"
+
+rule "range_less"
+    when $compare: Compare(ruleId == RuleMacro.LESS)
+         $attribute: Attribute() from $compare.attribute
+         $field: Field() from $compare.field
+         $data: Data() from $compare.data
+    then
+        if (Double.parseDouble($field.getValue()) >= Double.parseDouble($attribute.getValue())) {
+            /** 不满足下界条件，则设置为下界 */
+            $data.setValue($attribute.getValue());
+        }
+end
+
+rule "range_less_equal"
+    when $compare: Compare(ruleId == RuleMacro.LESS_AND_EQUAL)
+         $attribute: Attribute() from $compare.attribute
+         $field: Field() from $compare.field
+         $data: Data() from $compare.data
+    then
+        if (Double.parseDouble($field.getValue()) > Double.parseDouble($attribute.getValue())) {
+            /** 不满足下界条件，则设置为下界 */
+            $data.setValue($attribute.getValue());
+        }
+end
+
+rule "range_more"
+    when $compare: Compare(ruleId == RuleMacro.MORE)
+         $attribute: Attribute() from $compare.attribute
+         $field: Field() from $compare.field
+         $data: Data() from $compare.data
+    then
+        if (Double.parseDouble($field.getValue()) <= Double.parseDouble($attribute.getValue())) {
+            /** 不满足上界条件，则设置为上界 */
+            $data.setValue($attribute.getValue());
+        }
+end
+
+rule "range_more_equal"
+    when $compare: Compare(ruleId == RuleMacro.MORE_AND_EQUAL)
+         $attribute: Attribute() from $compare.attribute
+         $field: Field() from $compare.field
+         $data: Data() from $compare.data
+    then
+        if (Double.parseDouble($field.getValue()) < Double.parseDouble($attribute.getValue())) {
+            /** 不满足上界条件，则设置为上界 */
+            $data.setValue($attribute.getValue());
+        }
+end

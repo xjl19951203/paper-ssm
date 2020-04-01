@@ -14,7 +14,14 @@ import lombok.Setter;
 @Setter
 public class Field {
 
-    private String field;
+    private Integer ruleId;
     private String value;
 
+    @Override
+    public String toString() {
+        return "Field{" +
+                "ruleId=" + ruleId +
+                ", value='" + value + '\'' +
+                '}';
+    }
 }

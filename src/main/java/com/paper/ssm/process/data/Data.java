@@ -3,6 +3,8 @@ package com.paper.ssm.process.data;
 import org.influxdb.annotation.Column;
 import org.influxdb.annotation.Measurement;
 
+import java.util.List;
+
 /**
  * Data是不可再细分的数据结点，属于最小粒度的结点类型
  *
@@ -33,14 +35,15 @@ public class Data {
     @Column(name = "pointId")
     private Integer pointId;
 
-    /** Data是属于某个采集任务的 */
-    @Column(name = "taskId")
-    private Integer taskId;
+    /** Data是属于某个采集实例的 */
+    @Column(name = "instanceId")
+    private Integer instanceId;
 
     /** 具体的值 */
     @Column(name = "value")
     private String value;
 
-//    private List<Field> fieldList;
+    /** 规范化后的规则实例/属性集合 */
+    private List<Field> fieldList;
 
 }

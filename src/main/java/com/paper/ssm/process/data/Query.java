@@ -17,6 +17,6 @@ public class Query {
     private Integer pageSize;
     private Integer pageNum;
     private Integer pointId;
-    private Integer taskId;
+    private Integer instanceId;
     private String measurement;
 }
