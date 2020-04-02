@@ -1,35 +1,31 @@
 package rules;
-import com.paper.ssm.process.data.Data
-import com.paper.ssm.process.data.Field
-import com.paper.ssm.process.data.Compare
+import com.paper.ssm.run.data.Data
 import com.paper.ssm.model.normalize.Rule
 import com.paper.ssm.model.normalize.RuleMacro
 import com.paper.ssm.model.normalize.Attribute
 dialect  "mvel"
 
+global Data data;
+
 rule "dataType_int=>double"
     activation-group "dataType"
     when
-        $compare: Compare(field != null, ruleId == RuleMacro.DATATYPE)
-        $field: Field(value == "int") from $compare.field
-        $attribute: Attribute(value == "double") from $compare.attribute
-        $data: Data() from $compare.data
+        $attribute: Attribute(ruleId == RuleMacro.DATATYPE && value == "double")
+        $field: Attribute(value == "int") from $attribute.field
     then
-        Double value = Double.parseDouble($data.getValue());
-        $data.setValue(value.toString());
+        Double value = Double.parseDouble(data.getValue());
+        data.setValue(value.toString());
         $field.setValue("double");
 end
 
 rule "dataType_double=>int"
     activation-group "dataType"
     when
-        $compare: Compare(field != null, ruleId == RuleMacro.DATATYPE)
-        $field: Field(value == "double") from $compare.field
-        $attribute: Attribute(value == "int") from $compare.attribute
-        $data: Data() from $compare.data
+        $attribute: Attribute(ruleId == RuleMacro.DATATYPE && value == "int")
+        $field: Attribute(value == "double") from $attribute.field
     then
-        Integer value = Integer.parseInt($data.getValue());
-        $data.setValue(value.toString());
+        Integer value = Integer.parseInt(data.getValue());
+        data.setValue(value.toString());
         $field.setValue("int");
 end
 
@@ -37,25 +33,21 @@ end
 rule "dataType_int=>boolean"
     activation-group "dataType"
     when
-        $compare: Compare(field != null, ruleId == RuleMacro.DATATYPE)
-        $field: Field(value == "int") from $compare.field
-        $attribute: Attribute(value == "boolean") from $compare.attribute
-        $data: Data() from $compare.data
+        $attribute: Attribute(ruleId == RuleMacro.DATATYPE && value == "boolean")
+        $field: Attribute(value == "int") from $attribute.field
     then
-        Boolean value = Boolean.parseBoolean($data.getValue());
-        $data.setValue(value.toString());
+        Boolean value = Boolean.parseBoolean(data.getValue());
+        data.setValue(value.toString());
         $field.setValue("boolean");
 end
 
 rule "dataType_boolean=>int"
     activation-group "dataType"
     when
-        $compare: Compare(field != null, ruleId == RuleMacro.DATATYPE)
-        $field: Field(value == "boolean") from $compare.field
-        $attribute: Attribute(value == "int") from $compare.attribute
-        $data: Data() from $compare.data
+        $attribute: Attribute(ruleId == RuleMacro.DATATYPE && value == "int")
+        $field: Attribute(value == "boolean") from $attribute.field
     then
-        Integer value = Integer.parseInt($data.getValue());
-        $data.setValue(value.toString());
+        Integer value = Integer.parseInt(data.getValue());
+        data.setValue(value.toString());
         $field.setValue("int");
 end

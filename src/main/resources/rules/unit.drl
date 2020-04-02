@@ -1,32 +1,30 @@
 package rules;
-import com.paper.ssm.process.data.Data
-import com.paper.ssm.process.data.Field
-import com.paper.ssm.process.data.Compare
+import com.paper.ssm.run.data.Data
 import com.paper.ssm.model.normalize.RuleMacro
 import com.paper.ssm.model.normalize.Attribute
 dialect  "mvel"
+
+global Data data;
 
 // 单位冲突
 rule "unit_g=>kg"
     activation-group "unit"
     when
-        $compare: Compare(field != null, ruleId == RuleMacro.UNIT)
-        $field: Field(value == "g") from $compare.field
-        $attribute: Attribute(value == "kg") from $compare.attribute
+        $attribute: Attribute(ruleId == RuleMacro.UNIT && value == "kg")
+        $field: Attribute(value == "g") from $attribute.field
     then
-        Double value = Double.parseDouble($compare.getData().getValue()) / 1000;
-        $compare.getData().setValue(String.valueOf(value));
+        Double value = Double.parseDouble(data.getValue()) / 1000;
+        data.setValue(String.valueOf(value));
         $field.setValue("kg");
 end
 
 rule "unit_kg=>g"
     activation-group "unit"
     when
-        $compare: Compare(field != null, ruleId == RuleMacro.UNIT)
-        $field: Field(value == "kg") from $compare.field
-        $attribute: Attribute(value == "g") from $compare.attribute
+        $attribute: Attribute(ruleId == RuleMacro.UNIT && value == "g")
+        $field: Attribute(value == "kg") from $attribute.field
     then
-        Double value = Double.parseDouble($compare.getData().getValue()) * 1000;
-        $compare.getData().setValue(String.valueOf(value));
+        Double value = Double.parseDouble(data.getValue()) * 1000;
+        data.setValue(String.valueOf(value));
         $field.setValue("g");
 end

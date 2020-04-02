@@ -1,12 +1,12 @@
 package rules;
-import com.paper.ssm.process.data.Data
-import com.paper.ssm.process.data.Field
-import com.paper.ssm.process.data.Compare
+import com.paper.ssm.run.data.Data
 import com.paper.ssm.model.normalize.Rule
-import com.paper.ssm.model.normalize.RuleMacro
 import com.paper.ssm.model.normalize.Attribute
+import com.paper.ssm.model.normalize.RuleMacro
 
 //dialect  "mvel"
+
+global Data data;
 
 rule  "test"
     when
@@ -18,14 +18,10 @@ end
 
 rule "label(field == null)"
     when
-        $compare: Compare(field == null)
-        $attribute: Attribute() from $compare.attribute
-        $rule: Rule(type == Rule.LABEL_TYPE)
+        $attribute: Attribute()
+        $rule: Rule(type == Rule.LABEL_TYPE) from $attribute.getRule()
     then
-        Field f = new Field();
-        f.setRuleId($compare.getAttribute().getRuleId());
-        f.setValue($compare.getAttribute().getValue());
-        $compare.getData().getFieldList().add(f);
+        data.getFieldList().add($attribute);
 end
 
 

@@ -1,13 +1,12 @@
 package com.paper.ssm.test;
 
 import com.paper.ssm.SsmApplication;
-import com.paper.ssm.model.normalize.Attribute;
-import com.paper.ssm.model.normalize.Chain;
-import com.paper.ssm.model.normalize.RuleMacro;
-import com.paper.ssm.mvc.dao.normalize.AttributeDao;
-import com.paper.ssm.process.data.Compare;
-import com.paper.ssm.process.data.Data;
-import com.paper.ssm.process.data.Field;
+import com.paper.ssm.core.model.normalize.Attribute;
+import com.paper.ssm.core.model.normalize.Chain;
+import com.paper.ssm.core.model.normalize.RuleMacro;
+import com.paper.ssm.core.dao.normalize.AttributeDao;
+import com.paper.ssm.run.data.Data;
+import com.paper.ssm.run.influx.DataService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,6 +38,8 @@ public class DroolsTest {
     private Data data;
 
     @Resource
+    private DataService dataService;
+    @Resource
     AttributeDao attributeDao;
 
     @Before
@@ -50,12 +51,14 @@ public class DroolsTest {
         chain = new Chain();
         chain.setAttributeList(this.attributeDao.selectListByQuery(null));
         data = new Data();
+        data.setPointId(1);
+        data.setInstanceId(1);
         data.setValue("1");
         data.setFieldList(new ArrayList<>());
-        Field f1 = new Field();
+        Attribute f1 = new Attribute();
         f1.setRuleId(1);
         f1.setValue("111");
-        Field f2 = new Field();
+        Attribute f2 = new Attribute();
         f2.setRuleId(RuleMacro.UNIT);
         f2.setValue("g");
         data.getFieldList().add(f1);
@@ -67,29 +70,25 @@ public class DroolsTest {
     public void test() {
 
         for (Attribute attribute : chain.getAttributeList()) {
-            Compare compare = new Compare();
-            compare.setData(data);
-            compare.setAttribute(attribute);
-            /** 规则实例在data的fieldList中不存在，则直接添加 */
-            compare.setField(null);
-            compare.setRuleId(attribute.getRuleId());
-            for (Field field : data.getFieldList()) {
-                /** 规则实例在data的fieldList中存在，则需要讨论如何处理冲突*/
+            /** field作为内循环，因为只需要处理chain中有的filed属性，chain没有的，直接忽视 */
+            for (Attribute field : data.getFieldList()) {
                 if (field.getRuleId().equals(attribute.getRuleId())) {
-                    compare.setField(field);
+                    attribute.setField(field);
                 }
             }
-            statefulKieSession.insert(compare);
+            /** drools驱动处理规则实例 */
+            statefulKieSession.insert(attribute);
         }
-
-        System.out.println(data);
+        /** 设置全局变量：data */
+        statefulKieSession.setGlobal("data", data);
 
         statefulKieSession.fireAllRules();
         statefulKieSession.dispose();
 
-        System.out.println("===========================");
-
         System.out.println(data);
+        /** 经规则链融合后的新data */
+        data.setFieldList(chain.getAttributeList());
+        this.dataService.insert(data);
     }
 
     /** 动态规则测试 */
