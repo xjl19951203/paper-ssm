@@ -1,6 +1,6 @@
 package com.paper.ssm;
 
-import com.paper.ssm.run.data.Data;
+import com.paper.ssm.core.model.data.Data;
 import com.paper.ssm.run.influx.DataService;
 import com.paper.ssm.face.mqtt.Mqtt;
 

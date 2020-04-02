@@ -1,4 +1,4 @@
-package com.paper.ssm.run.data;
+package com.paper.ssm.core.model.data;
 
 import lombok.Data;
 import org.influxdb.annotation.Column;

@@ -2,7 +2,7 @@ package com.paper.ssm.run.drools;
 
 import com.paper.ssm.core.model.normalize.Attribute;
 import com.paper.ssm.core.model.normalize.Chain;
-import com.paper.ssm.run.data.Data;
+import com.paper.ssm.core.model.data.Data;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;

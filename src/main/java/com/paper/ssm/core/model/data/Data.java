@@ -1,4 +1,4 @@
-package com.paper.ssm.run.data;
+package com.paper.ssm.core.model.data;
 
 import com.paper.ssm.core.model.normalize.Attribute;
 import org.influxdb.annotation.Column;

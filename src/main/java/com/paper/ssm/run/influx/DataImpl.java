@@ -1,7 +1,7 @@
 package com.paper.ssm.run.influx;
 
-import com.paper.ssm.run.data.Data;
-import com.paper.ssm.run.data.Query;
+import com.paper.ssm.core.model.data.Data;
+import com.paper.ssm.core.model.data.Query;
 import org.influxdb.dto.QueryResult;
 import org.springframework.stereotype.Service;
 

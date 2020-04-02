@@ -1,7 +1,7 @@
 package com.paper.ssm.run.influx;
 
 import com.paper.ssm.core.model.normalize.Attribute;
-import com.paper.ssm.run.data.Data;
+import com.paper.ssm.core.model.data.Data;
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
 import org.influxdb.dto.BatchPoints;
@@ -44,7 +44,7 @@ public class InfluxImpl implements InfluxService {
     }
 
     @Override
-    public QueryResult select(com.paper.ssm.run.data.Query query) {
+    public QueryResult select(com.paper.ssm.core.model.data.Query query) {
 
         if (query.getPageSize() == null) {
             query.setPageSize(10);

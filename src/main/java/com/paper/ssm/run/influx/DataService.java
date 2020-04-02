@@ -1,8 +1,8 @@
 package com.paper.ssm.run.influx;
 
 
-import com.paper.ssm.run.data.Query;
-import com.paper.ssm.run.data.Data;
+import com.paper.ssm.core.model.data.Query;
+import com.paper.ssm.core.model.data.Data;
 import org.influxdb.dto.QueryResult;
 
 import javax.annotation.Resource;

@@ -1,7 +1,7 @@
 package rules;
-import com.paper.ssm.run.data.Data
-import com.paper.ssm.model.normalize.RuleMacro
-import com.paper.ssm.model.normalize.Attribute
+import com.paper.ssm.core.model.data.Data
+import com.paper.ssm.core.model.normalize.RuleMacro
+import com.paper.ssm.core.model.normalize.Attribute
 dialect  "mvel"
 
 global Data data;

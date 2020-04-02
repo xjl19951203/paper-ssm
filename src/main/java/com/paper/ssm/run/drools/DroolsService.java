@@ -1,7 +1,7 @@
 package com.paper.ssm.run.drools;
 
 import com.paper.ssm.core.model.normalize.Chain;
-import com.paper.ssm.run.data.Data;
+import com.paper.ssm.core.model.data.Data;
 import org.springframework.stereotype.Service;
 
 
