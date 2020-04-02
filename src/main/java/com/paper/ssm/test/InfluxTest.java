@@ -3,7 +3,7 @@ package com.paper.ssm.test;
 import com.paper.ssm.SsmApplication;
 import com.paper.ssm.core.model.data.Data;
 import com.paper.ssm.core.model.data.Query;
-import com.paper.ssm.run.influx.DataService;
+import com.paper.ssm.core.service.data.DataService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,7 +47,7 @@ public class InfluxTest {
         query.setPageNum(10);
         query.setPageSize(5);
         query.setPointId(1);
-        this.dataService.select(query);
+//        this.dataService.select(query);
     }
 
     @Test

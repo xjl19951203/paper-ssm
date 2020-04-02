@@ -6,7 +6,7 @@ import com.paper.ssm.core.model.normalize.Chain;
 import com.paper.ssm.core.model.normalize.RuleMacro;
 import com.paper.ssm.core.dao.normalize.AttributeDao;
 import com.paper.ssm.core.model.data.Data;
-import com.paper.ssm.run.influx.DataService;
+import com.paper.ssm.core.service.data.DataService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

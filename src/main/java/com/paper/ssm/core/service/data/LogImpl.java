@@ -1,4 +1,4 @@
-package com.paper.ssm.run.influx;
+package com.paper.ssm.core.service.data;
 
 import org.springframework.stereotype.Service;
 

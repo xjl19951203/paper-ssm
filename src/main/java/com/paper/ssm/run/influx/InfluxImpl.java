@@ -46,6 +46,14 @@ public class InfluxImpl implements InfluxService {
     @Override
     public QueryResult select(com.paper.ssm.core.model.data.Query query) {
 
+        if (query.getMeasurement() == null) {
+            query.setMeasurement("data");
+        }
+        if (query.getPointId() == null) {
+            query.setPointId(1);
+        }
+
+
         if (query.getPageSize() == null) {
             query.setPageSize(10);
         }

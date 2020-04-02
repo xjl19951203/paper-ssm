@@ -1,7 +1,7 @@
 package com.paper.ssm;
 
 import com.paper.ssm.core.model.data.Data;
-import com.paper.ssm.run.influx.DataService;
+import com.paper.ssm.core.service.data.DataService;
 import com.paper.ssm.face.mqtt.Mqtt;
 
 import javax.annotation.Resource;
@@ -44,7 +44,7 @@ public class Context {
 //        executor.execute(task);
 //    }
 
-    public static long insert(Data data) {
+    public static Data insert(Data data) {
         return dataService.insert(data);
     }
 

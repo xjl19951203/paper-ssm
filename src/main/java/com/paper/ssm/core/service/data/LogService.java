@@ -1,4 +1,6 @@
-package com.paper.ssm.run.influx;
+package com.paper.ssm.core.service.data;
+
+import com.paper.ssm.run.influx.InfluxSql;
 
 import javax.annotation.Resource;
 
@@ -10,5 +12,5 @@ import javax.annotation.Resource;
  * @version: 1.0
  */
 @Resource
-public interface LogService extends InfluxSql{
+public interface LogService extends InfluxSql {
 }

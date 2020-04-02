@@ -3,6 +3,7 @@ package com.paper.ssm.face.restful;
 import com.paper.ssm.core.model.instantiate.Graph;
 import com.paper.ssm.core.model.structure.Node;
 import com.paper.ssm.core.service.structure.NodeService;
+import com.paper.ssm.run.graph.GraphService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,8 @@ public class NodeController extends AbstractController<Node> implements Cloneabl
 
     @Resource
     NodeService nodeService;
+    @Resource
+    GraphService graphService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     @Override
@@ -52,7 +55,7 @@ public class NodeController extends AbstractController<Node> implements Cloneabl
 
     @RequestMapping(value = "/{id}/graph", method = RequestMethod.GET)
     public Graph getGraph(@PathVariable Integer id) {
-        return this.nodeService.transToGraph(id);
+        return this.graphService.get(id);
     }
 
     @Override
