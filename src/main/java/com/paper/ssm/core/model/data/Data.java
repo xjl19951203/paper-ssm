@@ -36,6 +36,10 @@ public class Data {
     @Column(name = "pointId")
     private Integer pointId;
 
+    /** 由于结点复用性的缘故，光pointId不足以定位到具体的生产要素，还需要用到绝对位置label */
+    @Column(name = "pointLabel")
+    private String pointLabel;
+
     /** Data是属于某个采集实例的 */
     @Column(name = "instanceId")
     private Integer instanceId;

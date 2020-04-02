@@ -15,13 +15,13 @@ rule  "test"
         System.out.println("drools is running");
 end
 
-
-rule "label(field == null)"
-    when
-        $attribute: Attribute()
-        $rule: Rule(type == Rule.LABEL_TYPE) from $attribute.getRule()
-    then
-        data.getFieldList().add($attribute);
-end
+//
+//rule "label(field == null)"
+//    when
+//        $attribute: Attribute()
+//        $rule: Rule(type == Rule.LABEL_TYPE) from $attribute.getRule()
+//    then
+//        data.getFieldList().add($attribute);
+//end
 
 
