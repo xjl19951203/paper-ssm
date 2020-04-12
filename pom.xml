@@ -57,7 +57,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.eclipse.paho/org.eclipse.paho.client.mqttv3 -->
+		<!-- https://mvnrepository.com/artifact/org.eclipse.paho/org.eclipse.paho.clientImpl.mqttv3 -->
 		<dependency>
 			<groupId>org.eclipse.paho</groupId>
 			<artifactId>org.eclipse.paho.client.mqttv3</artifactId>
@@ -80,25 +80,21 @@
 			<artifactId>drools-core</artifactId>
 			<version>${drools.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>drools-compiler</artifactId>
 			<version>${drools.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.kie</groupId>
 			<artifactId>kie-spring</artifactId>
 			<version>${drools.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.kie</groupId>
 			<artifactId>kie-internal</artifactId>
 			<version>${drools.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>drools-templates</artifactId>
@@ -113,6 +109,31 @@
 			<artifactId>spring-test</artifactId>
 		</dependency>
 		<!-- end drools -->
+		<!-- start opc ua milo -->
+		<!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk15on -->
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk15on</artifactId>
+			<version>1.63</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-fips -->
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcpkix-fips</artifactId>
+			<version>1.0.3</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.eclipse.milo/stack-clientImpl -->
+		<dependency>
+			<groupId>org.eclipse.milo</groupId>
+			<artifactId>sdk-client</artifactId>
+			<version>0.3.8</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.findbugs</groupId>
+			<artifactId>annotations</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+		<!-- end opc ua milo -->
 	</dependencies>
 
 	<build>

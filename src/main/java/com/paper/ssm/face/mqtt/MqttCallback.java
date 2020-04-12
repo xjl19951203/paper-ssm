@@ -1,7 +1,15 @@
 package com.paper.ssm.face.mqtt;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.paper.ssm.Context;
+import com.paper.ssm.core.model.data.Data;
+import com.paper.ssm.core.model.data.Log;
+import com.paper.ssm.run.mqtt.DataTask;
+import com.paper.ssm.run.mqtt.LogTask;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+
+import java.util.regex.Pattern;
 
 
 /**
@@ -40,19 +48,20 @@ public class MqttCallback implements org.eclipse.paho.client.mqttv3.MqttCallback
         // subscribe后得到的消息会执行到这里面
         System.out.println(topic);
         System.out.println(new String(message.getPayload()));
-//        try {
-//            String propertyPattern = "/topic/*/property/";
-////            String methodPattern = "/topic/*/property/";
-//            ObjectMapper objectMapper = new ObjectMapper();
-//            if (Pattern.matches(propertyPattern, topic)) {
-//                PropertyData propertyData = objectMapper.readValue(new String(message.getPayload()), PropertyData.class);
-//                Context.addTask(new PropertyTask(propertyData));
-//            } else {
-//                MethodData methodData = objectMapper.readValue(new String(message.getPayload()), MethodData.class);
-//                Context.addTask(new MethodTask(methodData));
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        /** 作为服务器客户端，由于需要对所有数据都加以存储，因此订阅的topic是最泛的 */
+        try {
+            String dataPattern = "/topic/#";
+//            String logPattern = "/topic/*/property/";
+            ObjectMapper objectMapper = new ObjectMapper();
+            if (Pattern.matches(dataPattern, topic)) {
+                Data data = objectMapper.readValue(new String(message.getPayload()), Data.class);
+                Context.addTask(new DataTask(data));
+            } else {
+                Log log = objectMapper.readValue(new String(message.getPayload()), Log.class);
+                Context.addTask(new LogTask(log));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
