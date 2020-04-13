@@ -83,7 +83,7 @@ public class InfluxImpl implements InfluxService {
                 .addFieldsFromPOJO(record);
 
         for (Attribute field : record.getFieldList()) {
-            builder.addField(field.getRule().getValue(), field.getValue());
+//            builder.addField(field.getRule().getValue(), field.getValue());
         }
 
 

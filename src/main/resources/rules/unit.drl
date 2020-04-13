@@ -5,26 +5,26 @@ import com.paper.ssm.core.model.normalize.Attribute
 dialect  "mvel"
 
 global Data data;
-
-// 单位冲突
-rule "unit_g=>kg"
-    activation-group "unit"
-    when
-        $attribute: Attribute(ruleId == RuleMacro.UNIT && value == "kg")
-        $field: Attribute(value == "g") from $attribute.field
-    then
-        Double value = Double.parseDouble(data.getValue()) / 1000;
-        data.setValue(String.valueOf(value));
-        $field.setValue("kg");
-end
-
-rule "unit_kg=>g"
-    activation-group "unit"
-    when
-        $attribute: Attribute(ruleId == RuleMacro.UNIT && value == "g")
-        $field: Attribute(value == "kg") from $attribute.field
-    then
-        Double value = Double.parseDouble(data.getValue()) * 1000;
-        data.setValue(String.valueOf(value));
-        $field.setValue("g");
-end
+//
+//// 单位冲突
+//rule "unit_g=>kg"
+//    activation-group "unit"
+//    when
+//        $attribute: Attribute(ruleId == RuleMacro.UNIT && value == "kg")
+//        $field: Attribute(value == "g") from $attribute.field
+//    then
+//        Double value = Double.parseDouble(data.getValue()) / 1000;
+//        data.setValue(String.valueOf(value));
+//        $field.setValue("kg");
+//end
+//
+//rule "unit_kg=>g"
+//    activation-group "unit"
+//    when
+//        $attribute: Attribute(ruleId == RuleMacro.UNIT && value == "g")
+//        $field: Attribute(value == "kg") from $attribute.field
+//    then
+//        Double value = Double.parseDouble(data.getValue()) * 1000;
+//        data.setValue(String.valueOf(value));
+//        $field.setValue("g");
+//end

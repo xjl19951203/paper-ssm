@@ -5,47 +5,47 @@ import com.paper.ssm.core.model.normalize.Attribute
 dialect  "mvel"
 
 global Data data;
-
-rule "range_less"
-    when
-        $attribute: Attribute(ruleId == RuleMacro.LESS)
-        $field: Attribute() from $attribute.field
-    then
-        if (Double.parseDouble($field.getValue()) >= Double.parseDouble($attribute.getValue())) {
-            /** 不满足下界条件，则设置为下界 */
-            data.setValue($attribute.getValue());
-        }
-end
-
-rule "range_less_equal"
-    when
-        $attribute: Attribute(ruleId == RuleMacro.LESS_AND_EQUAL)
-        $field: Attribute() from $attribute.field
-    then
-        if (Double.parseDouble($field.getValue()) > Double.parseDouble($attribute.getValue())) {
-            /** 不满足下界条件，则设置为下界 */
-            data.setValue($attribute.getValue());
-        }
-end
-
-rule "range_more"
-    when
-        $attribute: Attribute(ruleId == RuleMacro.MORE)
-        $field: Attribute() from $attribute.field
-    then
-        if (Double.parseDouble($field.getValue()) <= Double.parseDouble($attribute.getValue())) {
-            /** 不满足上界条件，则设置为上界 */
-            data.setValue($attribute.getValue());
-        }
-end
-
-rule "range_more_equal"
-    when
-        $attribute: Attribute(ruleId == RuleMacro.MORE_AND_EQUAL)
-        $field: Attribute() from $attribute.field
-    then
-        if (Double.parseDouble($field.getValue()) < Double.parseDouble($attribute.getValue())) {
-            /** 不满足上界条件，则设置为上界 */
-            data.setValue($attribute.getValue());
-        }
-end
+//
+//rule "range_less"
+//    when
+//        $attribute: Attribute(ruleId == RuleMacro.LESS)
+//        $field: Attribute() from $attribute.field
+//    then
+//        if (Double.parseDouble($field.getValue()) >= Double.parseDouble($attribute.getValue())) {
+//            /** 不满足下界条件，则设置为下界 */
+//            data.setValue($attribute.getValue());
+//        }
+//end
+//
+//rule "range_less_equal"
+//    when
+//        $attribute: Attribute(ruleId == RuleMacro.LESS_AND_EQUAL)
+//        $field: Attribute() from $attribute.field
+//    then
+//        if (Double.parseDouble($field.getValue()) > Double.parseDouble($attribute.getValue())) {
+//            /** 不满足下界条件，则设置为下界 */
+//            data.setValue($attribute.getValue());
+//        }
+//end
+//
+//rule "range_more"
+//    when
+//        $attribute: Attribute(ruleId == RuleMacro.MORE)
+//        $field: Attribute() from $attribute.field
+//    then
+//        if (Double.parseDouble($field.getValue()) <= Double.parseDouble($attribute.getValue())) {
+//            /** 不满足上界条件，则设置为上界 */
+//            data.setValue($attribute.getValue());
+//        }
+//end
+//
+//rule "range_more_equal"
+//    when
+//        $attribute: Attribute(ruleId == RuleMacro.MORE_AND_EQUAL)
+//        $field: Attribute() from $attribute.field
+//    then
+//        if (Double.parseDouble($field.getValue()) < Double.parseDouble($attribute.getValue())) {
+//            /** 不满足上界条件，则设置为上界 */
+//            data.setValue($attribute.getValue());
+//        }
+//end

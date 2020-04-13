@@ -44,7 +44,7 @@ public class DataImpl implements DataService {
             }
         }
         Chain chain = new Chain();
-        chain.setAttributeList(new ArrayList<>());
+//        chain.setAttributeList(new ArrayList<>());
         return chain;
     }
 

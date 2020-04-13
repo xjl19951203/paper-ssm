@@ -28,18 +28,18 @@ public class DroolsImpl implements DroolsService{
 
     @Override
     public void run(Data data, Chain chain) {
-        for (Attribute attribute : chain.getAttributeList()) {
-            /** field作为内循环，因为只需要处理chain中有的filed属性，chain没有的，直接忽视 */
-            if (data.getFieldList() != null) {
-                for (Attribute field : data.getFieldList()) {
-                    if (field.getRuleId().equals(attribute.getRuleId())) {
-                        attribute.setField(field);
-                    }
-                }
-            }
-            /** drools驱动处理规则实例 */
-            statefulKieSession.insert(attribute);
-        }
+//        for (Attribute attribute : chain.getAttributeList()) {
+//            /** field作为内循环，因为只需要处理chain中有的filed属性，chain没有的，直接忽视 */
+//            if (data.getFieldList() != null) {
+//                for (Attribute field : data.getFieldList()) {
+//                    if (field.getRuleId().equals(attribute.getRuleId())) {
+//                        attribute.setField(field);
+//                    }
+//                }
+//            }
+//            /** drools驱动处理规则实例 */
+//            statefulKieSession.insert(attribute);
+//        }
         /** 设置全局变量：data */
         statefulKieSession.setGlobal("data", data);
 
@@ -47,6 +47,6 @@ public class DroolsImpl implements DroolsService{
         statefulKieSession.dispose();
 
         /** 经规则链融合后的新data */
-        data.setFieldList(chain.getAttributeList());
+//        data.setFieldList(chain.getAttributeList());
     }
 }

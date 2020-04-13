@@ -49,18 +49,18 @@ public class DroolsTest {
         statefulKieSession = container.newKieSession("all-rules");
 
         chain = new Chain();
-        chain.setAttributeList(this.attributeDao.selectListByQuery(null));
+//        chain.setAttributeList(this.attributeDao.selectListByQuery(null));
         data = new Data();
         data.setPointId(1);
         data.setInstanceId(1);
         data.setValue("1");
         data.setFieldList(new ArrayList<>());
         Attribute f1 = new Attribute();
-        f1.setRuleId(1);
-        f1.setValue("111");
+//        f1.setRuleId(1);
+//        f1.setValue("111");
         Attribute f2 = new Attribute();
-        f2.setRuleId(RuleMacro.UNIT);
-        f2.setValue("g");
+//        f2.setRuleId(RuleMacro.UNIT);
+//        f2.setValue("g");
         data.getFieldList().add(f1);
         data.getFieldList().add(f2);
     }
@@ -69,16 +69,16 @@ public class DroolsTest {
     @Test
     public void test() {
 
-        for (Attribute attribute : chain.getAttributeList()) {
-            /** field作为内循环，因为只需要处理chain中有的filed属性，chain没有的，直接忽视 */
-            for (Attribute field : data.getFieldList()) {
-                if (field.getRuleId().equals(attribute.getRuleId())) {
-                    attribute.setField(field);
-                }
-            }
-            /** drools驱动处理规则实例 */
-            statefulKieSession.insert(attribute);
-        }
+//        for (Attribute attribute : chain.getAttributeList()) {
+//            /** field作为内循环，因为只需要处理chain中有的filed属性，chain没有的，直接忽视 */
+//            for (Attribute field : data.getFieldList()) {
+//                if (field.getRuleId().equals(attribute.getRuleId())) {
+//                    attribute.setField(field);
+//                }
+//            }
+//            /** drools驱动处理规则实例 */
+//            statefulKieSession.insert(attribute);
+//        }
         /** 设置全局变量：data */
         statefulKieSession.setGlobal("data", data);
 
@@ -87,7 +87,7 @@ public class DroolsTest {
 
         System.out.println(data);
         /** 经规则链融合后的新data */
-        data.setFieldList(chain.getAttributeList());
+//        data.setFieldList(chain.getAttributeList());
         this.dataService.insert(data);
     }
 
