@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paper.ssm.core.dao.normalize.MetadataDao">
+
+    <resultMap id="BaseResultMap" type="com.paper.ssm.core.model.normalize.Metadata">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="value" jdbcType="VARCHAR" property="value" />
+    </resultMap>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT * from `norm_metadata` where id = #{pk};
+    </select>
+
+    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.core.model.normalize.Metadata">
+        select * from `norm_metadata`;
+    </select>
+
+    <insert id="insert" parameterType="com.paper.ssm.core.model.normalize.Metadata" useGeneratedKeys="true" keyProperty="id">
+        insert into `norm_metadata`
+        (title, `value`)
+        values
+        (#{title},#{value})
+    </insert>
+
+</mapper>
