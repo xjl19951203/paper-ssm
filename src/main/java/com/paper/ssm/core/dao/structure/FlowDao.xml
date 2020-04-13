@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paper.ssm.core.dao.structure.FlowDao">
+
+    <sql id="Base_Column_List" >
+        pipeId,inputId,outputId
+    </sql>
+
+    <resultMap id="BaseResultMap" type="com.paper.ssm.core.model.structure.Flow">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="label" jdbcType="VARCHAR" property="label" />
+        <result column="inputId" jdbcType="INTEGER" property="inputId" />
+        <result column="outputId" jdbcType="INTEGER" property="outputId" />
+        <association property="input" column="inputId"
+                     select="com.paper.ssm.core.dao.structure.NodeDao.selectSimpleByPrimaryKey" />
+        <association property="output" column="outputId"
+                     select="com.paper.ssm.core.dao.structure.NodeDao.selectSimpleByPrimaryKey" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.paper.ssm.core.model.structure.Flow" useGeneratedKeys="true" keyProperty="id">
+        insert into `com_flow`
+        (<include refid="Base_Column_List" /> )
+        values
+        (#{pipeId},#{inputId},#{outputId})
+    </insert>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT * from `com_flow` where id = #{pk};
+    </select>
+
+    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.core.model.structure.Flow">
+        select * from `com_flow`
+        <where>
+            <if test="pipeId != null">
+                `pipeId` = #{pipeId}
+            </if >
+            <if test="inputId != null">
+                and `inputId` = #{inputId}
+            </if >
+            <if test="outputId != null">
+                and `outputId` = #{outputId}
+            </if >
+        </where>
+        ;
+    </select>
+
+    <update id="update" parameterType="com.paper.ssm.core.model.structure.Flow">
+        update `com_flow` set
+        pipeId = #{pipeId,jdbcType=INTEGER},
+        inputId = #{inputId,jdbcType=INTEGER},
+        outputId = #{outputId,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="delete" parameterType="com.paper.ssm.core.model.structure.Flow">
+        SET foreign_key_checks = 0;
+        delete from  `com_flow` where id = #{id};
+        SET foreign_key_checks = 1;
+    </delete>
+
+    <insert id="insertList" parameterType="java.util.List">
+        insert into `com_flow` (<include refid="Base_Column_List" /> )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.pipeId,jdbcType=INTEGER}, #{item.inputId,jdbcType=INTEGER},
+            #{item.outputId,jdbcType=INTEGER})
+        </foreach>
+    </insert>
+
+</mapper>

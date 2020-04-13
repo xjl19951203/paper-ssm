@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paper.ssm.core.dao.integration.BindDao">
+
+    <resultMap id="BaseResultMap" type="com.paper.ssm.core.model.integration.Bind">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="processId" jdbcType="INTEGER" property="processId" />
+        <result column="informationId" jdbcType="INTEGER" property="informationId" />
+        <result column="nodeId" jdbcType="INTEGER" property="nodeId" />
+        <association column="informationId" property="information"
+                     select="com.paper.ssm.core.dao.normalize.InformationDao.selectSimpleByPrimaryKey" />
+        <association column="nodeId" property="node"
+                     select="com.paper.ssm.core.dao.structure.NodeDao.selectSimpleByPrimaryKey" />
+    </resultMap>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT * from `int_bind` where id = #{pk};
+    </select>
+
+    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.core.model.integration.Bind">
+        select * from `int_bind`
+        <where>
+            <if test="processId != null">
+                processId = #{processId}
+            </if>
+            <if test="informationId != null">
+                and informationId = #{informationId}
+            </if>
+            <if test="nodeId != null">
+                and nodeId = #{nodeId}
+            </if>
+        </where>
+        ;
+    </select>
+
+    <insert id="insert" parameterType="com.paper.ssm.core.model.integration.Bind" useGeneratedKeys="true" keyProperty="id">
+        insert into `int_bind`
+        (processId, informationId,nodeId)
+        values
+        (#{processId},#{informationId},#{nodeId})
+    </insert>
+
+    <update id="update" parameterType="com.paper.ssm.core.model.integration.Bind">
+        update `int_bind` set
+        processId = #{processId,jdbcType=INTEGER},
+        informationId = #{informationId,jdbcType=INTEGER},
+        nodeId = #{nodeId,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

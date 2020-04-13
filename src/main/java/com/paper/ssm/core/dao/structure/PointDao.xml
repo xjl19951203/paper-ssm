@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paper.ssm.core.dao.structure.PointDao">
+
+    <sql id="Base_Column_List" >
+        parentId,nodeId
+    </sql>
+
+    <sql id="Constant_List" >
+        0 as NEXT_DIRECTION, 1 as CHILD_DIRECTION, 2 as PARENT_DIRECTION
+    </sql>
+
+    <resultMap id="BaseResultMap" type="com.paper.ssm.core.model.structure.Point">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="x" jdbcType="INTEGER" property="x" />
+        <result column="y" jdbcType="INTEGER" property="y" />
+        <result column="parentId" jdbcType="INTEGER" property="parentId" />
+        <association property="hyperlink" column="id"
+                     select="com.paper.ssm.core.dao.structure.HyperlinkDao.selectByPointId" />
+        <collection property="outputList" column="{inputId=id,direction=NEXT_DIRECTION}"
+                    select="com.paper.ssm.core.dao.structure.PipeDao.selectListByQuery" />
+    </resultMap>
+
+    <resultMap id="SimpleResultMap" type="com.paper.ssm.core.model.structure.Point">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="x" jdbcType="INTEGER" property="x" />
+        <result column="y" jdbcType="INTEGER" property="y" />
+        <result column="parentId" jdbcType="INTEGER" property="parentId" />
+<!--        <result column="nodeId" jdbcType="INTEGER" property="nodeId" />-->
+<!--        <association property="node" column="nodeId"-->
+<!--                     select="com.paper.ssm.core.dao.structure.NodeDao.selectSimpleByPrimaryKey" />-->
+    </resultMap>
+
+    <insert id="insert" parameterType="com.paper.ssm.core.model.structure.Point" useGeneratedKeys="true" keyProperty="id">
+        insert into `com_point`
+        (<include refid="Base_Column_List" /> )
+        values
+        (#{parentId},#{nodeId})
+    </insert>
+
+    <select id="selectSimpleByPrimaryKey" resultMap="SimpleResultMap" parameterType="java.lang.Integer">
+        SELECT *, <include refid="Constant_List" /> from `com_point` where id = #{pk};
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT *, <include refid="Constant_List" /> from `com_point` where id = #{pk};
+    </select>
+
+    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.core.model.structure.Point">
+        select *, <include refid="Constant_List" /> from `com_point`
+        <where>
+            <if test="parentId != null">
+                `parentId` = #{parentId}
+            </if >
+            <if test="x != null">
+                and `x` = #{x}
+            </if >
+        </where>
+        ;
+    </select>
+
+    <update id="update" parameterType="com.paper.ssm.core.model.structure.Point">
+        update `com_point` set
+        parentId = #{parentId,jdbcType=INTEGER},
+        nodeId = #{nodeId,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="delete" parameterType="com.paper.ssm.core.model.structure.Point">
+        SET foreign_key_checks = 0;
+        delete from  `com_point` where id = #{id};
+        SET foreign_key_checks = 1;
+    </delete>
+
+    <insert id="insertList" parameterType="java.util.List">
+        insert into `com_point` (<include refid="Base_Column_List" /> )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.parentId,jdbcType=INTEGER}, #{item.nodeId,jdbcType=INTEGER})
+        </foreach>
+    </insert>
+
+</mapper>

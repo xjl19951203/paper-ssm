@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.paper.ssm.core.dao.structure.PipeDao">
+
+    <sql id="Base_Column_List" >
+        inputId,outputId
+    </sql>
+
+    <resultMap id="BaseResultMap" type="com.paper.ssm.core.model.structure.Pipe">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="label" jdbcType="VARCHAR" property="label" />
+        <result column="direction" jdbcType="INTEGER" property="direction" />
+        <result column="inputId" jdbcType="INTEGER" property="inputId" />
+        <result column="outputId" jdbcType="INTEGER" property="outputId" />
+        <association property="input" column="inputId"
+                     select="com.paper.ssm.core.dao.structure.PointDao.selectSimpleByPrimaryKey" />
+        <association property="output" column="outputId"
+                     select="com.paper.ssm.core.dao.structure.PointDao.selectSimpleByPrimaryKey" />
+        <collection property="flowList" column="{pipeId=id}"
+                     select="com.paper.ssm.core.dao.structure.FlowDao.selectListByQuery" />
+    </resultMap>
+
+    <insert id="insert" parameterType="com.paper.ssm.core.model.structure.Pipe" useGeneratedKeys="true" keyProperty="id">
+        insert into `com_pipe`
+        (<include refid="Base_Column_List" /> )
+        values
+        (#{inputId},#{outputId})
+    </insert>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT * from `com_pipe` where id = #{pk};
+    </select>
+
+    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.core.model.structure.Pipe">
+        select * from `com_pipe`
+        <where>
+            <if test="inputId != null">
+                `inputId` = #{inputId}
+            </if >
+            <if test="outputId != null">
+                and `outputId` = #{outputId}
+            </if >
+            <if test="direction != null">
+                and `direction` = #{direction}
+            </if >
+        </where>
+        ;
+    </select>
+
+    <update id="update" parameterType="com.paper.ssm.core.model.structure.Pipe">
+        update `com_pipe` set
+        inputId = #{inputId,jdbcType=INTEGER},
+        outputId = #{outputId,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <delete id="delete" parameterType="com.paper.ssm.core.model.structure.Pipe">
+        SET foreign_key_checks = 0;
+        delete from  `com_pipe` where id = #{id};
+        SET foreign_key_checks = 1;
+    </delete>
+
+    <insert id="insertList" parameterType="java.util.List">
+        insert into `com_pipe` (<include refid="Base_Column_List" /> )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.inputId,jdbcType=INTEGER}, #{item.outputId,jdbcType=INTEGER})
+        </foreach>
+    </insert>
+
+</mapper>
