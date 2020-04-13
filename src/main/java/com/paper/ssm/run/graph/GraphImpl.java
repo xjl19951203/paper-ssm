@@ -1,7 +1,7 @@
 package com.paper.ssm.run.graph;
 
 import com.paper.ssm.core.dao.structure.NodeDao;
-import com.paper.ssm.core.model.instantiate.Graph;
+import com.paper.ssm.core.model.integration.Graph;
 import com.paper.ssm.core.model.structure.Node;
 import com.paper.ssm.core.model.structure.Pipe;
 import com.paper.ssm.core.model.structure.Point;

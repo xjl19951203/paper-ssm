@@ -1,6 +1,6 @@
 package com.paper.ssm.face.restful;
 
-import com.paper.ssm.core.model.instantiate.Graph;
+import com.paper.ssm.core.model.integration.Graph;
 import com.paper.ssm.core.model.structure.Node;
 import com.paper.ssm.core.service.structure.NodeService;
 import com.paper.ssm.run.graph.GraphService;

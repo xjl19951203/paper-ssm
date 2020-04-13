@@ -1,7 +1,7 @@
 package com.paper.ssm.face.restful;
 
-import com.paper.ssm.core.model.instantiate.Instance;
-import com.paper.ssm.core.service.instantiate.InstanceService;
+import com.paper.ssm.core.model.integration.Process;
+import com.paper.ssm.core.service.integration.ProcessService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,37 +19,37 @@ import java.util.List;
 @RestController
 @EnableAutoConfiguration
 @RequestMapping("/api/instances")
-public class InstanceController extends AbstractController<Instance> {
+public class InstanceController extends AbstractController<Process> {
 
     @Resource
-    InstanceService instanceService;
+    ProcessService processService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     @Override
-    public List<Instance> selectListByQuery(Instance query) {
-        return this.instanceService.selectListByQuery(query);
+    public List<Process> selectListByQuery(Process query) {
+        return this.processService.selectListByQuery(query);
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     @Override
-    public Instance insert(@RequestBody Instance record) {
-        return this.instanceService.insert(record);
+    public Process insert(@RequestBody Process record) {
+        return this.processService.insert(record);
     }
 
     @Override
-    public int delete(Instance record) {
+    public int delete(Process record) {
         return 0;
     }
 
     @RequestMapping(value = "", method = RequestMethod.PUT)
     @Override
-    public Instance update(@RequestBody Instance record) {
-        return this.instanceService.update(record);
+    public Process update(@RequestBody Process record) {
+        return this.processService.update(record);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @Override
-    public Instance selectByPrimaryKey(@PathVariable Integer id) {
-        return this.instanceService.selectByPrimaryKey(id);
+    public Process selectByPrimaryKey(@PathVariable Integer id) {
+        return this.processService.selectByPrimaryKey(id);
     }
 }

@@ -1,6 +1,6 @@
 package com.paper.ssm.run.graph;
 
-import com.paper.ssm.core.model.instantiate.Graph;
+import com.paper.ssm.core.model.integration.Graph;
 
 /**
  * @className: GraphService

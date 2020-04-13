@@ -1,7 +1,7 @@
 package com.paper.ssm.face.restful;
 
-import com.paper.ssm.core.model.instantiate.Bind;
-import com.paper.ssm.core.service.instantiate.BindService;
+import com.paper.ssm.core.model.integration.Bind;
+import com.paper.ssm.core.service.integration.BindService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
