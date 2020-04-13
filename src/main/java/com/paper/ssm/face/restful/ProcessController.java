@@ -18,8 +18,8 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/api/instances")
-public class InstanceController extends AbstractController<Process> {
+@RequestMapping("/api/process")
+public class ProcessController extends AbstractController<Process> {
 
     @Resource
     ProcessService processService;
