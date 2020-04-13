@@ -1,5 +1,6 @@
 package com.paper.ssm.core.model.normalize;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.paper.ssm.core.model.Model;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +19,7 @@ public class AttrRef extends Model {
     private Integer id;
     private Integer parentId;
     private Integer childId;
+    @JsonIgnore
     private Information parent;
     private Attribute child;
 

@@ -8,7 +8,7 @@
         <result column="parentId" jdbcType="INTEGER" property="parentId" />
         <result column="childId" jdbcType="INTEGER" property="childId" />
         <association column="parentId" property="parent"
-                     select="com.paper.ssm.core.dao.normalize.InformationDao.selectByPrimaryKey" />
+                     select="com.paper.ssm.core.dao.normalize.InformationDao.selectSimpleByPrimaryKey" />
         <association column="childId" property="child"
                      select="com.paper.ssm.core.dao.normalize.AttributeDao.selectByPrimaryKey" />
     </resultMap>
