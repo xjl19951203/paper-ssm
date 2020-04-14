@@ -22,7 +22,8 @@ public class MetadataImpl implements MetadataService {
 
     @Override
     public Metadata insert(Metadata record) {
-        return null;
+        this.metadataDao.insert(record);
+        return record;
     }
 
     @Override
@@ -37,12 +38,13 @@ public class MetadataImpl implements MetadataService {
 
     @Override
     public Metadata update(Metadata record) {
-        return null;
+        this.metadataDao.update(record);
+        return record;
     }
 
     @Override
     public List<Metadata> selectListByQuery(Metadata query) {
-        return null;
+        return this.metadataDao.selectListByQuery(query);
     }
 
     @Override
@@ -52,7 +54,7 @@ public class MetadataImpl implements MetadataService {
 
     @Override
     public Metadata selectByPrimaryKey(Integer id) {
-        return null;
+        return this.metadataDao.selectByPrimaryKey(id);
     }
 
     @Override
