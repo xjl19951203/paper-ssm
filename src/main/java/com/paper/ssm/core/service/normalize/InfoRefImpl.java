@@ -15,7 +15,7 @@ import java.util.List;
  * @version: 1.0
  */
 @Service("linkService")
-public class LinkImpl implements LinkService {
+public class InfoRefImpl implements InfoRefService {
 
     @Resource
     InfoRefDao infoRefDao;

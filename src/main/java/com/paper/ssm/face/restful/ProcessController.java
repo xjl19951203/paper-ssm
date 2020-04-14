@@ -18,7 +18,7 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/api/process")
+@RequestMapping("/api/integration/processes")
 public class ProcessController extends AbstractController<Process> {
 
     @Resource

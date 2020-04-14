@@ -1,7 +1,7 @@
 package com.paper.ssm.face.restful;
 
 import com.paper.ssm.core.model.normalize.InfoRef;
-import com.paper.ssm.core.service.normalize.LinkService;
+import com.paper.ssm.core.service.normalize.InfoRefService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,11 +17,11 @@ import javax.annotation.Resource;
 @CrossOrigin
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/api/links")
-public class LinkController extends AbstractController<InfoRef> {
+@RequestMapping("/api/normalize/inforefs")
+public class InfoRefController extends AbstractController<InfoRef> {
 
     @Resource
-    LinkService linkService;
+    InfoRefService linkService;
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     @Override
@@ -39,8 +39,9 @@ public class LinkController extends AbstractController<InfoRef> {
         return null;
     }
 
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
     @Override
-    public InfoRef selectByPrimaryKey(Integer id) {
-        return null;
+    public InfoRef selectByPrimaryKey(@PathVariable Integer id) {
+        return this.linkService.selectByPrimaryKey(id);
     }
 }

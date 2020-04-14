@@ -35,6 +35,7 @@ public class Point extends Model implements Cloneable{
     private Integer style;
     /** 该坐标点所属的结点模型*/
     private Integer parentId;
+    private Node parent;
     @JsonIgnore
     private Hyperlink hyperlink;
     /** hyperlink指向的node */

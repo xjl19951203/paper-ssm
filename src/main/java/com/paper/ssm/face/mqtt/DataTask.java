@@ -1,4 +1,4 @@
-package com.paper.ssm.run.mqtt;
+package com.paper.ssm.face.mqtt;
 
 import com.paper.ssm.core.model.data.Data;
 import com.paper.ssm.core.service.data.DataService;

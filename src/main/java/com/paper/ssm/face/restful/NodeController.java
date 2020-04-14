@@ -16,7 +16,7 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/api/nodes")
+@RequestMapping("/api/structure/nodes")
 public class NodeController extends AbstractController<Node> implements Cloneable{
 
     @Resource

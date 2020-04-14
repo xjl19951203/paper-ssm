@@ -18,7 +18,7 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/api/pipes")
+@RequestMapping("/api/structure/pipes")
 public class PipeController extends AbstractController<Pipe>{
 
     @Resource

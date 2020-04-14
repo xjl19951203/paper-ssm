@@ -20,6 +20,7 @@
     <resultMap id="SimpleResultMap" type="com.paper.ssm.core.model.structure.Node">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="label" jdbcType="VARCHAR" property="label" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
     </resultMap>
 
     <resultMap id="BaseResultMap" type="com.paper.ssm.core.model.structure.Node">

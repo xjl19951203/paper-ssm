@@ -22,7 +22,8 @@ public class PointImpl implements PointService {
 
     @Override
     public Point insert(Point record) {
-        return null;
+        this.pointDao.insert(record);
+        return record;
     }
 
     @Override
@@ -37,12 +38,13 @@ public class PointImpl implements PointService {
 
     @Override
     public Point update(Point record) {
-        return null;
+        this.pointDao.update(record);
+        return record;
     }
 
     @Override
     public List<Point> selectListByQuery(Point query) {
-        return null;
+        return this.pointDao.selectListByQuery(query);
     }
 
     @Override
@@ -52,7 +54,7 @@ public class PointImpl implements PointService {
 
     @Override
     public Point selectByPrimaryKey(Integer id) {
-        return null;
+        return this.pointDao.selectByPrimaryKey(id);
     }
 
     @Override

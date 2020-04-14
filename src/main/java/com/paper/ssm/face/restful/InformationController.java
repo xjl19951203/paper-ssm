@@ -18,15 +18,16 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/api/informations")
+@RequestMapping("/api/normalize/informations")
 public class InformationController extends AbstractController<Information>  {
 
     @Resource
     InformationService informationService;
 
+    @RequestMapping(value = "", method = RequestMethod.POST)
     @Override
-    public Information insert(Information record) {
-        return null;
+    public Information insert(@RequestBody Information record) {
+        return this.informationService.insert(record);
     }
 
     @Override

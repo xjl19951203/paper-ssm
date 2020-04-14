@@ -18,7 +18,7 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/api/rules")
+@RequestMapping("/api/normalize/rules")
 public class RuleController extends AbstractController<Rule> {
 
     @Resource

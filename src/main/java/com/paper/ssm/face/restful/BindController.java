@@ -17,7 +17,7 @@ import javax.annotation.Resource;
 @CrossOrigin
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/api/binds")
+@RequestMapping("/api/integration/binds")
 public class BindController extends AbstractController<Bind> {
 
     @Resource

@@ -1,4 +1,4 @@
-package com.paper.ssm.run.mqtt;
+package com.paper.ssm.face.mqtt;
 
 /**
  * @author ZengYuan

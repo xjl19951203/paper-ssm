@@ -3,7 +3,7 @@
 <mapper namespace="com.paper.ssm.core.dao.structure.HyperlinkDao">
 
     <sql id="Base_Column_List" >
-        pipeId,inputId,outputId
+        pointId,nodeId
     </sql>
 
     <resultMap id="BaseResultMap" type="com.paper.ssm.core.model.structure.Hyperlink">
@@ -11,14 +11,16 @@
         <result column="label" jdbcType="VARCHAR" property="label" />
         <result column="pointId" jdbcType="INTEGER" property="pointId" />
         <result column="nodeId" jdbcType="INTEGER" property="nodeId" />
+        <association property="point" column="pointId"
+                     select="com.paper.ssm.core.dao.structure.PointDao.selectSimpleByPrimaryKey" />
         <association property="node" column="nodeId"
-                     select="com.paper.ssm.core.dao.structure.NodeDao.selectByPrimaryKey" />
+                     select="com.paper.ssm.core.dao.structure.NodeDao.selectSimpleByPrimaryKey" />
     </resultMap>
     <insert id="insert" parameterType="com.paper.ssm.core.model.structure.Hyperlink" useGeneratedKeys="true" keyProperty="id">
         insert into `com_hyperlink`
         (<include refid="Base_Column_List" /> )
         values
-        (#{pipeId},#{inputId},#{outputId})
+        (#{pointId},#{nodeId})
     </insert>
 
 
@@ -28,9 +30,8 @@
 
     <update id="update" parameterType="com.paper.ssm.core.model.structure.Flow">
         update `com_hyperlink` set
-        pipeId = #{pipeId,jdbcType=INTEGER},
-        inputId = #{inputId,jdbcType=INTEGER},
-        outputId = #{outputId,jdbcType=INTEGER}
+        pointId = #{pointId,jdbcType=INTEGER},
+        nodeId = #{nodeId,jdbcType=INTEGER}
         where id = #{id,jdbcType=INTEGER}
     </update>
 
@@ -44,9 +45,24 @@
         insert into `com_hyperlink` (<include refid="Base_Column_List" /> )
         values
         <foreach collection="list" item="item" index="index" separator=",">
-            (#{item.pipeId,jdbcType=INTEGER}, #{item.inputId,jdbcType=INTEGER},
-            #{item.outputId,jdbcType=INTEGER})
+            (#{item.pointId,jdbcType=INTEGER}, #{item.nodeId,jdbcType=INTEGER})
         </foreach>
     </insert>
 
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT * from `com_hyperlink` where id = #{pk};
+    </select>
+
+    <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.core.model.structure.Hyperlink">
+        select * from `com_hyperlink`
+        <where>
+            <if test="pointId != null">
+                `pointId` = #{pointId}
+            </if >
+            <if test="nodeId != null">
+                and `nodeId` = #{nodeId}
+            </if >
+        </where>
+        ;
+    </select>
 </mapper>

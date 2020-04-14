@@ -3,7 +3,7 @@
 <mapper namespace="com.paper.ssm.core.dao.structure.PointDao">
 
     <sql id="Base_Column_List" >
-        parentId,nodeId
+        parentId,x,y
     </sql>
 
     <sql id="Constant_List" >
@@ -16,6 +16,8 @@
         <result column="x" jdbcType="INTEGER" property="x" />
         <result column="y" jdbcType="INTEGER" property="y" />
         <result column="parentId" jdbcType="INTEGER" property="parentId" />
+        <association property="parent" column="parentId"
+                     select="com.paper.ssm.core.dao.structure.NodeDao.selectSimpleByPrimaryKey" />
         <association property="hyperlink" column="id"
                      select="com.paper.ssm.core.dao.structure.HyperlinkDao.selectByPointId" />
         <collection property="outputList" column="{inputId=id,direction=NEXT_DIRECTION}"
@@ -28,6 +30,8 @@
         <result column="x" jdbcType="INTEGER" property="x" />
         <result column="y" jdbcType="INTEGER" property="y" />
         <result column="parentId" jdbcType="INTEGER" property="parentId" />
+        <association property="parent" column="parentId"
+                     select="com.paper.ssm.core.dao.structure.NodeDao.selectSimpleByPrimaryKey" />
 <!--        <result column="nodeId" jdbcType="INTEGER" property="nodeId" />-->
 <!--        <association property="node" column="nodeId"-->
 <!--                     select="com.paper.ssm.core.dao.structure.NodeDao.selectSimpleByPrimaryKey" />-->
@@ -37,7 +41,7 @@
         insert into `com_point`
         (<include refid="Base_Column_List" /> )
         values
-        (#{parentId},#{nodeId})
+        (#{parentId},#{x},#{y})
     </insert>
 
     <select id="selectSimpleByPrimaryKey" resultMap="SimpleResultMap" parameterType="java.lang.Integer">
@@ -57,6 +61,9 @@
             <if test="x != null">
                 and `x` = #{x}
             </if >
+            <if test="y != null">
+                and `y` = #{y}
+            </if >
         </where>
         ;
     </select>
@@ -64,7 +71,8 @@
     <update id="update" parameterType="com.paper.ssm.core.model.structure.Point">
         update `com_point` set
         parentId = #{parentId,jdbcType=INTEGER},
-        nodeId = #{nodeId,jdbcType=INTEGER}
+        x = #{x,jdbcType=INTEGER},
+        y = #{y,jdbcType=INTEGER}
         where id = #{id,jdbcType=INTEGER}
     </update>
 

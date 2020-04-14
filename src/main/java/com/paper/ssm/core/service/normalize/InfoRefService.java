@@ -13,5 +13,5 @@ import javax.annotation.Resource;
  * @version: 1.0
  */
 @Resource
-public interface LinkService extends Service<InfoRef> {
+public interface InfoRefService extends Service<InfoRef> {
 }

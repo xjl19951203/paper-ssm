@@ -18,7 +18,7 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/api/chains")
+@RequestMapping("/api/normalize/chains")
 public class ChainController extends AbstractController<Chain> {
 
     @Resource
@@ -26,7 +26,7 @@ public class ChainController extends AbstractController<Chain> {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     @Override
-    public List<Chain> selectListByQuery(Chain query) {
+    public List<Chain> selectListByQuery(@RequestBody Chain query) {
         return this.chainService.selectListByQuery(query);
     }
 
