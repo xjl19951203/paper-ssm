@@ -20,7 +20,6 @@ public class InfoRef extends Model {
     private Integer id;
     private Integer parentId;
     private Integer childId;
-    @JsonIgnore
     private Information parent;
     private Information child;
 

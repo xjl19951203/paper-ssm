@@ -38,12 +38,13 @@ public class InfoRefImpl implements InfoRefService {
 
     @Override
     public InfoRef update(InfoRef record) {
-        return null;
+        this.infoRefDao.update(record);
+        return record;
     }
 
     @Override
     public List<InfoRef> selectListByQuery(InfoRef query) {
-        return null;
+        return this.infoRefDao.selectListByQuery(query);
     }
 
     @Override
@@ -53,7 +54,7 @@ public class InfoRefImpl implements InfoRefService {
 
     @Override
     public InfoRef selectByPrimaryKey(Integer id) {
-        return null;
+        return this.infoRefDao.selectByPrimaryKey(id);
     }
 
     @Override

@@ -17,7 +17,6 @@ public class Chain extends Model implements Cloneable{
     private Integer leftId;
     private Integer rightId;
     private Integer attributeId;
-    @JsonIgnore
     private Rule left;
     private Rule right;
     @JsonIgnore

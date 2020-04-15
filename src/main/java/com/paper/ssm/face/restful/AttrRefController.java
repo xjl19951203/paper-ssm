@@ -3,11 +3,10 @@ package com.paper.ssm.face.restful;
 import com.paper.ssm.core.model.normalize.AttrRef;
 import com.paper.ssm.core.service.normalize.AttrRefService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @className: AttrRefController
@@ -25,9 +24,10 @@ public class AttrRefController extends AbstractController<AttrRef> {
     @Resource
     AttrRefService attrRefService;
 
+    @RequestMapping(value = "", method = RequestMethod.POST)
     @Override
-    public AttrRef insert(AttrRef record) {
-        return null;
+    public AttrRef insert(@RequestBody AttrRef record) {
+        return this.attrRefService.insert(record);
     }
 
     @Override
@@ -35,13 +35,21 @@ public class AttrRefController extends AbstractController<AttrRef> {
         return 0;
     }
 
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     @Override
-    public AttrRef update(AttrRef record) {
-        return null;
+    public AttrRef update(@RequestBody AttrRef record) {
+        return this.attrRefService.update(record);
     }
 
+    @RequestMapping(value = "", method = RequestMethod.GET)
     @Override
-    public AttrRef selectByPrimaryKey(Integer id) {
-        return null;
+    public List<AttrRef> selectListByQuery(AttrRef query) {
+        return this.attrRefService.selectListByQuery(query);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @Override
+    public AttrRef selectByPrimaryKey(@PathVariable Integer id) {
+        return this.attrRefService.selectByPrimaryKey(id);
     }
 }

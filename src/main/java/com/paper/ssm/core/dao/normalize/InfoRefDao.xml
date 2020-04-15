@@ -10,7 +10,7 @@
         <association column="parentId" property="parent"
                      select="com.paper.ssm.core.dao.normalize.InformationDao.selectSimpleByPrimaryKey" />
         <association column="childId" property="child"
-                     select="com.paper.ssm.core.dao.normalize.InformationDao.selectByPrimaryKey" />
+                     select="com.paper.ssm.core.dao.normalize.InformationDao.selectSimpleByPrimaryKey" />
     </resultMap>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">

@@ -22,7 +22,8 @@ public class AttrRefImpl implements AttrRefService {
 
     @Override
     public AttrRef insert(AttrRef record) {
-        return null;
+        this.attrRefDao.insert(record);
+        return record;
     }
 
     @Override
@@ -37,12 +38,13 @@ public class AttrRefImpl implements AttrRefService {
 
     @Override
     public AttrRef update(AttrRef record) {
-        return null;
+        this.attrRefDao.update(record);
+        return record;
     }
 
     @Override
     public List<AttrRef> selectListByQuery(AttrRef query) {
-        return null;
+        return this.attrRefDao.selectListByQuery(query);
     }
 
     @Override
@@ -52,7 +54,7 @@ public class AttrRefImpl implements AttrRefService {
 
     @Override
     public AttrRef selectByPrimaryKey(Integer id) {
-        return null;
+        return this.attrRefDao.selectByPrimaryKey(id);
     }
 
     @Override

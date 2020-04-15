@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @className: LinkController
@@ -21,12 +22,12 @@ import javax.annotation.Resource;
 public class InfoRefController extends AbstractController<InfoRef> {
 
     @Resource
-    InfoRefService linkService;
+    InfoRefService infoRefService;
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     @Override
     public InfoRef insert(@RequestBody InfoRef record) {
-        return this.linkService.insert(record);
+        return this.infoRefService.insert(record);
     }
 
     @Override
@@ -34,14 +35,21 @@ public class InfoRefController extends AbstractController<InfoRef> {
         return 0;
     }
 
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     @Override
-    public InfoRef update(InfoRef record) {
-        return null;
+    public InfoRef update(@RequestBody InfoRef record) {
+        return this.infoRefService.update(record);
     }
 
-    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    @Override
+    public List<InfoRef> selectListByQuery(InfoRef query) {
+        return this.infoRefService.selectListByQuery(query);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @Override
     public InfoRef selectByPrimaryKey(@PathVariable Integer id) {
-        return this.linkService.selectByPrimaryKey(id);
+        return this.infoRefService.selectByPrimaryKey(id);
     }
 }
