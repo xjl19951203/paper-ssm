@@ -16,6 +16,19 @@
         <association property="node" column="nodeId"
                      select="com.paper.ssm.core.dao.structure.NodeDao.selectSimpleByPrimaryKey" />
     </resultMap>
+
+    <resultMap id="ComplexResultMap" type="com.paper.ssm.core.model.structure.Hyperlink">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="label" jdbcType="VARCHAR" property="label" />
+        <result column="pointId" jdbcType="INTEGER" property="pointId" />
+        <result column="nodeId" jdbcType="INTEGER" property="nodeId" />
+        <association property="point" column="pointId"
+                     select="com.paper.ssm.core.dao.structure.PointDao.selectByPrimaryKey" />
+        <association property="node" column="nodeId"
+                     select="com.paper.ssm.core.dao.structure.NodeDao.selectByPrimaryKey" />
+    </resultMap>
+
+
     <insert id="insert" parameterType="com.paper.ssm.core.model.structure.Hyperlink" useGeneratedKeys="true" keyProperty="id">
         insert into `com_hyperlink`
         (<include refid="Base_Column_List" /> )
@@ -24,7 +37,7 @@
     </insert>
 
 
-    <select id="selectByPointId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    <select id="selectByPointId" resultMap="ComplexResultMap" parameterType="java.lang.Integer">
         select * from `com_hyperlink` where pointId = #{pointId} limit 0, 1;
     </select>
 

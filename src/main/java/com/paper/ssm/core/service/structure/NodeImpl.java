@@ -59,6 +59,9 @@ public class NodeImpl implements NodeService {
     @Override
     public Node selectByPrimaryKey(Integer id) {
         Node root = this.nodeDao.selectByPrimaryKey(id);
+        if (root == null) {
+            return null;
+        }
         HashMap<Integer, Node> nodeHashMap = new HashMap<>(10);
         root.setNodeList(new ArrayList<>());
         countNode(root, nodeHashMap, root.getNodeList());
@@ -66,7 +69,7 @@ public class NodeImpl implements NodeService {
     }
 
     private void countNode(Node node, HashMap<Integer, Node> nodeHashMap, List<Node> nodeList) {
-        if (node == null) {
+        if (node == null || node.getPointList() == null) {
             return;
         }
         for (Point point : node.getPointList()) {

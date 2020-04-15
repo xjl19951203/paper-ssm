@@ -1,5 +1,6 @@
 package com.paper.ssm.core.model.integration;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.paper.ssm.core.model.Model;
 import com.paper.ssm.core.model.structure.Flow;
 import com.paper.ssm.core.model.structure.Node;
@@ -22,6 +23,7 @@ public class Graph extends Model {
     private Node root;
     private List<Point> pointList;
     private List<Pipe> pipeList;
+    @JsonIgnore
     private List<Flow> flowList;
 
 }
