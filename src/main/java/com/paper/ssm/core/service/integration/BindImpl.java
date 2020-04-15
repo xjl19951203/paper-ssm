@@ -44,7 +44,7 @@ public class BindImpl implements BindService {
 
     @Override
     public List<Bind> selectListByQuery(Bind query) {
-        return null;
+        return this.bindDao.selectListByQuery(query);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class BindImpl implements BindService {
 
     @Override
     public Bind selectByPrimaryKey(Integer id) {
-        return null;
+        return this.bindDao.selectByPrimaryKey(id);
     }
 
     @Override

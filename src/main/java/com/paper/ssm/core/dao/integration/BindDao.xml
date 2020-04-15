@@ -8,6 +8,8 @@
         <result column="processId" jdbcType="INTEGER" property="processId" />
         <result column="informationId" jdbcType="INTEGER" property="informationId" />
         <result column="nodeId" jdbcType="INTEGER" property="nodeId" />
+        <association column="processId" property="process"
+                     select="com.paper.ssm.core.dao.integration.ProcessDao.selectSimpleByPrimaryKey" />
         <association column="informationId" property="information"
                      select="com.paper.ssm.core.dao.normalize.InformationDao.selectSimpleByPrimaryKey" />
         <association column="nodeId" property="node"

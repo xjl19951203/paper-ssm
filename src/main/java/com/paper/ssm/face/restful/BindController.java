@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @className: BindController
@@ -40,8 +41,15 @@ public class BindController extends AbstractController<Bind> {
         return this.bindService.update(record);
     }
 
+    @RequestMapping(value = "", method = RequestMethod.GET)
     @Override
-    public Bind selectByPrimaryKey(Integer id) {
-        return null;
+    public List<Bind> selectListByQuery(Bind query) {
+        return this.bindService.selectListByQuery(query);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @Override
+    public Bind selectByPrimaryKey(@PathVariable Integer id) {
+        return this.bindService.selectByPrimaryKey(id);
     }
 }

@@ -23,6 +23,7 @@ public class Bind extends Model {
     private Integer processId;
     private Integer informationId;
     private Integer nodeId;
+    private Process process;
     private Information information;
     private Node node;
     /** 绑定关系的优先级 */
