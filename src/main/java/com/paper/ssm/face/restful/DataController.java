@@ -1,11 +1,14 @@
 package com.paper.ssm.face.restful;
 
 import com.paper.ssm.core.model.data.Data;
+import com.paper.ssm.core.model.data.Query;
 import com.paper.ssm.core.service.data.DataService;
+import org.influxdb.dto.QueryResult;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @className: DataController
@@ -42,5 +45,11 @@ public class DataController extends AbstractController<Data>{
     @Override
     public Data selectByPrimaryKey(Integer id) {
         return null;
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    @Override
+    public List<Data> selectListByQuery(Data query) {
+        return this.dataService.selectListByQuery(query);
     }
 }

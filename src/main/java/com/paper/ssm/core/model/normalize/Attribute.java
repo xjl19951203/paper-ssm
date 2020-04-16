@@ -18,6 +18,8 @@ import java.util.List;
 public class Attribute extends Model implements Cloneable{
 
     private Integer id;
+    private Integer informationId;
+    private Information information;
     private String title;
     private List<Chain> chainList;
     /** 属性值 */

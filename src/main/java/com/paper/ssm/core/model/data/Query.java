@@ -14,9 +14,7 @@ import lombok.Setter;
 @Getter
 public class Query {
 
-    private Integer pageSize;
-    private Integer pageNum;
-    private Integer pointId;
-    private Integer instanceId;
-    private String measurement;
+    protected Integer pageSize;
+    protected Integer pageNum;
+    protected String measurement;
 }

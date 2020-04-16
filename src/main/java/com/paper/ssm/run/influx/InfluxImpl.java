@@ -44,7 +44,7 @@ public class InfluxImpl implements InfluxService {
     }
 
     @Override
-    public QueryResult select(com.paper.ssm.core.model.data.Query query) {
+    public QueryResult select(Data query) {
 
         if (query.getMeasurement() == null) {
             query.setMeasurement("data");
@@ -52,7 +52,6 @@ public class InfluxImpl implements InfluxService {
         if (query.getPointId() == null) {
             query.setPointId(1);
         }
-
 
         if (query.getPageSize() == null) {
             query.setPageSize(10);
@@ -81,11 +80,6 @@ public class InfluxImpl implements InfluxService {
 
         Point.Builder builder = Point.measurementByPOJO(record.getClass())
                 .addFieldsFromPOJO(record);
-
-        for (Attribute field : record.getFieldList()) {
-//            builder.addField(field.getRule().getValue(), field.getValue());
-        }
-
 
         Point point = builder.build();
 

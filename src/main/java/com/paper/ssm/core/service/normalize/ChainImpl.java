@@ -1,12 +1,10 @@
 package com.paper.ssm.core.service.normalize;
 
 import com.paper.ssm.core.model.normalize.Chain;
-import com.paper.ssm.core.model.normalize.InfoRef;
 import com.paper.ssm.core.dao.normalize.ChainDao;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

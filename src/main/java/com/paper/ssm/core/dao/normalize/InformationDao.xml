@@ -10,12 +10,12 @@
     <resultMap id="BaseResultMap" type="com.paper.ssm.core.model.normalize.Information">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
-        <collection column="{parentId=id}"
-                    property="infoRefList" ofType="com.paper.ssm.core.model.normalize.InfoRef"
-                    javaType="java.util.List" select="com.paper.ssm.core.dao.normalize.InfoRefDao.selectListByQuery"/>
-        <collection column="{parentId=id}"
-                    property="attrRefList" ofType="com.paper.ssm.core.model.normalize.AttrRef"
-                    javaType="java.util.List" select="com.paper.ssm.core.dao.normalize.AttrRefDao.selectListByQuery"/>
+        <collection column="{informationId=id}"
+                    property="attributeList" ofType="com.paper.ssm.core.model.normalize.Attribute"
+                    javaType="java.util.List" select="com.paper.ssm.core.dao.normalize.AttributeDao.selectListByQuery"/>
+<!--        <collection column="{parentId=id}"-->
+<!--                    property="informationList" ofType="com.paper.ssm.core.model.normalize.Information"-->
+<!--                    javaType="java.util.List" select="com.paper.ssm.core.dao.normalize.InformationDao.selectListByQuery"/>-->
     </resultMap>
 
     <select id="selectSimpleByPrimaryKey" resultMap="SimpleResultMap" parameterType="java.lang.Integer">

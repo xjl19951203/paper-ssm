@@ -19,7 +19,7 @@ public interface InfluxService {
      * @param query
      * @return
      */
-    QueryResult select(Query query);
+    QueryResult select(Data query);
 
     /**
      * 添加记录

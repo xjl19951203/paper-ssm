@@ -2,6 +2,8 @@ package com.paper.ssm.face.mqtt;
 
 import com.paper.ssm.core.model.data.Data;
 import com.paper.ssm.core.service.data.DataService;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
@@ -12,18 +14,18 @@ import javax.annotation.Resource;
  * @date 2020/4/2 13:05
  * @version: 1.0
  */
-public class DataTask implements Task {
+@Service("taskService")
+public class TaskImpl implements TaskService {
 
-    private Data data;
     @Resource
     DataService dataService;
 
-    public DataTask(Data data) {
-        this.data = data;
+    @Override
+    public void run(Data data) {
+        store(data);
     }
 
-    @Override
-    public void run() {
+    private void store(Data data) {
         this.dataService.insert(data);
     }
 }

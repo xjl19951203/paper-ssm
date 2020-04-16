@@ -3,7 +3,7 @@ package com.paper.ssm;
 import com.paper.ssm.core.model.data.Data;
 import com.paper.ssm.core.service.data.DataService;
 import com.paper.ssm.face.mqtt.Mqtt;
-import com.paper.ssm.face.mqtt.Task;
+import com.paper.ssm.face.mqtt.TaskService;
 
 import javax.annotation.Resource;
 import java.util.concurrent.ExecutorService;
@@ -18,9 +18,6 @@ public class Context {
 
     /** 线程池 */
     private static ExecutorService executor;
-
-//    @Resource
-//    private static MethodDataService methodDataService;
 
     @Resource
     private static DataService dataService;
@@ -41,16 +38,9 @@ public class Context {
                 TimeUnit.MILLISECONDS, taskQueue);
     }
 
-    public static void addTask(Task task) {
-        executor.execute(task);
-    }
-
     public static Data insert(Data data) {
         return dataService.insert(data);
     }
 
-//    public static int insert(MethodData methodData) {
-//        return methodDataService.insert(methodData);
-//    }
 
 }

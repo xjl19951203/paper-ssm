@@ -28,27 +28,23 @@ import java.util.List;
  */
 @Measurement(name = "data")
 @lombok.Data
-public class Data {
+public class Data extends Query{
 
     private static final long serialVersionUID = 1L;
 
-    /** 一个Point实例对应一组Value数据实例，是1：M的关系 */
+    private String time;
+
+    @Column(name = "processId")
+    private Integer processId;
+
     @Column(name = "pointId")
     private Integer pointId;
 
-    /** 由于结点复用性的缘故，光pointId不足以定位到具体的生产要素，还需要用到绝对位置label */
-    @Column(name = "pointLabel")
-    private String pointLabel;
-
-    /** Data是属于某个采集实例的 */
-    @Column(name = "instanceId")
-    private Integer instanceId;
+    @Column(name = "attributeId")
+    private Integer attributeId;
 
     /** 具体的值 */
     @Column(name = "value")
     private String value;
-
-    /** 原生属性集合 */
-    private List<Attribute> fieldList;
 
 }

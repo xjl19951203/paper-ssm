@@ -52,17 +52,14 @@ public class DroolsTest {
 //        chain.setAttributeList(this.attributeDao.selectListByQuery(null));
         data = new Data();
         data.setPointId(1);
-        data.setInstanceId(1);
+        data.setProcessId(1);
         data.setValue("1");
-        data.setFieldList(new ArrayList<>());
         Attribute f1 = new Attribute();
 //        f1.setRuleId(1);
 //        f1.setValue("111");
         Attribute f2 = new Attribute();
 //        f2.setRuleId(RuleMacro.UNIT);
 //        f2.setValue("g");
-        data.getFieldList().add(f1);
-        data.getFieldList().add(f2);
     }
 
     /** 静态规则测试 */

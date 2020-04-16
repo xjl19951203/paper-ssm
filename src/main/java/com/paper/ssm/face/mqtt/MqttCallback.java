@@ -3,12 +3,14 @@ package com.paper.ssm.face.mqtt;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.paper.ssm.Context;
 import com.paper.ssm.core.model.data.Data;
-import com.paper.ssm.core.model.data.Log;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-import java.util.regex.Pattern;
-
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 
 /**
  * 发布消息的回调类
@@ -28,7 +30,19 @@ import java.util.regex.Pattern;
  *
  * @author ZengYuan
  */
+@Component
 public class MqttCallback implements org.eclipse.paho.client.mqttv3.MqttCallback {
+
+    @Resource
+    TaskService taskService;
+
+    private MqttCallback mqttCallback;
+
+    @PostConstruct
+    public void init() {
+        mqttCallback = this;
+        mqttCallback.taskService = this.taskService;
+    }
 
     @Override
     public void connectionLost(Throwable cause) {
@@ -45,19 +59,11 @@ public class MqttCallback implements org.eclipse.paho.client.mqttv3.MqttCallback
     public void messageArrived(String topic, MqttMessage message) {
         // subscribe后得到的消息会执行到这里面
         System.out.println(topic);
-        System.out.println(new String(message.getPayload()));
         /** 作为服务器客户端，由于需要对所有数据都加以存储，因此订阅的topic是最泛的 */
         try {
-            String dataPattern = "/topic/#";
-//            String logPattern = "/topic/*/property/";
             ObjectMapper objectMapper = new ObjectMapper();
-            if (Pattern.matches(dataPattern, topic)) {
-                Data data = objectMapper.readValue(new String(message.getPayload()), Data.class);
-                Context.addTask(new DataTask(data));
-            } else {
-                Log log = objectMapper.readValue(new String(message.getPayload()), Log.class);
-                Context.addTask(new LogTask(log));
-            }
+            Data data = objectMapper.readValue(new String(message.getPayload()), Data.class);
+            this.taskService.run(data);
         } catch (Exception e) {
             e.printStackTrace();
         }

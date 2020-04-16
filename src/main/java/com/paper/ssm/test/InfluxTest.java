@@ -34,7 +34,7 @@ public class InfluxTest {
         for (int i = 0; i < loop; i++) {
             Data data = new Data();
             data.setPointId(i);
-            data.setInstanceId(1);
+            data.setProcessId(1);
             data.setValue(String.valueOf(random.nextInt(62)));
             this.dataService.insert(data);
         }
@@ -42,7 +42,7 @@ public class InfluxTest {
 
     @Test
     public void testQuery(){
-        Query query = new Query();
+        Data query = new Data();
         query.setMeasurement("data");
         query.setPageNum(10);
         query.setPageSize(5);

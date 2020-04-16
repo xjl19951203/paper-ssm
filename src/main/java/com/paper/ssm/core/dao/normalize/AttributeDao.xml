@@ -4,14 +4,20 @@
 
     <resultMap id="SimpleResultMap" type="com.paper.ssm.core.model.normalize.Attribute">
         <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="informationId" jdbcType="INTEGER" property="informationId" />
         <result column="title" jdbcType="VARCHAR" property="title" />
         <result column="value" jdbcType="VARCHAR" property="value" />
+        <association column="informationId" property="information"
+                     select="com.paper.ssm.core.dao.normalize.InformationDao.selectSimpleByPrimaryKey" />
     </resultMap>
 
     <resultMap id="BaseResultMap" type="com.paper.ssm.core.model.normalize.Attribute">
         <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="informationId" jdbcType="INTEGER" property="informationId" />
         <result column="title" jdbcType="VARCHAR" property="title" />
         <result column="value" jdbcType="VARCHAR" property="value" />
+        <association column="informationId" property="information"
+                     select="com.paper.ssm.core.dao.normalize.InformationDao.selectSimpleByPrimaryKey" />
         <collection column="{attributeId=id}" property="chainList" ofType="com.paper.ssm.core.model.normalize.Chain"
                     javaType="java.util.List" select="com.paper.ssm.core.dao.normalize.ChainDao.selectListByQuery"/>
     </resultMap>
@@ -25,18 +31,26 @@
     </select>
 
     <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.core.model.normalize.Attribute">
-        select * from `norm_attribute`;
+        select * from `norm_attribute`
+        <where>
+            <if test="informationId != null">
+                informationId = #{informationId}
+            </if>
+        </where>
+        ;
+        ;
     </select>
 
     <insert id="insert" parameterType="com.paper.ssm.core.model.normalize.Attribute" useGeneratedKeys="true" keyProperty="id">
         insert into `norm_attribute`
-        (title, `value`)
+        (informationId, title, `value`)
         values
-        (#{title},#{value})
+        (#{informationId},#{title},#{value})
     </insert>
 
     <update id="update" parameterType="com.paper.ssm.core.model.normalize.Attribute">
         update `norm_attribute` set
+        informationId = #{informationId,jdbcType=INTEGER},
         title = #{title,jdbcType=VARCHAR},
         `value` = #{value,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}

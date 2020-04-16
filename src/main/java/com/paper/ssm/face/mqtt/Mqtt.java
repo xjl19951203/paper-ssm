@@ -4,27 +4,41 @@ import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+
 
 /**
  * @author ZengYuan
  */
+@Component
 public class Mqtt {
 
-    private String username = "admin";
-    private String password = "admin";
     private MqttConnectOptions options;
     private String broker = "tcp://39.108.132.71:1883";
     private String clientId = "client_server_1";
     private MqttClient client;
-    private String topic = "/topic/#";
+    public static String topic = "/topic/#";
 
-    public Mqtt() {
+    @Resource
+    MqttCallback mqttCallback;
+    private static Mqtt mqtt;
+
+    /** 通过@PostConstruct实现初始化bean之前进行的操作 */
+    @PostConstruct
+    public void init() {
+        mqtt = this;
+        mqtt.mqttCallback = this.mqttCallback;
+        // 初使化时将已静态化的testService实例化
         try {
             MemoryPersistence persistence = new MemoryPersistence();
             client = new MqttClient(broker, clientId, persistence);
             options = new MqttConnectOptions();
             // 设置回调
-            client.setCallback(new MqttCallback());
+            client.setCallback(mqttCallback);
             // MqttTopic topic = client.getTopic(TOPIC1);
             //setWill方法，如果项目中需要知道客户端是否掉线可以调用该方法。设置最终端口的通知消息
             //遗嘱 options.setWill(topic, "close".getBytes(), 2, true);
@@ -32,8 +46,10 @@ public class Mqtt {
             // 设置为true表示每次连接到服务器都以新的身份连接
             options.setCleanSession(false);
             // 设置连接的用户名
+            String username = "admin";
             options.setUserName(username);
             // 设置连接的密码
+            String password = "admin";
             options.setPassword(password.toCharArray());
             // 设置超时时间 单位为秒
             options.setConnectionTimeout(5);
@@ -43,6 +59,7 @@ public class Mqtt {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        run();
     }
 
     public void run() {

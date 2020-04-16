@@ -19,6 +19,6 @@ public class Information extends Model {
 
     private Integer id;
     private String title;
-    private List<InfoRef> infoRefList;
-    private List<AttrRef> attrRefList;
+    private List<Attribute> attributeList;
+    private List<Information> informationList;
 }
