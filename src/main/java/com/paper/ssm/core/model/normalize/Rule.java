@@ -14,6 +14,7 @@ public class Rule extends Model {
 
     private Integer id;
     private String title;
+    private String value;
     private Integer metadataId;
     private Metadata metadata;
 

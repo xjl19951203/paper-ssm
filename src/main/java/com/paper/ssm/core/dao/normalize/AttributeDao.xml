@@ -5,12 +5,14 @@
     <resultMap id="SimpleResultMap" type="com.paper.ssm.core.model.normalize.Attribute">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="value" jdbcType="VARCHAR" property="value" />
     </resultMap>
 
     <resultMap id="BaseResultMap" type="com.paper.ssm.core.model.normalize.Attribute">
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
-        <collection column="id" property="chainList" ofType="com.paper.ssm.core.model.normalize.Chain"
+        <result column="value" jdbcType="VARCHAR" property="value" />
+        <collection column="{attributeId=id}" property="chainList" ofType="com.paper.ssm.core.model.normalize.Chain"
                     javaType="java.util.List" select="com.paper.ssm.core.dao.normalize.ChainDao.selectListByQuery"/>
     </resultMap>
 
@@ -28,14 +30,15 @@
 
     <insert id="insert" parameterType="com.paper.ssm.core.model.normalize.Attribute" useGeneratedKeys="true" keyProperty="id">
         insert into `norm_attribute`
-        (title)
+        (title, `value`)
         values
-        (#{title})
+        (#{title},#{value})
     </insert>
 
     <update id="update" parameterType="com.paper.ssm.core.model.normalize.Attribute">
         update `norm_attribute` set
-        title = #{title,jdbcType=VARCHAR}
+        title = #{title,jdbcType=VARCHAR},
+        `value` = #{value,jdbcType=VARCHAR}
         where id = #{id,jdbcType=INTEGER}
     </update>
 

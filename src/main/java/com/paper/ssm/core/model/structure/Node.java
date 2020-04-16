@@ -3,6 +3,7 @@ package com.paper.ssm.core.model.structure;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.paper.ssm.core.model.Model;
 import com.paper.ssm.core.model.normalize.Chain;
+import com.paper.ssm.core.model.normalize.Information;
 import lombok.Getter;
 import lombok.Setter;
 

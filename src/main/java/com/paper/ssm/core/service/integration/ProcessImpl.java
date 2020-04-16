@@ -1,5 +1,7 @@
 package com.paper.ssm.core.service.integration;
 
+import com.google.common.graph.Graphs;
+import com.paper.ssm.core.model.integration.Graph;
 import com.paper.ssm.core.model.integration.Process;
 import com.paper.ssm.core.model.normalize.Chain;
 import com.paper.ssm.core.model.structure.Node;
@@ -8,6 +10,7 @@ import com.paper.ssm.core.model.integration.Bind;
 import com.paper.ssm.core.dao.integration.ProcessDao;
 import com.paper.ssm.core.service.normalize.ChainService;
 import com.paper.ssm.core.service.structure.NodeService;
+import com.paper.ssm.run.graph.GraphService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -30,7 +33,7 @@ public class ProcessImpl implements ProcessService {
     @Resource
     NodeService nodeService;
     @Resource
-    ChainService chainService;
+    GraphService graphService;
 
     @Override
     public Process insert(Process record) {
@@ -155,4 +158,18 @@ public class ProcessImpl implements ProcessService {
         }
     }
 
+    @Override
+    public Graph get(Integer id) {
+        Process process = this.processDao.selectByPrimaryKey(id);
+
+        Graph graph = this.graphService.get(process.getNodeId());
+        for (Point point : graph.getPointList()) {
+            for (Bind bind : process.getBindList()) {
+                if (point.getNodeId() != null && point.getNodeId().equals(bind.getNodeId())) {
+                    point.setInformation(bind.getInformation());
+                }
+            }
+        }
+        return graph;
+    }
 }

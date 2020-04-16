@@ -20,5 +20,7 @@ public class Attribute extends Model implements Cloneable{
     private Integer id;
     private String title;
     private List<Chain> chainList;
+    /** 属性值 */
+    private String value;
 
 }

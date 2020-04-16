@@ -22,7 +22,8 @@ public class InformationImpl implements InformationService{
 
     @Override
     public Information insert(Information record) {
-        return null;
+        this.informationDao.insert(record);
+        return record;
     }
 
     @Override
@@ -37,7 +38,8 @@ public class InformationImpl implements InformationService{
 
     @Override
     public Information update(Information record) {
-        return null;
+        this.informationDao.update(record);
+        return record;
     }
 
     @Override

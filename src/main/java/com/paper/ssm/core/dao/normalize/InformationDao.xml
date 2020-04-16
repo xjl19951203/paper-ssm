@@ -37,4 +37,10 @@
         (#{title})
     </insert>
 
+    <update id="update" parameterType="com.paper.ssm.core.model.normalize.Information">
+        update `norm_information` set
+        title = #{title,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
 </mapper>

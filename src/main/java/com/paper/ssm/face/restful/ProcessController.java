@@ -1,7 +1,9 @@
 package com.paper.ssm.face.restful;
 
+import com.paper.ssm.core.model.integration.Graph;
 import com.paper.ssm.core.model.integration.Process;
 import com.paper.ssm.core.service.integration.ProcessService;
+import com.paper.ssm.run.graph.GraphService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +20,7 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/api/integration/processes")
+@RequestMapping("/api/integration/processs")
 public class ProcessController extends AbstractController<Process> {
 
     @Resource
@@ -51,5 +53,11 @@ public class ProcessController extends AbstractController<Process> {
     @Override
     public Process selectByPrimaryKey(@PathVariable Integer id) {
         return this.processService.selectByPrimaryKey(id);
+    }
+
+
+    @RequestMapping(value = "/{id}/graph", method = RequestMethod.GET)
+    public Graph getGraph(@PathVariable Integer id) {
+        return this.processService.get(id);
     }
 }

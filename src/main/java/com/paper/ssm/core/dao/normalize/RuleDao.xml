@@ -6,6 +6,7 @@
         <id column="id" jdbcType="INTEGER" property="id" />
         <result column="title" jdbcType="VARCHAR" property="title" />
         <result column="label" jdbcType="VARCHAR" property="label" />
+        <result column="value" jdbcType="VARCHAR" property="value" />
         <result column="metadataId" jdbcType="INTEGER" property="metadataId" />
         <association column="metadataId" property="metadata"
                      select="com.paper.ssm.core.dao.normalize.MetadataDao.selectByPrimaryKey" />
@@ -21,16 +22,17 @@
 
     <insert id="insert" parameterType="com.paper.ssm.core.model.normalize.Rule" useGeneratedKeys="true" keyProperty="id">
         insert into `norm_rule`
-        (label, `title`, metadataId)
+        (label, `title`, `value`, metadataId)
         values
-        (#{label},#{title},#{metadataId})
+        (#{label},#{title},#{value},#{metadataId})
     </insert>
 
     <update id="update" parameterType="com.paper.ssm.core.model.normalize.Rule">
         update `norm_rule` set
         label = #{label,jdbcType=VARCHAR},
         `title` = #{title,jdbcType=VARCHAR},
-        `metadataId` = #{title,jdbcType=INTEGER}
+        `value` = #{value,jdbcType=VARCHAR},
+        `metadataId` = #{metadataId,jdbcType=INTEGER}
         where id = #{id,jdbcType=INTEGER}
     </update>
 

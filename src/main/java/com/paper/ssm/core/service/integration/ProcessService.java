@@ -1,5 +1,6 @@
 package com.paper.ssm.core.service.integration;
 
+import com.paper.ssm.core.model.integration.Graph;
 import com.paper.ssm.core.model.integration.Process;
 import com.paper.ssm.core.service.Service;
 
@@ -14,4 +15,12 @@ import javax.annotation.Resource;
  */
 @Resource
 public interface ProcessService extends Service<Process> {
+
+    /**
+     * 获取融合的流图
+     * @param id processId
+     * @return 流图
+     */
+    Graph get(Integer id);
+
 }

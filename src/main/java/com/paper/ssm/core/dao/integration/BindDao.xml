@@ -11,7 +11,7 @@
         <association column="processId" property="process"
                      select="com.paper.ssm.core.dao.integration.ProcessDao.selectSimpleByPrimaryKey" />
         <association column="informationId" property="information"
-                     select="com.paper.ssm.core.dao.normalize.InformationDao.selectSimpleByPrimaryKey" />
+                     select="com.paper.ssm.core.dao.normalize.InformationDao.selectByPrimaryKey" />
         <association column="nodeId" property="node"
                      select="com.paper.ssm.core.dao.structure.NodeDao.selectSimpleByPrimaryKey" />
     </resultMap>

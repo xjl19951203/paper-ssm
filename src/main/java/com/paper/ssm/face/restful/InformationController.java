@@ -35,9 +35,10 @@ public class InformationController extends AbstractController<Information>  {
         return 0;
     }
 
+    @RequestMapping(value = "", method = RequestMethod.PUT)
     @Override
-    public Information update(Information record) {
-        return null;
+    public Information update(@RequestBody Information record) {
+        return this.informationService.update(record);
     }
 
 

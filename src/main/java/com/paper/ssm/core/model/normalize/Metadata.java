@@ -18,5 +18,7 @@ public class Metadata extends Model {
     private Integer id;
     private String title;
     private String value;
+    private String category;
+
 
 }

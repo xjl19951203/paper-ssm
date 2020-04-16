@@ -79,6 +79,7 @@ public class GraphImpl implements GraphService {
                     point.setStyle(Point.SINGLE_STYLE);
                 }
                 point.setTitle(point.getHyperlink().getNode().getTitle());
+                point.setNodeId(point.getHyperlink().getNode().getId());
                 pointList.add((Point) point.clone());
                 if (point.getOutputList() != null) {
                     for (Pipe outputPipe : point.getOutputList()) {

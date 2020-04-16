@@ -23,4 +23,10 @@
         (#{title},#{value})
     </insert>
 
+    <update id="update" parameterType="com.paper.ssm.core.model.normalize.Metadata">
+        update `norm_metadata` set
+        title = #{title,jdbcType=VARCHAR},
+        value = #{value,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 </mapper>

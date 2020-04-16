@@ -34,7 +34,19 @@
     </select>
 
     <select id="selectListByQuery" resultMap="BaseResultMap" parameterType="com.paper.ssm.core.model.normalize.Chain">
-        select * from `norm_chain`;
+        select * from `norm_chain`
+        <where>
+            <if test="attributeId != null">
+                `attributeId` = #{attributeId}
+            </if >
+            <if test="leftId != null">
+                and `leftId` = #{leftId}
+            </if >
+            <if test="rightId != null">
+                and `rightId` = #{rightId}
+            </if >
+        </where>
+        ;
     </select>
 
     <insert id="insert" parameterType="com.paper.ssm.core.model.normalize.Chain" useGeneratedKeys="true" keyProperty="id">

@@ -3,6 +3,7 @@ package com.paper.ssm.core.model.structure;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.paper.ssm.core.model.Model;
 import com.paper.ssm.core.model.normalize.Chain;
+import com.paper.ssm.core.model.normalize.Information;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -41,12 +42,15 @@ public class Point extends Model implements Cloneable{
     /** hyperlink指向的node */
     @JsonIgnore
     private Node node;
+    private Integer nodeId;
     @JsonIgnore
     private List<Pipe> inputList;
     @JsonIgnore
     private List<Pipe> outputList;
     /** 1.从关联的Node承接过来，2.从上层继承下来 */
     private Chain chain;
+    /** 构建模型融合时，绑定 */
+    private Information information;
 
     @Override
     public Object clone() throws CloneNotSupportedException {
