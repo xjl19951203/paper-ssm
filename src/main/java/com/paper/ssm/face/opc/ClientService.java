@@ -55,8 +55,7 @@ public interface ClientService {
     /**
      * run
      * @param client client
-     * @param future future
      * @throws Exception exception
      */
-    void run(OpcUaClient client, CompletableFuture<OpcUaClient> future) throws Exception;
+    void run(OpcUaClient client) throws Exception;
 }

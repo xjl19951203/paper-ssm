@@ -1,7 +1,7 @@
 package com.paper.ssm.test;
 
 import com.paper.ssm.SsmApplication;
-import com.paper.ssm.face.opc.ClientRunner;
+import com.paper.ssm.face.opc.ClientImpl;
 import com.paper.ssm.face.opc.ClientService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,12 +21,12 @@ import javax.annotation.Resource;
 @SpringBootTest(classes = SsmApplication.class)
 public class OpcTest {
 
-    @Resource
-    ClientService clientService;
+//    @Resource
+//    ClientService clientService;
 
     @Test
     public void readAndWrite(){
-        new ClientRunner(this.clientService).run();
+        new ClientImpl();
     }
 
 }
