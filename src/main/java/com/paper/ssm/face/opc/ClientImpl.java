@@ -39,8 +39,6 @@ import static org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.Unsigned.
 @Service("clientService")
 public class ClientImpl implements ClientService{
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-
     @Override
     public void run(OpcUaClient client, CompletableFuture<OpcUaClient> future) throws Exception {
 
@@ -79,8 +77,6 @@ public class ClientImpl implements ClientService{
                 TimestampsToReturn.Both,
                 requests,
                 (item, id) -> item.setValueConsumer((subItem, value) -> {
-                    System.out.println("nodeId :"+subItem.getReadValueId().getNodeId());
-                    System.out.println("value :"+value.getValue().getValue());
                     publish(subItem.getReadValueId().getNodeId(), value.getValue());
                 })
         ).get();

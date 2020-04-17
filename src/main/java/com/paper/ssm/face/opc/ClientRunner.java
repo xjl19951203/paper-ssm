@@ -22,7 +22,6 @@ import java.util.concurrent.TimeUnit;
 
 import static org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.Unsigned.uint;
 
-
 /**
  * opc ua client
  * @author ZengYuan
@@ -41,7 +40,6 @@ public class ClientRunner {
     public ClientRunner(ClientService clientService) {
         this.clientService = clientService;
     }
-
 
     private OpcUaClient createClient() throws Exception {
         Path securityTempDir = Paths.get(System.getProperty("java.io.tmpdir"), "security");
