@@ -1,4 +1,4 @@
-package com.paper.ssm.face.restful;
+package com.paper.ssm.face.rest;
 
 import com.paper.ssm.core.model.structure.Pipe;
 import com.paper.ssm.core.service.structure.PipeService;

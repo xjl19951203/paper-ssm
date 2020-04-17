@@ -1,9 +1,8 @@
-package com.paper.ssm.face.restful;
+package com.paper.ssm.face.rest;
 
 import com.paper.ssm.core.model.integration.Graph;
 import com.paper.ssm.core.model.integration.Process;
 import com.paper.ssm.core.service.integration.ProcessService;
-import com.paper.ssm.run.graph.GraphService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,13 +1,10 @@
 package com.paper.ssm.face.mqtt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.paper.ssm.Context;
 import com.paper.ssm.core.model.data.Data;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;

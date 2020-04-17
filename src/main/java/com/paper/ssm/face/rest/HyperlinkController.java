@@ -1,8 +1,7 @@
-package com.paper.ssm.face.restful;
+package com.paper.ssm.face.rest;
 
 import com.paper.ssm.core.model.structure.Hyperlink;
 import com.paper.ssm.core.service.structure.HyperlinkService;
-import com.paper.ssm.core.service.structure.NodeService;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
