@@ -27,14 +27,14 @@ import static org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.Unsigned.
 public class DataType {
 
     private final String foo;
-    private final UInteger bar;
+    private final String bar;
     private final boolean baz;
 
     public DataType() {
-        this(null, uint(0), false);
+        this(null, null, false);
     }
 
-    public DataType(String foo, UInteger bar, boolean baz) {
+    public DataType(String foo, String bar, boolean baz) {
         this.foo = foo;
         this.bar = bar;
         this.baz = baz;
@@ -44,7 +44,7 @@ public class DataType {
         return foo;
     }
 
-    public UInteger getBar() {
+    public String getBar() {
         return bar;
     }
 
@@ -92,7 +92,7 @@ public class DataType {
             UaDecoder decoder) throws UaSerializationException {
 
             String foo = decoder.readString("Foo");
-            UInteger bar = decoder.readUInt32("Bar");
+            String bar = decoder.readString("Bar");
             boolean baz = decoder.readBoolean("Baz");
 
             return new DataType(foo, bar, baz);
@@ -104,7 +104,7 @@ public class DataType {
             UaEncoder encoder, DataType value) throws UaSerializationException {
 
             encoder.writeString("Foo", value.foo);
-            encoder.writeUInt32("Bar", value.bar);
+            encoder.writeString("Bar", value.bar);
             encoder.writeBoolean("Baz", value.baz);
         }
     }

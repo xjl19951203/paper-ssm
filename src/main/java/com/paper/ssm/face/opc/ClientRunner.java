@@ -106,9 +106,6 @@ public class ClientRunner {
 
                 try {
                     client.disconnect().get();
-//                    if (serverRequired && exampleServer != null) {
-//                        exampleServer.shutdown().get();
-//                    }
                     Stack.releaseSharedResources();
                 } catch (InterruptedException | ExecutionException e) {
                     logger.error("Error disconnecting:", e.getMessage(), e);

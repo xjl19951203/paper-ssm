@@ -22,8 +22,10 @@ public interface ClientService {
      * 获取endPoint
      * @return url
      */
+    String url = "opc.tcp://localhost:53530/OPCUA/SimulationServer";
+//    String url = "opc.tcp://localhost:12686/milo";
     default String getEndpointUrl() {
-        return "opc.tcp://localhost:12686/milo";
+        return url;
     }
 
     /**
