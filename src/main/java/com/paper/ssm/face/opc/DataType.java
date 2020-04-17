@@ -21,17 +21,20 @@ import org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.UInteger;
 
 import static org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.Unsigned.uint;
 
-public class CustomDataType {
+/**
+ * @author ZengYuan
+ */
+public class DataType {
 
     private final String foo;
     private final UInteger bar;
     private final boolean baz;
 
-    public CustomDataType() {
+    public DataType() {
         this(null, uint(0), false);
     }
 
-    public CustomDataType(String foo, UInteger bar, boolean baz) {
+    public DataType(String foo, UInteger bar, boolean baz) {
         this.foo = foo;
         this.bar = bar;
         this.baz = baz;
@@ -57,7 +60,7 @@ public class CustomDataType {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        CustomDataType that = (CustomDataType) o;
+        DataType that = (DataType) o;
         return baz == that.baz &&
             Objects.equal(foo, that.foo) &&
             Objects.equal(bar, that.bar);
@@ -77,14 +80,14 @@ public class CustomDataType {
             .toString();
     }
 
-    public static class Codec extends GenericDataTypeCodec<CustomDataType> {
+    public static class Codec extends GenericDataTypeCodec<DataType> {
         @Override
-        public Class<CustomDataType> getType() {
-            return CustomDataType.class;
+        public Class<DataType> getType() {
+            return DataType.class;
         }
 
         @Override
-        public CustomDataType decode(
+        public DataType decode(
             SerializationContext context,
             UaDecoder decoder) throws UaSerializationException {
 
@@ -92,13 +95,13 @@ public class CustomDataType {
             UInteger bar = decoder.readUInt32("Bar");
             boolean baz = decoder.readBoolean("Baz");
 
-            return new CustomDataType(foo, bar, baz);
+            return new DataType(foo, bar, baz);
         }
 
         @Override
         public void encode(
             SerializationContext context,
-            UaEncoder encoder, CustomDataType value) throws UaSerializationException {
+            UaEncoder encoder, DataType value) throws UaSerializationException {
 
             encoder.writeString("Foo", value.foo);
             encoder.writeUInt32("Bar", value.bar);

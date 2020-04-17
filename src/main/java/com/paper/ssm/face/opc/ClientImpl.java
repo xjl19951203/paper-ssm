@@ -45,13 +45,13 @@ public class ClientImpl implements ClientService{
         Variant variant = value.getValue();
         ExtensionObject xo = (ExtensionObject) variant.getValue();
 
-        CustomDataType decoded = (CustomDataType) xo.decode(
+        DataType decoded = (DataType) xo.decode(
                 client.getSerializationContext()
         );
         logger.info("Decoded={}", decoded);
 
         // Write a modified value
-        CustomDataType modified = new CustomDataType(
+        DataType modified = new DataType(
                 decoded.getFoo() + "bar",
                 uint(decoded.getBar().intValue() + 1),
                 !decoded.isBaz()
@@ -74,7 +74,7 @@ public class ClientImpl implements ClientService{
         variant = value.getValue();
         xo = (ExtensionObject) variant.getValue();
 
-        decoded = (CustomDataType) xo.decode(
+        decoded = (DataType) xo.decode(
                 client.getSerializationContext()
         );
         logger.info("Decoded={}", decoded);
@@ -88,7 +88,7 @@ public class ClientImpl implements ClientService{
         // Register codec with the client DataTypeManager instance
         client.getDataTypeManager().registerCodec(
                 binaryEncodingId,
-                new CustomDataType.Codec().asBinaryCodec()
+                new DataType.Codec().asBinaryCodec()
         );
     }
 }
