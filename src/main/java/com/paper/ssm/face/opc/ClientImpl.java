@@ -1,5 +1,8 @@
 package com.paper.ssm.face.opc;
 
+import com.paper.ssm.SpringContextHolder;
+import com.paper.ssm.core.model.data.Data;
+import com.paper.ssm.face.mqtt.Mqtt;
 import org.eclipse.milo.opcua.sdk.client.OpcUaClient;
 import org.eclipse.milo.opcua.sdk.client.api.nodes.VariableNode;
 import org.eclipse.milo.opcua.sdk.client.api.subscriptions.UaMonitoredItem;
@@ -18,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -37,30 +41,6 @@ public class ClientImpl implements ClientService{
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    public void runs(OpcUaClient client, CompletableFuture<OpcUaClient> future) throws Exception {
-        // synchronous connect
-        client.connect().get();
-
-        // synchronous read request via VariableNode
-        VariableNode node = client.getAddressSpace().createVariableNode(
-                new NodeId(5, "主轴转速"));
-
-        logger.info("DataType={}", node.getDataType().get());
-
-        // Read the current value
-        DataValue value = node.readValue().get();
-        logger.info("Value={}", value);
-
-        Variant variant = value.getValue();
-        logger.info("Variant={}", variant);
-
-        String res = String.valueOf(variant.getValue());
-
-        logger.info("Decoded={}", res);
-
-        future.complete(client);
-    }
-
     @Override
     public void run(OpcUaClient client, CompletableFuture<OpcUaClient> future) throws Exception {
 
@@ -71,7 +51,7 @@ public class ClientImpl implements ClientService{
         UaSubscription subscription = client.getSubscriptionManager().createSubscription(1000.0).get();
 
         //创建订阅的变量
-        NodeId nodeId = new NodeId(5,"主轴转速");
+        NodeId nodeId = new NodeId(5,"123");
         ReadValueId readValueId = new ReadValueId(nodeId,AttributeId.Value.uid(),null,null);
 
         //创建监控的参数
@@ -95,22 +75,25 @@ public class ClientImpl implements ClientService{
         requests.add(request);
 
         //创建监控项，并且注册变量值改变时候的回调函数。
-        List<UaMonitoredItem> items = subscription.createMonitoredItems(
+        subscription.createMonitoredItems(
                 TimestampsToReturn.Both,
                 requests,
-                (item,id)->{
-                    item.setValueConsumer((subItem, value)->{
-                        System.out.println("nodeid :"+subItem.getReadValueId().getNodeId());
-                        System.out.println("value :"+value.getValue().getValue());
-                    });
-                }
+                (item, id) -> item.setValueConsumer((subItem, value) -> {
+                    System.out.println("nodeId :"+subItem.getReadValueId().getNodeId());
+                    System.out.println("value :"+value.getValue().getValue());
+                    publish(subItem.getReadValueId().getNodeId(), value.getValue());
+                })
         ).get();
 
     }
 
-    private void onSubscriptionValue(UaMonitoredItem item, DataValue value) {
-        logger.info(
-                "subscription value received: item={}, value={}",
-                item.getReadValueId().getNodeId(), value.getValue());
+    private void publish(NodeId nodeId, Variant variant) {
+        Mqtt mqtt = SpringContextHolder.getBean("mqtt");
+        Data data = new Data();
+        System.out.println(nodeId.getIdentifier());
+        data.setAttributeId(Integer.valueOf(nodeId.getIdentifier().toString()));
+        data.setValue(variant.getValue().toString());
+        mqtt.publish(data);
     }
+
 }

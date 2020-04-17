@@ -1,6 +1,9 @@
 package com.paper.ssm.core.model.data;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.paper.ssm.core.model.normalize.Attribute;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.influxdb.annotation.Column;
 import org.influxdb.annotation.Measurement;
 
@@ -46,5 +49,25 @@ public class Data extends Query{
     /** 具体的值 */
     @Column(name = "value")
     private String value;
+    /**
+     * 将消息封装成MqttMessage，用于上行 publish
+     */
+
+    public MqttMessage toMqttMessage() {
+
+        MqttMessage mqttMessage = new MqttMessage();
+
+        // 使用ObjectMapper对象对 User对象进行转换
+        String jsonMessage = "";
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            jsonMessage = objectMapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        mqttMessage.setQos(1);
+        mqttMessage.setPayload(jsonMessage.getBytes());
+        return mqttMessage;
+    }
 
 }

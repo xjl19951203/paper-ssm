@@ -1,8 +1,10 @@
 package com.paper.ssm.face.mqtt;
 
+import com.paper.ssm.core.model.data.Data;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,7 +16,7 @@ import javax.annotation.Resource;
 /**
  * @author ZengYuan
  */
-@Component
+@Component(value = "mqtt")
 public class Mqtt {
 
     private MqttConnectOptions options;
@@ -79,6 +81,19 @@ public class Mqtt {
     public void subscribe(String topic) {
         try {
             client.subscribe(topic);
+        } catch (MqttException me) {
+            me.printStackTrace();
+        }
+    }
+
+    public void publish(Data data) {
+        try {
+            MqttMessage mqttMessage = data.toMqttMessage();
+            mqttMessage.setQos(2);
+            String topic = "/topic/1";
+            System.out.println(topic);
+            System.out.println(mqttMessage);
+            client.publish(topic, mqttMessage);
         } catch (MqttException me) {
             me.printStackTrace();
         }
