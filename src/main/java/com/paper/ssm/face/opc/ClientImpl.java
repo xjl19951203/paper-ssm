@@ -6,9 +6,11 @@ import com.paper.ssm.face.mqtt.Mqtt;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.eclipse.milo.opcua.sdk.client.OpcUaClient;
 import org.eclipse.milo.opcua.sdk.client.api.config.OpcUaClientConfig;
+import org.eclipse.milo.opcua.sdk.client.api.nodes.Node;
 import org.eclipse.milo.opcua.sdk.client.api.subscriptions.UaSubscription;
 import org.eclipse.milo.opcua.stack.client.DiscoveryClient;
 import org.eclipse.milo.opcua.stack.core.AttributeId;
+import org.eclipse.milo.opcua.stack.core.Identifiers;
 import org.eclipse.milo.opcua.stack.core.security.SecurityPolicy;
 import org.eclipse.milo.opcua.stack.core.types.builtin.*;
 import org.eclipse.milo.opcua.stack.core.types.enumerated.MonitoringMode;
@@ -61,16 +63,37 @@ public class ClientImpl implements ClientService{
         //创建连接
         client.connect().get();
 
+//        List<Node> nodes = client.getAddressSpace().browse(Identifiers.RootFolder).get();
+//
+//        for(Node node:nodes){
+//            System.out.println("Node= " + node.getBrowseName().get().getName());
+//        }
+
+
         //创建发布间隔1000ms的订阅对象
         UaSubscription subscription = client.getSubscriptionManager().createSubscription(1000.0).get();
 
         //创建订阅的变量
-        NodeId nodeId = new NodeId(5,"123");
-        ReadValueId readValueId = new ReadValueId(nodeId,AttributeId.Value.uid(),null,null);
+        NodeId nodeId1 = new NodeId(5,"锯条速度");
+        NodeId nodeId2 = new NodeId(5,"进给量");
+        ReadValueId readValueId1 = new ReadValueId(nodeId1,AttributeId.Value.uid(),null,null);
+        ReadValueId readValueId2 = new ReadValueId(nodeId2,AttributeId.Value.uid(),null,null);
 
         //创建监控的参数
-        MonitoringParameters parameters = new MonitoringParameters(
+        MonitoringParameters parameters1 = new MonitoringParameters(
                 uint(1),
+                // sampling interval
+                3000.0,
+                // filter, null means use default
+                null,
+                // queue size
+                uint(10),
+                // discard oldest
+                true
+        );
+        //创建监控的参数
+        MonitoringParameters parameters2 = new MonitoringParameters(
+                uint(2),
                 // sampling interval
                 1000.0,
                 // filter, null means use default
@@ -83,10 +106,12 @@ public class ClientImpl implements ClientService{
 
         //创建监控项请求
         //该请求最后用于创建订阅。
-        MonitoredItemCreateRequest request = new MonitoredItemCreateRequest(readValueId, MonitoringMode.Reporting, parameters);
+        MonitoredItemCreateRequest request1 = new MonitoredItemCreateRequest(readValueId1, MonitoringMode.Reporting, parameters1);
+        MonitoredItemCreateRequest request2 = new MonitoredItemCreateRequest(readValueId2, MonitoringMode.Reporting, parameters2);
 
         List<MonitoredItemCreateRequest> requests = new ArrayList<>();
-        requests.add(request);
+        requests.add(request1);
+        requests.add(request2);
 
         //创建监控项，并且注册变量值改变时候的回调函数。
         subscription.createMonitoredItems(
@@ -102,8 +127,16 @@ public class ClientImpl implements ClientService{
     private void publish(NodeId nodeId, Variant variant) {
         Mqtt mqtt = SpringContext.getBean("mqtt");
         Data data = new Data();
-        System.out.println(nodeId.getIdentifier());
-        data.setAttributeId(Integer.valueOf(nodeId.getIdentifier().toString()));
+//        System.out.println(nodeId.getIdentifier());
+        if (nodeId.getIdentifier().toString().equals("锯条速度")) {
+            data.setAttributeId(42);
+        } else {
+            data.setAttributeId(3);
+        }
+        data.setProcessId(6);
+        data.setPointId(24);
+        data.setInformationId(8);
+
         data.setValue(variant.getValue().toString());
         mqtt.publish(data);
     }

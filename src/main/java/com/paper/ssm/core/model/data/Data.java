@@ -43,6 +43,9 @@ public class Data extends Query{
     @Column(name = "pointId")
     private Integer pointId;
 
+    @Column(name = "informationId")
+    private Integer informationId;
+
     @Column(name = "attributeId")
     private Integer attributeId;
 

@@ -71,7 +71,8 @@ public class InfluxImpl implements InfluxService {
                 // 查询结果需要按照时间排序
                 + " ORDER BY time DESC"
                 // 添加分页查询条件
-                + pageQuery;
+                + pageQuery
+                + "  tz('Asia/Shanghai')";
         return influxdb.query(new Query(queryCmd, database));
     }
 

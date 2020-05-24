@@ -91,8 +91,8 @@ public class Mqtt {
             MqttMessage mqttMessage = data.toMqttMessage();
             mqttMessage.setQos(2);
             String topic = "/topic/1";
-            System.out.println(topic);
-            System.out.println(mqttMessage);
+//            System.out.println(topic);
+//            System.out.println(mqttMessage);
             client.publish(topic, mqttMessage);
         } catch (MqttException me) {
             me.printStackTrace();

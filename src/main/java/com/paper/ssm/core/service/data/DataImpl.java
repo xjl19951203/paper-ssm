@@ -13,8 +13,11 @@ import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -51,6 +54,11 @@ public class DataImpl implements DataService {
     @Override
     public Data update(Data record) {
         return null;
+    }
+
+    @Override
+    public QueryResult selectResultByQuery(Data query) {
+        return this.influxService.select(query);
     }
 
     @Override
@@ -115,6 +123,22 @@ public class DataImpl implements DataService {
                 String propertyName = setColumns(columns.get(i));
                 /** 相应字段值 */
                 Object value = list.get(i);
+                if (propertyName.equals("time")) {
+                    String time = String.valueOf(list.get(i));
+                    // 匹配规则
+                    String reg = "T(.*?)\\.";
+                    Pattern pattern = Pattern.compile(reg);
+                    Matcher matcher = pattern.matcher(time);
+                    if( matcher.find()){
+                        value = matcher.group(1);
+                    }
+                }
+                if (propertyName.equals("value")) {
+                    String str = String.valueOf(value);
+                    if (str.length() > 5) {
+                        value = String.valueOf(value).substring(0, 5);
+                    }
+                }
                 bean.setPropertyValue(propertyName, value);
             }
 
@@ -140,4 +164,5 @@ public class DataImpl implements DataService {
         }
         return sb.toString();
     }
+
 }

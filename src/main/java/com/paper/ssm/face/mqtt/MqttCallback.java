@@ -55,7 +55,7 @@ public class MqttCallback implements org.eclipse.paho.client.mqttv3.MqttCallback
     @Override
     public void messageArrived(String topic, MqttMessage message) {
         // subscribe后得到的消息会执行到这里面
-        System.out.println(topic);
+//        System.out.println(topic);
         /** 作为服务器客户端，由于需要对所有数据都加以存储，因此订阅的topic是最泛的 */
         try {
             ObjectMapper objectMapper = new ObjectMapper();

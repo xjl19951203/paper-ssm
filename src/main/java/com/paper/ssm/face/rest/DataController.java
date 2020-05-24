@@ -2,6 +2,7 @@ package com.paper.ssm.face.rest;
 
 import com.paper.ssm.core.model.data.Data;
 import com.paper.ssm.core.service.data.DataService;
+import org.influxdb.dto.QueryResult;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,6 +44,12 @@ public class DataController extends AbstractController<Data>{
     @Override
     public Data selectByPrimaryKey(Integer id) {
         return null;
+    }
+
+
+    @RequestMapping(value = "/result", method = RequestMethod.GET)
+    public QueryResult selectResultByQuery(Data query) {
+        return this.dataService.selectResultByQuery(query);
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
